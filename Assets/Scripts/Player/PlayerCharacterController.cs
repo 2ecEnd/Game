@@ -5,12 +5,51 @@ namespace Assets.Scripts.Player
 {
     public class PlayerCharacterController : MonoBehaviour
     {
+        [Header("References")]
         public Camera PlayerCamera;
-        public float SprintSpeedModifier = 2f;
+
+        public AudioSource AudioSource;
+
+        [Header("General")]
+        public float GravityDownForce = 20f;
+
+        [Header("Movement")]
         public float MaxSpeedOnGround = 10f;
+
         public float MovementSharpnessOnGround = 15;
 
+        [Range(0, 1)]
+        public float MaxSpeedCrouchedRatio = 0.5f;
+
+        public float MaxSpeedInAir = 10f;
+
+        public float AccelerationSpeedInAir = 25f;
+
+        public float SprintSpeedModifier = 2f;
+
+        public float KillHeight = -50f;
+
+        [Header("Rotation")]
+        public float RotationSpeed = 200f;
+
+        [Range(0.1f, 1f)]
+        public float AimingRotationMultiplier = 0.4f;
+
+        [Header("Jump")]
+        public float JumpForce = 9f;
+
+        [Header("Stance")]
+        public float CameraHeightRatio = 0.9f;
+
+        public float CapsuleHeightStanding = 1.8f;
+
+        public float CapsuleHeightCrouching = 0.9f;
+
+        public float CrouchingSharpness = 10f;
+
+
         public Vector3 CharacterVelocity { get; set; }
+        public bool IsGrounded { get; private set; }
 
         PlayerInputHandler m_InputHandler;
         CharacterController m_Controller;
@@ -24,7 +63,17 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
+            GroundCheck();
             HandleCharacterMovement();
+        }
+
+        void GroundCheck()
+        {
+            IsGrounded = false;
+            if (m_Controller.isGrounded)
+            {
+                IsGrounded = true;
+            }
         }
 
         void HandleCharacterMovement()
@@ -52,10 +101,35 @@ namespace Assets.Scripts.Player
 
                 Vector3 worldspaceMoveInput = transform.TransformVector(m_InputHandler.GetMoveInput());
 
-                Vector3 targetVelocity = worldspaceMoveInput * MaxSpeedOnGround * speedModifier;
+                if (IsGrounded)
+                {
+                    Vector3 targetVelocity = worldspaceMoveInput * MaxSpeedOnGround * speedModifier;
 
-                CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity,
-                        MovementSharpnessOnGround * Time.deltaTime);
+                    CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity,
+                            MovementSharpnessOnGround * Time.deltaTime);
+
+                    if (m_InputHandler.GetJumpInputDown())
+                    {
+                        {
+                            CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
+
+                            CharacterVelocity += Vector3.up * JumpForce;
+
+                            IsGrounded = false;
+                        }
+                    }
+                }
+                else
+                {
+                    CharacterVelocity += worldspaceMoveInput * AccelerationSpeedInAir * Time.deltaTime;
+
+                    float verticalVelocity = CharacterVelocity.y;
+                    Vector3 horizontalVelocity = Vector3.ProjectOnPlane(CharacterVelocity, Vector3.up);
+                    horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir * speedModifier);
+                    CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+
+                    CharacterVelocity += Vector3.down * GravityDownForce * Time.deltaTime;
+                }
             }
 
             m_Controller.Move(CharacterVelocity * Time.deltaTime);
