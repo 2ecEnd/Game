@@ -17,6 +17,14 @@ namespace Assets.Scripts.Player
         private InputAction m_ReloadAction;
         private InputAction m_NextWeaponAction;
 
+        bool m_FireInputWasHeld;
+
+        void LateUpdate()
+        {
+            m_FireInputWasHeld = GetFireInputHeld();
+        }
+
+
         void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -112,6 +120,21 @@ namespace Assets.Scripts.Player
             if (CanProcessInput())
             {
                 return m_ReloadAction.WasPressedThisFrame();
+            }
+
+            return false;
+        }
+
+        public bool GetFireInputDown()
+        {
+            return GetFireInputHeld() && !m_FireInputWasHeld;
+        }
+
+        public bool GetFireInputHeld()
+        {
+            if (CanProcessInput())
+            {
+                return m_FireAction.IsPressed();
             }
 
             return false;
