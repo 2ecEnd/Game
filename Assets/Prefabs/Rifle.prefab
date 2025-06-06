@@ -1357,13 +1357,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FireRate: 750
-  BulletSpreadAngle: 0
+  BulletSpreadAngle: 1
   BulletsPerShot: 1
   ShootType: 1
   WeaponMuzzle: {fileID: 6319552732926425144}
   ProjectilePrefab: {fileID: 6774801006451134850, guid: af195d39249c8d94fba4f2435ab93f09, type: 3}
   MagazineSize: 10000
   AmmoReloadRate: 0
+  RecoilForce: 0.1
 --- !u!1 &8532142308700691036
 GameObject:
   m_ObjectHideFlags: 0

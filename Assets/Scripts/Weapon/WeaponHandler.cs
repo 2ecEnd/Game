@@ -22,6 +22,9 @@ namespace Assets.Scripts
         public int MagazineSize = 30;
         public float AmmoReloadRate;
 
+        [Header("Recoil Parameters")]
+        public float RecoilForce = 1f;
+
         public GameObject Owner { get; set; }
         public Vector3 MuzzleWorldVelocity { get; private set; }
         
