@@ -35,6 +35,8 @@ namespace Assets.Scripts.Player
                 m_AccumulatedRecoil += Vector3.back * activeWeapon.RecoilForce;
                 m_AccumulatedRecoil = Vector3.ClampMagnitude(m_AccumulatedRecoil, MaxRecoilDistance);
             }
+
+            activeWeapon.HandleReload(m_InputHandler.GetReloadButtonDown());
         }
 
         void LateUpdate()

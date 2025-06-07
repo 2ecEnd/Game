@@ -5,17 +5,27 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyControl : MonoBehaviour
     {
-        public int health = 100;
-        public Transform target;
-        private NavMeshAgent agent;
+        public float Health = 100;
+        private Transform m_target;
+        private NavMeshAgent m_agent;
         void Start()
         {
-            agent = GetComponent<NavMeshAgent>();
+            m_agent = GetComponent<NavMeshAgent>();
+            m_target = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
         void FixedUpdate()
         {
-            agent.SetDestination(target.position);
+            m_agent.SetDestination(m_target.position);
+        }
+
+        public void ReceivedDamage(float damage)
+        {
+            Health -= damage;
+            if (Health <= 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

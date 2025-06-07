@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4793845051346529946}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c2e4243654cf814da63f97fe10bbc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 5350768518332003210, guid: 5a018ede1d8799c4abb7ed7f892e66e2, type: 3}
+  health: 100
 --- !u!1 &5594609247322116206
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,8 +81,9 @@ GameObject:
   - component: {fileID: 590230192026868019}
   - component: {fileID: 1674687349024695741}
   - component: {fileID: 7715637284642983467}
+  - component: {fileID: 8406543001130781186}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +135,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1483ec543daae9348a2a391db333c9b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -177,3 +178,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8406543001130781186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594609247322116206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784e30e68fc83ef408922a97a7564416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

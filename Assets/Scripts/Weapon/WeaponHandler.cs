@@ -30,12 +30,16 @@ namespace Assets.Scripts
 
         [Header("Audio")] 
         public AudioClip ShootSfx;
+        public AudioClip MisfireSfx;
+        public AudioClip ReloadingSfx;
 
         float m_LastTimeShot = Mathf.NegativeInfinity;
+        float m_LastTimeReloading = Mathf.NegativeInfinity;
         int m_CurrentAmmo;
         Vector3 m_LastMuzzlePosition;
         AudioSource m_ShootAudioSource;
-        bool m_WantsToShoot = false;
+        bool m_inputHeldCurrentFrame = false;
+        bool m_inputWasHeld = false;
 
         void Start()
         {
@@ -53,9 +57,14 @@ namespace Assets.Scripts
             }
         }
 
+        void LateUpdate()
+        {
+            m_inputWasHeld = m_inputHeldCurrentFrame;
+        }
+
         public bool HandleShootInputs(bool inputDown, bool inputHeld)
         {
-            m_WantsToShoot = inputDown || inputHeld;
+            m_inputHeldCurrentFrame = inputHeld;
             switch (ShootType)
             {
                 case WeaponShootType.Manual:
@@ -79,18 +88,35 @@ namespace Assets.Scripts
             }
         }
 
+        public void HandleReload(bool input)
+        {
+            if (input && m_LastTimeReloading + AmmoReloadRate < Time.time)
+            {
+                m_CurrentAmmo = MagazineSize;
+                m_LastTimeReloading = Time.time;
+                m_ShootAudioSource.PlayOneShot(ReloadingSfx);
+            }
+        }
+
         bool TryShoot()
         {
+            if (m_LastTimeReloading + AmmoReloadRate >= Time.time) return false;
+
             float DelayBetweenShots = 60f / FireRate;
             if (m_CurrentAmmo >= 1
                 && m_LastTimeShot + DelayBetweenShots < Time.time)
             {
                 HandleShoot();
                 m_CurrentAmmo -= 1;
+                if (m_CurrentAmmo == 0) m_inputHeldCurrentFrame = false;
 
                 return true;
             }
 
+            if (m_CurrentAmmo == 0 && !m_inputWasHeld)
+            {
+                m_ShootAudioSource.PlayOneShot(MisfireSfx);
+            }
             return false;
         }
 

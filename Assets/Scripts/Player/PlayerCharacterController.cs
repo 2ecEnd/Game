@@ -12,6 +12,7 @@ namespace Assets.Scripts.Player
 
         [Header("General")]
         public float GravityDownForce = 20f;
+        public float Health = 20f;
 
         [Header("Movement")]
         public float MaxSpeedOnGround = 10f;
@@ -62,6 +63,7 @@ namespace Assets.Scripts.Player
         CharacterController m_Controller;
         float m_CameraVerticalAngle = 0f;
         float m_FootstepDistanceCounter;
+        bool m_isDead = false;
 
         void Start()
         {
@@ -155,6 +157,15 @@ namespace Assets.Scripts.Player
             }
 
             m_Controller.Move(CharacterVelocity * Time.deltaTime);
+        }
+
+        public void ReceivedDamage(float damage)
+        {
+            Health -= damage;
+            if (Health <= 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

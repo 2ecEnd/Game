@@ -1363,10 +1363,12 @@ MonoBehaviour:
   ShootType: 1
   WeaponMuzzle: {fileID: 6319552732926425144}
   ProjectilePrefab: {fileID: 6774801006451134850, guid: af195d39249c8d94fba4f2435ab93f09, type: 3}
-  MagazineSize: 10000
-  AmmoReloadRate: 0
+  MagazineSize: 30
+  AmmoReloadRate: 3.5
   RecoilForce: 0.1
   ShootSfx: {fileID: 8300000, guid: 43f9844b93954c743b2edc5185ca800c, type: 3}
+  MisfireSfx: {fileID: 8300000, guid: 6bcc5339afa37e546b4b28b59bfe0101, type: 3}
+  ReloadingSfx: {fileID: 8300000, guid: d1a07926354b1b848a5d85bfbf2e8032, type: 3}
 --- !u!82 &6259858030225721213
 AudioSource:
   m_ObjectHideFlags: 0
