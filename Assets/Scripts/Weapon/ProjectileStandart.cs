@@ -30,7 +30,7 @@ namespace Assets.Scripts
             Destroy(gameObject, MaxLifeTime);
         }
 
-        void Update()
+        void FixedUpdate()
         {
             transform.position += m_Velocity * Time.deltaTime;
 
@@ -76,6 +76,10 @@ namespace Assets.Scripts
         
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
+            if (collider.CompareTag("Enemy"))
+            {
+                
+            }
             Destroy(this.gameObject);
         }
     }
