@@ -138,6 +138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartWeaponPrefab: {fileID: 5043112237527216098, guid: eed4b5856853cd54ba369b27ca361fe4, type: 3}
   WeaponPos: {fileID: 1166624090}
+  RecoilSharpness: 50
+  RecoilRestitutionSharpness: 10
+  MaxRecoilDistance: 0.3
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +336,7 @@ Transform:
   m_GameObject: {fileID: 1166624089}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.242, y: -0.26700008, z: 0.285}
+  m_LocalPosition: {x: 0.242, y: -0.26700008, z: 0.415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -511,7 +514,7 @@ Transform:
   m_GameObject: {fileID: 1860230949}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.72017, y: -0, z: -0.10554}
+  m_LocalPosition: {x: 0.72017, y: -0.107, z: -0.10554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -535,7 +538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5350768518332003210, guid: 5a018ede1d8799c4abb7ed7f892e66e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5350768518332003210, guid: 5a018ede1d8799c4abb7ed7f892e66e2, type: 3}
       propertyPath: m_LocalPosition.z

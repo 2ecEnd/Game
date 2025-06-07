@@ -27,15 +27,19 @@ namespace Assets.Scripts
 
         public GameObject Owner { get; set; }
         public Vector3 MuzzleWorldVelocity { get; private set; }
-        
+
+        [Header("Audio")] 
+        public AudioClip ShootSfx;
 
         float m_LastTimeShot = Mathf.NegativeInfinity;
         int m_CurrentAmmo;
         Vector3 m_LastMuzzlePosition;
+        AudioSource m_ShootAudioSource;
         bool m_WantsToShoot = false;
 
         void Start()
         {
+            m_ShootAudioSource = GetComponent<AudioSource>();
             m_CurrentAmmo = MagazineSize;
             m_LastMuzzlePosition = WeaponMuzzle.position;
         }
@@ -101,6 +105,7 @@ namespace Assets.Scripts
             }
 
             m_LastTimeShot = Time.time;
+            m_ShootAudioSource.PlayOneShot(ShootSfx);
         }
 
         public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)

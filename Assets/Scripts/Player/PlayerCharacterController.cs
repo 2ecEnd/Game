@@ -47,6 +47,13 @@ namespace Assets.Scripts.Player
 
         public float CrouchingSharpness = 10f;
 
+        [Header("SFX")]
+        public AudioClip FootstepSfx;
+        public AudioClip JumpSfx;
+        public AudioClip LandSfx;
+        public float FootstepSfxFrequency = 1f;
+        public float SprintingSfxFrequency = 1f;
+
 
         public Vector3 CharacterVelocity { get; set; }
         public bool IsGrounded { get; private set; }
@@ -54,6 +61,7 @@ namespace Assets.Scripts.Player
         PlayerInputHandler m_InputHandler;
         CharacterController m_Controller;
         float m_CameraVerticalAngle = 0f;
+        float m_FootstepDistanceCounter;
 
         void Start()
         {
@@ -63,17 +71,18 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
+            bool wasGrounded = IsGrounded;
             GroundCheck();
+            if (IsGrounded && !wasGrounded)
+            {
+                //AudioSource.PlayOneShot(LandSfx);
+            }
             HandleCharacterMovement();
         }
 
         void GroundCheck()
         {
-            IsGrounded = false;
-            if (m_Controller.isGrounded)
-            {
-                IsGrounded = true;
-            }
+            IsGrounded = m_Controller.isGrounded;
         }
 
         void HandleCharacterMovement()
@@ -116,8 +125,21 @@ namespace Assets.Scripts.Player
                             CharacterVelocity += Vector3.up * JumpForce;
 
                             IsGrounded = false;
+
+                            AudioSource.PlayOneShot(JumpSfx);
                         }
                     }
+
+                    float chosenFootstepSfxFrequency =
+                        (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
+                    if (m_FootstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
+                    {
+                        m_FootstepDistanceCounter = 0f;
+                        AudioSource.PlayOneShot(FootstepSfx);
+                    }
+
+                    // keep track of distance traveled for footsteps sound
+                    m_FootstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
                 }
                 else
                 {
