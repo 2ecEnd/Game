@@ -89,14 +89,13 @@ namespace Assets.Scripts.Player
 
         void HandleCharacterMovement()
         {
-            // horizontal character rotation
+            if (m_isDead) return;
             {
                 transform.Rotate(
                     new Vector3(0f, (m_InputHandler.GetLookInputsHorizontal()),
                         0f), Space.Self);
             }
 
-            // vertical camera rotation
             {
                 m_CameraVerticalAngle += m_InputHandler.GetLookInputsVertical();
 
@@ -105,7 +104,6 @@ namespace Assets.Scripts.Player
                 PlayerCamera.transform.localEulerAngles = new Vector3(m_CameraVerticalAngle, 0, 0);
             }
 
-            // character movement handling
             bool isSprinting = m_InputHandler.GetSprintInputHeld();
             {
                 float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
@@ -140,7 +138,6 @@ namespace Assets.Scripts.Player
                         AudioSource.PlayOneShot(FootstepSfx);
                     }
 
-                    // keep track of distance traveled for footsteps sound
                     m_FootstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
                 }
                 else
@@ -159,12 +156,13 @@ namespace Assets.Scripts.Player
             m_Controller.Move(CharacterVelocity * Time.deltaTime);
         }
 
-        public void ReceivedDamage(float damage)
+        public void TakeDamage(float damage)
         {
             Health -= damage;
             if (Health <= 0)
             {
-                Destroy(this.gameObject);
+                m_isDead = true;
+                //Events.TriggerPlayerDeath();
             }
         }
     }

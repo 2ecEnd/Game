@@ -51,7 +51,7 @@ MonoBehaviour:
   Tail: {fileID: 8548068917242991358}
   Radius: 0.01
   Speed: 300
-  Damage: 10
+  Damage: 30
   MaxLifeTime: 5
   HittableLayers:
     serializedVersion: 2

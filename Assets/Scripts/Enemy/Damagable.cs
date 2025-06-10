@@ -10,12 +10,12 @@ namespace Assets.Scripts.Enemy
             GameObject parent = transform.parent.gameObject;
             if (parent.GetComponent<EnemyControl>() != null)
             {
-                parent.GetComponent<EnemyControl>().ReceivedDamage(damage);
+                parent.GetComponent<EnemyControl>().TakeDamage(damage);
                 return;
             }
             if (parent.GetComponent<PlayerCharacterController>() != null)
             {
-                parent.GetComponent<PlayerCharacterController>().ReceivedDamage(damage);
+                parent.GetComponent<PlayerCharacterController>().TakeDamage(damage);
                 return;
             }
         }
