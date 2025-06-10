@@ -12,26 +12,28 @@ namespace Assets.Scripts.Enemy
         public float ColorDuration = 0.2f;
         public Transform AttackPoint;
         public float Damage = 20f;
+        public float Speed = 0.01f;
 
-
+        private Rigidbody rb;
         private Material m_Material;
         private Color m_OriginalColor;
         private Transform m_target;
-        private NavMeshAgent m_agent;
         private GameController m_GameController;
+        private Vector3 VectorToPlayer;
         void Start()
         {
-            m_agent = GetComponent<NavMeshAgent>();
+            rb = GetComponent<Rigidbody>();
             m_target = GameObject.FindGameObjectWithTag("Player").transform;
             m_GameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-            m_Material = transform.GetChild(0).GetComponent<Renderer>().material;
+            m_Material = GetComponent<Renderer>().material;
             m_OriginalColor = m_Material.color;
         }
 
         void FixedUpdate()
         {
-            m_agent.SetDestination(m_target.position);
-
+            VectorToPlayer = (m_target.position - transform.position).normalized;
+            rb.MovePosition(transform.position + VectorToPlayer * Speed);
+            transform.Rotate(0, 25, 0);
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackPoint.position,
@@ -47,7 +49,7 @@ namespace Assets.Scripts.Enemy
         {
             if (collider.gameObject.CompareTag("Player"))
             {
-                collider.gameObject.GetComponent<PlayerCharacterController>().TakeDamage(Damage);
+                collider.GetComponent<PlayerCharacterController>().TakeDamage(Damage);
             }
         }
 

@@ -158,7 +158,7 @@ namespace Assets.Scripts.Player
 
         public void TakeDamage(float damage)
         {
-            Health -= damage;
+            //Health -= damage;
             if (Health <= 0)
             {
                 m_isDead = true;
