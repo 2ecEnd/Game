@@ -9,6 +9,8 @@ namespace Assets.Scripts
             Manual,
             Automatic,
         }
+        [Header("Current Parameters")]
+        public int CurrentAmmo;
 
         [Header("Shoot Parameters")]
         public float FireRate = 750;
@@ -35,7 +37,6 @@ namespace Assets.Scripts
 
         float m_LastTimeShot = Mathf.NegativeInfinity;
         float m_LastTimeReloading = Mathf.NegativeInfinity;
-        int m_CurrentAmmo;
         Vector3 m_LastMuzzlePosition;
         AudioSource m_ShootAudioSource;
         bool m_inputHeldCurrentFrame = false;
@@ -44,7 +45,7 @@ namespace Assets.Scripts
         void Start()
         {
             m_ShootAudioSource = GetComponent<AudioSource>();
-            m_CurrentAmmo = MagazineSize;
+            CurrentAmmo = MagazineSize;
             m_LastMuzzlePosition = WeaponMuzzle.position;
         }
 
@@ -92,7 +93,7 @@ namespace Assets.Scripts
         {
             if (input && m_LastTimeReloading + AmmoReloadRate < Time.time)
             {
-                m_CurrentAmmo = MagazineSize;
+                CurrentAmmo = MagazineSize;
                 m_LastTimeReloading = Time.time;
                 m_ShootAudioSource.PlayOneShot(ReloadingSfx);
             }
@@ -103,17 +104,17 @@ namespace Assets.Scripts
             if (m_LastTimeReloading + AmmoReloadRate >= Time.time) return false;
 
             float DelayBetweenShots = 60f / FireRate;
-            if (m_CurrentAmmo >= 1
+            if (CurrentAmmo >= 1
                 && m_LastTimeShot + DelayBetweenShots < Time.time)
             {
                 HandleShoot();
-                m_CurrentAmmo -= 1;
-                if (m_CurrentAmmo == 0) m_inputHeldCurrentFrame = false;
+                CurrentAmmo -= 1;
+                if (CurrentAmmo == 0) m_inputHeldCurrentFrame = false;
 
                 return true;
             }
 
-            if (m_CurrentAmmo == 0 && !m_inputWasHeld)
+            if (CurrentAmmo == 0 && !m_inputWasHeld)
             {
                 m_ShootAudioSource.PlayOneShot(MisfireSfx);
             }

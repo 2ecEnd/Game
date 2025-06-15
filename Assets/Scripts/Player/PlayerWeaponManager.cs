@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player
         public float RecoilSharpness = 50f;
         public float RecoilRestitutionSharpness = 10f;
         public float MaxRecoilDistance = 0.5f;
-        WeaponHandler activeWeapon;
+        public WeaponHandler ActiveWeapon;
         PlayerInputHandler m_InputHandler;
 
         Vector3 OriginalWeaponPos;
@@ -27,16 +27,16 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            bool hasFired = activeWeapon.HandleShootInputs(
+            bool hasFired = ActiveWeapon.HandleShootInputs(
                 m_InputHandler.GetFireInputDown(),
                 m_InputHandler.GetFireInputHeld());
             if (hasFired)
             {
-                m_AccumulatedRecoil += Vector3.back * activeWeapon.RecoilForce;
+                m_AccumulatedRecoil += Vector3.back * ActiveWeapon.RecoilForce;
                 m_AccumulatedRecoil = Vector3.ClampMagnitude(m_AccumulatedRecoil, MaxRecoilDistance);
             }
             
-            activeWeapon.HandleReload(m_InputHandler.GetReloadButtonDown());
+            ActiveWeapon.HandleReload(m_InputHandler.GetReloadButtonDown());
         }
 
         void LateUpdate()
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Player
 
             weaponInstance.Owner = gameObject;
 
-            activeWeapon = weaponInstance;
+            ActiveWeapon = weaponInstance;
         }
     }
 
