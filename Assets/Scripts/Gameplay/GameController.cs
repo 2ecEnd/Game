@@ -11,11 +11,18 @@ namespace Assets.Scripts.Gameplay
         [Header("Spawn settings")]
         public float SpawnInterval = 30f;
         public int MaxEnemies = 5;
-        public float SpawnAreaWidth = 10f;
-        public float SpawnAreaLength = 10f;
+        public float SpawnAreaWidth = 64f;
+        public float SpawnAreaLength = 64f;
 
         int m_currentEnemies = 0;
         float m_LastTimeSpawn = Mathf.NegativeInfinity;
+
+        private ArenaManager arenaManager;
+
+        void Start()
+        {
+            arenaManager = GetComponent<ArenaManager>();
+        }
 
         void Update()
         {
@@ -32,14 +39,33 @@ namespace Assets.Scripts.Gameplay
 
         void SpawnEnemies()
         {
+            float arenaSize = arenaManager.getArenaSize() * arenaManager.getChunkScale();
             while (m_currentEnemies < MaxEnemies)
             {
-                Vector3 spawnPosition = new Vector3(
-                    transform.position.x + Random.Range(-SpawnAreaWidth / 2, SpawnAreaWidth / 2),
-                    transform.position.y,
-                    transform.position.z + Random.Range(-SpawnAreaLength / 2, SpawnAreaLength / 2)
-                );
 
+                float x = Random.Range(0, arenaSize + 1);
+                int i = (int)(x / arenaManager.getChunkScale());
+                float z = Random.Range(0, arenaSize + 1);
+                int j = (int)(z / arenaManager.getChunkScale());
+
+                float y = arenaManager.heightMap[i, j];
+                if (y != 0)
+                    y++;
+                else
+                {
+                    if (i != 0)
+                        y = Mathf.Max(y, arenaManager.heightMap[i - 1, j]);
+                    if (i != arenaManager.getArenaSize() - 1)
+                        y = Mathf.Max(y, arenaManager.heightMap[i + 1, j]);
+                    if (j != 0)
+                        y = Mathf.Max(y, arenaManager.heightMap[i, j - 1]);
+                    if (j != arenaManager.getArenaSize() - 1)
+                        y = Mathf.Max(y, arenaManager.heightMap[i, j + 1]);
+
+                    y++;
+                }
+
+                Vector3 spawnPosition = new Vector3(x, y, z);
                 Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity);
                 m_currentEnemies++;
             }

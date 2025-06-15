@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flag: 0
+  chunkHeight: 0
   chunk: {fileID: 6255993869813837955, guid: eccb391a7a95e634986df16c25655075, type: 3}
   stair_1: {fileID: 3861264058774730328, guid: d31484264f0524f4495a883fdd97a820, type: 3}
   stair_05: {fileID: 5322386632154448788, guid: 4b272e0a39c28ce41a8d1d9555cba34e, type: 3}
@@ -147,6 +148,23 @@ MonoBehaviour:
   stair_1_convex: {fileID: 649348895395940818, guid: 149de2dd9815f71499c57486cac62eac, type: 3}
   stair_05_convex: {fileID: 6926286704259321333, guid: 9f750b7c7d6ad0843b95253cff77b347, type: 3}
   stair_025_convex: {fileID: 6483758248818298217, guid: ac2d8eb522300b94aa0da8c6e1d57926, type: 3}
+--- !u!114 &629442385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629442382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35dd7b1e24b49914ca2fc1e32eb964f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 3954221838382394143, guid: 4f186221b1dc5da4da1164a01e1610e3, type: 3}
+  SpawnInterval: 30
+  MaxEnemies: 5
+  SpawnAreaWidth: 10
+  SpawnAreaLength: 10
 --- !u!1001 &1298678419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,6 +238,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7045998959420945593, guid: 001ac32f92644c447b07a31dcda7c9c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 629442385}
     - targetCorrespondingSourceObject: {fileID: 7045998959420945593, guid: 001ac32f92644c447b07a31dcda7c9c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 629442383}

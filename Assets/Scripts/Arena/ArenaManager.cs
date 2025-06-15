@@ -7,10 +7,13 @@ using UnityEngine.UIElements;
 
 public class ArenaManager : MonoBehaviour
 {
-    private GameObject arena;
-    private const int arenaSize = 16;
-
     public int flag = 0;
+
+    private GameObject arena;
+
+    private const int arenaSize = 16;
+    private const int chunkScale = 4;
+    private float chunkHeight;
 
     public GameObject chunk;
     public GameObject stair_1;
@@ -23,9 +26,6 @@ public class ArenaManager : MonoBehaviour
     public GameObject stair_05_convex;
     public GameObject stair_025_convex;
 
-    private float chunkScale;
-    private float chunkHeight;
-
     private GameObject[,] chunks;
     private List<GameObject> stairs;
     public int[,] heightMap;
@@ -36,13 +36,11 @@ public class ArenaManager : MonoBehaviour
     void Start()
     {
         arena = new GameObject("Arena");
+        arena.transform.position = new Vector3(0, 10, 0);
         createPresets();
 
-        chunkScale = 4;
         chunkHeight = (chunk.transform.localScale.y / 2);   // Нацало координат чанка находится в его центре
                                                             // Поэтому делим высоту пополам
-
-        arena.transform.position = new Vector3(0, 10, 0);
 
         chunks = new GameObject[arenaSize, arenaSize];
         stairs = new List<GameObject>();
@@ -75,6 +73,18 @@ public class ArenaManager : MonoBehaviour
             //}
         }
     }
+
+
+    public int getArenaSize()
+    {
+        return arenaSize;
+    }
+
+    public int getChunkScale()
+    {
+        return chunkScale;
+    }
+
 
     void createPresets()
     {
@@ -391,14 +401,12 @@ public class ArenaManager : MonoBehaviour
                 if (heightMap[i, j] == 0)
                 {
                     chunks[i, j].transform.position = new Vector3(chunkScale * i, -chunkHeight, chunkScale * j);
-                    chunks[i, j].transform.localScale = new Vector3(chunkScale, 64, chunkScale);
                     placeStair(i, j);
                 }
                 else
                 {
                     Vector3 position = new Vector3(chunkScale * i, heightMap[i, j] - chunkHeight, chunkScale * j);
                     chunks[i, j].transform.position = position;
-                    chunks[i, j].transform.localScale = new Vector3(chunkScale, 64, chunkScale);
                 }
             }
     }
