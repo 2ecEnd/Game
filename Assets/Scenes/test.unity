@@ -138,9 +138,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flag: 0
   chunk: {fileID: 6255993869813837955, guid: eccb391a7a95e634986df16c25655075, type: 3}
-  stairs441: {fileID: 6356654150358880639, guid: 033b6a40b31f32f48bd9fc2d9f23ea1f, type: 3}
-  stairs441_concave: {fileID: 8600734264355383366, guid: f88ad4dab3e8c4c41a945c21aff7148f, type: 3}
-  stairs441_convex: {fileID: 3075456546991449192, guid: ad77485e2d5cf2a4dbd2bfba0df00f05, type: 3}
+  stair_1: {fileID: 3861264058774730328, guid: d31484264f0524f4495a883fdd97a820, type: 3}
+  stair_05: {fileID: 5322386632154448788, guid: 4b272e0a39c28ce41a8d1d9555cba34e, type: 3}
+  stair_025: {fileID: 7525081310911971700, guid: 3baa97b219155084a9c59fd791c6c7e4, type: 3}
+  stair_1_concave: {fileID: 1177373589376738042, guid: 3b19bf7701aeab4498183849ce7bf1b0, type: 3}
+  stair_05_concave: {fileID: 2655016201871266460, guid: fb40e27fac375234f886112ef849abb5, type: 3}
+  stair_025_concave: {fileID: 6172633746306778848, guid: f52bf95ed263f4c4c8f47d4a39850de3, type: 3}
+  stair_1_convex: {fileID: 649348895395940818, guid: 149de2dd9815f71499c57486cac62eac, type: 3}
+  stair_05_convex: {fileID: 6926286704259321333, guid: 9f750b7c7d6ad0843b95253cff77b347, type: 3}
+  stair_025_convex: {fileID: 6483758248818298217, guid: ac2d8eb522300b94aa0da8c6e1d57926, type: 3}
 --- !u!1001 &1298678419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -425,13 +431,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063167387}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalRotation: {x: 0.16773124, y: 0.25488707, z: -0.044943456, w: 0.95125127}
+  m_LocalPosition: {x: 0, y: 20, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 30, z: 0}
 --- !u!114 &2063167391
 MonoBehaviour:
   m_ObjectHideFlags: 0
