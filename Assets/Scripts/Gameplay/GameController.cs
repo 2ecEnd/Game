@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Gameplay
 {
@@ -11,10 +13,8 @@ namespace Assets.Scripts.Gameplay
         [Header("Spawn settings")]
         public float SpawnInterval = 30f;
         public int MaxEnemies = 5;
-        public float SpawnAreaWidth = 64f;
-        public float SpawnAreaLength = 64f;
 
-        int m_currentEnemies = 0;
+        public List<GameObject> Enemies;
         float m_LastTimeSpawn = Mathf.NegativeInfinity;
 
         private ArenaManager arenaManager;
@@ -40,9 +40,8 @@ namespace Assets.Scripts.Gameplay
         void SpawnEnemies()
         {
             float arenaSize = arenaManager.getArenaSize() * arenaManager.getChunkScale();
-            while (m_currentEnemies < MaxEnemies)
+            while (Enemies.Count < MaxEnemies)
             {
-
                 float x = Random.Range(0, arenaSize + 1);
                 int i = (int)(x / arenaManager.getChunkScale());
                 float z = Random.Range(0, arenaSize + 1);
@@ -66,15 +65,9 @@ namespace Assets.Scripts.Gameplay
                 }
 
                 Vector3 spawnPosition = new Vector3(x, y, z);
-                Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity);
-                m_currentEnemies++;
+                Enemies.Add(Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity));
             }
             m_LastTimeSpawn = Time.time;
-        }
-
-        public void HandleEnemyKill()
-        {
-            m_currentEnemies--;
         }
     }
 }

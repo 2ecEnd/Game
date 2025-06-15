@@ -1,3 +1,4 @@
+using Assets.Scripts.Gameplay;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -8,6 +9,8 @@ using UnityEngine.UIElements;
 public class ArenaManager : MonoBehaviour
 {
     public int flag = 0;
+
+    public GameObject player;
 
     private GameObject arena;
 
@@ -32,12 +35,16 @@ public class ArenaManager : MonoBehaviour
 
     private List<int[,]> arenaPresets;
 
+    private GameController gameController;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         arena = new GameObject("Arena");
         arena.transform.position = new Vector3(0, 10, 0);
         createPresets();
+
+        gameController = gameObject.GetComponent<GameController>();
 
         chunkHeight = (chunk.transform.localScale.y / 2);   // Нацало координат чанка находится в его центре
                                                             // Поэтому делим высоту пополам
@@ -55,7 +62,7 @@ public class ArenaManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (flag != 0)
         {
@@ -74,6 +81,13 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetButtonDown("Q"))
+        {
+            flag = 1;
+        }
+    }
 
     public int getArenaSize()
     {
@@ -409,5 +423,60 @@ public class ArenaManager : MonoBehaviour
                     chunks[i, j].transform.position = position;
                 }
             }
+
+        // Change player's position
+        {
+            float player_x = player.transform.position.x;
+            int chunk_i = (int)(player_x / chunkScale);
+            float player_z = player.transform.position.z;
+            int chunk_j = (int)(player_z / chunkScale);
+
+            float y = heightMap[chunk_i, chunk_j];
+            if (y != 0)
+                y++;
+            else
+            {
+                if (chunk_i != 0)
+                    y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
+                if (chunk_i != getArenaSize() - 1)
+                    y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
+                if (chunk_j != 0)
+                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
+                if (chunk_j != getArenaSize() - 1)
+                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
+
+                y++;
+            }
+
+            player.transform.position = new Vector3(player_x, y, player_z);
+        }
+
+        // Change emenies' position
+        for (int i = 0; i < gameController.Enemies.Count; i++)
+        {
+            float x = gameController.Enemies[i].transform.position.x;
+            int chunk_i = (int)(x / chunkScale);
+            float z = gameController.Enemies[i].transform.position.z;
+            int chunk_j = (int)(z / chunkScale);
+
+            float y = heightMap[chunk_i, chunk_j];
+            if (y != 0)
+                y++;
+            else
+            {
+                if (chunk_i != 0)
+                    y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
+                if (chunk_i != getArenaSize() - 1)
+                    y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
+                if (chunk_j != 0)
+                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
+                if (chunk_j != getArenaSize() - 1)
+                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
+
+                y++;
+            }
+
+            gameController.Enemies[i].transform.position = new Vector3(x, y, z);
+        }
     }
 }

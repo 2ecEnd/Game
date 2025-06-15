@@ -58,8 +58,8 @@ namespace Assets.Scripts.Enemy
             Health -= damage;
             if (Health <= 0)
             {
-                Destroy(this.gameObject);
-                m_GameController.HandleEnemyKill();
+                m_GameController.Enemies.Remove(gameObject);
+                Destroy(gameObject);
             }
             StartCoroutine(ChangeColor());
         }
