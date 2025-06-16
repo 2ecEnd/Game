@@ -8,7 +8,8 @@ namespace Assets.Scripts.Gameplay
     public class GameController : MonoBehaviour
     {
         [Header("Enemy prefabs")]
-        public GameObject EnemyPrefab;
+        public GameObject MeleeEnemyPrefab;
+        public GameObject RangeEnemyPrefab;
 
         [Header("Spawn settings")]
         public float SpawnInterval = 30f;
@@ -67,7 +68,12 @@ namespace Assets.Scripts.Gameplay
                 }
 
                 Vector3 spawnPosition = new Vector3(x, y, z);
-                Enemies.Add(Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
+                int coin = Random.Range(0, 2);
+
+                if (coin == 0)
+                    Enemies.Add(Instantiate(MeleeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
+                else
+                    Enemies.Add(Instantiate(RangeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
             }
             m_LastTimeSpawn = Time.time;
         }

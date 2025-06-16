@@ -77,7 +77,7 @@ namespace Assets.Scripts.Player
 
         void FixedUpdate()
         {
-            if (isFall())
+            if (IsFall())
                 TakeDamage(MaxHealth);
         }
 
@@ -92,7 +92,7 @@ namespace Assets.Scripts.Player
             HandleCharacterMovement();
 
             if (Input.GetKey(KeyCode.T))
-                revive();
+                Revive();
         }
 
         void GroundCheck()
@@ -177,7 +177,7 @@ namespace Assets.Scripts.Player
             }
         }
 
-        void revive()
+        void Revive()
         {
             Health = MaxHealth;
             m_isDead = false;
@@ -186,7 +186,7 @@ namespace Assets.Scripts.Player
             CharacterVelocity = new Vector3();
         }
 
-        bool isFall()
+        bool IsFall()
         {
             return transform.position.y < m_ArenaManager.getKillHeight();
         }

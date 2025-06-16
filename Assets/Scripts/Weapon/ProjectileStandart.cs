@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.Enemy;
+using Assets.Scripts.Player;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -79,9 +80,13 @@ namespace Assets.Scripts
         
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
-            if (collider.TryGetComponent(out Damagable damagable))
+            if (collider.TryGetComponent(out EnemyBase enemy))
             {
-                damagable.ReceivedDamage(Damage);
+                enemy.ReceivedDamage(Damage);
+            }
+            if (collider.TryGetComponent(out PlayerCharacterController player))
+            {
+                player.TakeDamage(Damage);
             }
 
             Destroy(this.gameObject);

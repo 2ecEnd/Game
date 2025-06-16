@@ -1,4 +1,5 @@
 using Assets.Scripts.Gameplay;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
@@ -26,6 +27,20 @@ public abstract class EnemyBase : MonoBehaviour
     protected abstract void Attack(Collider collider);
 
     public abstract void TakeDamage(float damage);
+
+    public void ReceivedDamage(float damage)
+    {
+        if (gameObject.GetComponent<EnemyBase>() != null)
+        {
+            gameObject.GetComponent<EnemyBase>().TakeDamage(damage);
+            return;
+        }
+        if (gameObject.GetComponent<PlayerCharacterController>() != null)
+        {
+            gameObject.GetComponent<PlayerCharacterController>().TakeDamage(damage);
+            return;
+        }
+    }
 
     protected abstract void DestroyOnFall();
 
