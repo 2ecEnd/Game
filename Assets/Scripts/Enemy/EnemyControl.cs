@@ -43,6 +43,9 @@ namespace Assets.Scripts.Enemy
             {
                 HandleAttack(hit.collider);
             }
+
+            if (transform.position.y < -100)
+                Destroy(gameObject);
         }
 
         void HandleAttack(Collider collider)

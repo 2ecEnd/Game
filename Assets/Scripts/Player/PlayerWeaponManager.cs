@@ -13,30 +13,30 @@ namespace Assets.Scripts.Player
         public float RecoilRestitutionSharpness = 10f;
         public float MaxRecoilDistance = 0.5f;
         public WeaponHandler ActiveWeapon;
-        PlayerInputHandler m_InputHandler;
+        //PlayerInputHandler m_InputHandler;
 
         Vector3 OriginalWeaponPos;
         Vector3 m_WeaponRecoilLocalPosition;
         Vector3 m_AccumulatedRecoil;
         void Start()
         {
-            m_InputHandler = GetComponent<PlayerInputHandler>();
+            //m_InputHandler = GetComponent<PlayerInputHandler>();
             AddWeapon(StartWeaponPrefab);
             OriginalWeaponPos = WeaponPos.localPosition;
         }
 
         void Update()
         {
-            bool hasFired = ActiveWeapon.HandleShootInputs(
-                m_InputHandler.GetFireInputDown(),
-                m_InputHandler.GetFireInputHeld());
+            bool hasFired = ActiveWeapon.HandleShootInputs(Input.GetKeyDown(KeyCode.Mouse0), Input.GetKey(KeyCode.Mouse0));
             if (hasFired)
             {
                 m_AccumulatedRecoil += Vector3.back * ActiveWeapon.RecoilForce;
                 m_AccumulatedRecoil = Vector3.ClampMagnitude(m_AccumulatedRecoil, MaxRecoilDistance);
             }
-            
-            ActiveWeapon.HandleReload(m_InputHandler.GetReloadButtonDown());
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ActiveWeapon.HandleReload();
+            }
         }
 
         void LateUpdate()

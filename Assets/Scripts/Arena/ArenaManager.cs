@@ -79,11 +79,14 @@ public class ArenaManager : MonoBehaviour
             //    Debug.Log(str);
             //}
         }
+
+        if (playerIsFall())
+            player.transform.position = new Vector3(32, heightMap[7, 7] + 1, 32);
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Q"))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             flag = 1;
         }
@@ -431,24 +434,27 @@ public class ArenaManager : MonoBehaviour
             float player_z = player.transform.position.z;
             int chunk_j = (int)(player_z / chunkScale);
 
-            float y = heightMap[chunk_i, chunk_j];
-            if (y != 0)
-                y++;
-            else
+            if (chunk_i >= 0 && chunk_j >= 0 && chunk_i < arenaSize && chunk_j < arenaSize)
             {
-                if (chunk_i != 0)
-                    y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
-                if (chunk_i != getArenaSize() - 1)
-                    y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
-                if (chunk_j != 0)
-                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
-                if (chunk_j != getArenaSize() - 1)
-                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
+                float y = heightMap[chunk_i, chunk_j];
+                if (y != 0)
+                    y++;
+                else
+                {
+                    if (chunk_i >= 0)
+                        y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
+                    if (chunk_i < arenaSize)
+                        y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
+                    if (chunk_j >= 0)
+                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
+                    if (chunk_j < arenaSize)
+                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
 
-                y++;
+                    y++;
+                }
+
+                player.transform.position = new Vector3(player_x, y, player_z);
             }
-
-            player.transform.position = new Vector3(player_x, y, player_z);
         }
 
         // Change emenies' position
@@ -459,24 +465,35 @@ public class ArenaManager : MonoBehaviour
             float z = gameController.Enemies[i].transform.position.z;
             int chunk_j = (int)(z / chunkScale);
 
-            float y = heightMap[chunk_i, chunk_j];
-            if (y != 0)
-                y++;
-            else
+            if (chunk_i >= 0 && chunk_j >= 0 && chunk_i < arenaSize && chunk_j < arenaSize)
             {
-                if (chunk_i != 0)
-                    y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
-                if (chunk_i != getArenaSize() - 1)
-                    y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
-                if (chunk_j != 0)
-                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
-                if (chunk_j != getArenaSize() - 1)
-                    y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
+                float y = heightMap[chunk_i, chunk_j];
+                if (y != 0)
+                    y++;
+                else
+                {
+                    if (chunk_i >= 0)
+                        y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
+                    if (chunk_i < arenaSize)
+                        y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
+                    if (chunk_j >= 0)
+                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
+                    if (chunk_j < arenaSize)
+                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
 
-                y++;
+                    y++;
+                }
+
+                gameController.Enemies[i].transform.position = new Vector3(x, y, z);
             }
-
-            gameController.Enemies[i].transform.position = new Vector3(x, y, z);
         }
+    }
+
+
+    bool playerIsFall()
+    {
+        if (player.transform.position.y < -100)
+            return true;
+        return false;
     }
 }

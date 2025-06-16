@@ -12,6 +12,7 @@ namespace Assets.Scripts.Player
 
         [Header("General")]
         public float GravityDownForce = 20f;
+        public float MaxHealth = 20f;
         public float Health = 20f;
 
         [Header("Movement")]
@@ -59,7 +60,7 @@ namespace Assets.Scripts.Player
         public Vector3 CharacterVelocity { get; set; }
         public bool IsGrounded { get; private set; }
 
-        PlayerInputHandler m_InputHandler;
+        PlayerGUI gui;
         CharacterController m_Controller;
         float m_CameraVerticalAngle = 0f;
         float m_FootstepDistanceCounter;
@@ -68,7 +69,7 @@ namespace Assets.Scripts.Player
         void Start()
         {
             m_Controller = GetComponent<CharacterController>();
-            m_InputHandler = GetComponent<PlayerInputHandler>();
+            gui = PlayerCamera.GetComponent<PlayerGUI>();
         }
 
         void Update()
@@ -80,6 +81,12 @@ namespace Assets.Scripts.Player
                 //AudioSource.PlayOneShot(LandSfx);
             }
             HandleCharacterMovement();
+            if (Input.GetKey(KeyCode.T))
+            {
+                Health = MaxHealth;
+                m_isDead = false;
+                gui.Death = false;
+            }
         }
 
         void GroundCheck()
@@ -91,24 +98,22 @@ namespace Assets.Scripts.Player
         {
             if (m_isDead) return;
             {
-                transform.Rotate(
-                    new Vector3(0f, (m_InputHandler.GetLookInputsHorizontal()),
-                        0f), Space.Self);
+                transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self);
             }
 
             {
-                m_CameraVerticalAngle += m_InputHandler.GetLookInputsVertical();
+                m_CameraVerticalAngle -= Input.GetAxis("Mouse Y");
 
                 m_CameraVerticalAngle = Mathf.Clamp(m_CameraVerticalAngle, -89f, 89f);
 
                 PlayerCamera.transform.localEulerAngles = new Vector3(m_CameraVerticalAngle, 0, 0);
             }
 
-            bool isSprinting = m_InputHandler.GetSprintInputHeld();
+            bool isSprinting = Input.GetKey(KeyCode.LeftShift);
             {
                 float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
 
-                Vector3 worldspaceMoveInput = transform.TransformVector(m_InputHandler.GetMoveInput());
+                Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1));
 
                 if (IsGrounded)
                 {
@@ -117,7 +122,7 @@ namespace Assets.Scripts.Player
                     CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity,
                             MovementSharpnessOnGround * Time.deltaTime);
 
-                    if (m_InputHandler.GetJumpInputDown())
+                    if (Input.GetKey(KeyCode.Space))
                     {
                         {
                             CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
@@ -158,11 +163,11 @@ namespace Assets.Scripts.Player
 
         public void TakeDamage(float damage)
         {
-            //Health -= damage;
+            Health -= damage;
             if (Health <= 0)
             {
                 m_isDead = true;
-                //Events.TriggerPlayerDeath();
+                gui.Death = true;
             }
         }
     }

@@ -18,10 +18,12 @@ namespace Assets.Scripts.Gameplay
         float m_LastTimeSpawn = Mathf.NegativeInfinity;
 
         private ArenaManager arenaManager;
+        private GameObject enemiesGO;
 
         void Start()
         {
             arenaManager = GetComponent<ArenaManager>();
+            enemiesGO = new GameObject("Enemies");
         }
 
         void Update()
@@ -65,7 +67,7 @@ namespace Assets.Scripts.Gameplay
                 }
 
                 Vector3 spawnPosition = new Vector3(x, y, z);
-                Enemies.Add(Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity));
+                Enemies.Add(Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
             }
             m_LastTimeSpawn = Time.time;
         }

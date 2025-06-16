@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: eVolve
   productName: "\u0421\u0430\u043C\u044B\u0439 \u043B\u0443\u0447\u0448\u0438\u0439
     \u0448\u0443\u0442\u0435\u0440"
-  defaultCursor: {fileID: 2800000, guid: dd39cc6977d16b0459a80754ea91c186, type: 3}
+  defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -922,7 +922,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 42278179-36d3-4134-aa0f-88b4a46f5006
   framebufferDepthMemorylessMode: 0

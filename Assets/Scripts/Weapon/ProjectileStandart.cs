@@ -34,21 +34,12 @@ namespace Assets.Scripts
 
         void FixedUpdate()
         {
-            transform.position += m_Velocity * Time.deltaTime;
-
-            transform.forward = m_Velocity.normalized;
-
-            if (GravityDownAcceleration > 0)
-            {
-                m_Velocity += Vector3.down * GravityDownAcceleration * Time.deltaTime;
-            }
-
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: Tail.position,
                 direction: transform.forward,
                 hitInfo: out hit,
-                maxDistance: 1.4f + Speed * Time.deltaTime,
+                maxDistance: 0.1f + Speed * Time.fixedDeltaTime,
                 layerMask: HittableLayers))
             {
                 if (IsHitValid(hit))
@@ -56,15 +47,25 @@ namespace Assets.Scripts
                     OnHit(hit.point, hit.normal, hit.collider);
                 }
             }
+
+            transform.position += m_Velocity * Time.fixedDeltaTime;
+
+            transform.forward = m_Velocity.normalized;
+
+            if (GravityDownAcceleration > 0)
+            {
+                m_Velocity += Vector3.down * GravityDownAcceleration * Time.fixedDeltaTime;
+            }
         }
 
         new void OnShoot()
         {
             m_Velocity = transform.forward * Speed;
             m_IgnoredColliders = new List<Collider>();
-            transform.position += m_ProjectileBase.InheritedMuzzleVelocity * Time.deltaTime;
+            //transform.position += m_ProjectileBase.InheritedMuzzleVelocity * Time.fixedDeltaTime;
 
             m_IgnoredColliders.AddRange(Owner.GetComponentsInChildren<Collider>());
+
         }
 
         bool IsHitValid(RaycastHit hit)

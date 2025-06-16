@@ -11,6 +11,7 @@ namespace Assets.Scripts
         }
         [Header("Current Parameters")]
         public int CurrentAmmo;
+        public bool Reload;
 
         [Header("Shoot Parameters")]
         public float FireRate = 750;
@@ -46,11 +47,16 @@ namespace Assets.Scripts
         {
             m_ShootAudioSource = GetComponent<AudioSource>();
             CurrentAmmo = MagazineSize;
+            Reload = false;
             m_LastMuzzlePosition = WeaponMuzzle.position;
         }
 
         void Update()
         {
+            if(Reload && m_LastTimeReloading + AmmoReloadRate < Time.time)
+            {
+                Reload = false;
+            }
             if (Time.deltaTime > 0)
             {
                 MuzzleWorldVelocity = (WeaponMuzzle.position - m_LastMuzzlePosition) / Time.deltaTime;
@@ -89,11 +95,12 @@ namespace Assets.Scripts
             }
         }
 
-        public void HandleReload(bool input)
+        public void HandleReload()
         {
-            if (input && m_LastTimeReloading + AmmoReloadRate < Time.time)
+            if (!Reload)
             {
                 CurrentAmmo = MagazineSize;
+                Reload = true;
                 m_LastTimeReloading = Time.time;
                 m_ShootAudioSource.PlayOneShot(ReloadingSfx);
             }
@@ -101,7 +108,7 @@ namespace Assets.Scripts
 
         bool TryShoot()
         {
-            if (m_LastTimeReloading + AmmoReloadRate >= Time.time) return false;
+            if (Reload) return false;
 
             float DelayBetweenShots = 60f / FireRate;
             if (CurrentAmmo >= 1

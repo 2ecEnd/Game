@@ -157,7 +157,7 @@ MonoBehaviour:
   Health: 100
   ColorDuration: 0.1
   AttackPoint: {fileID: 4296748592493711945}
-  Damage: 20
+  Damage: 5
   Speed: 0.1
 --- !u!114 &8709550983549344414
 MonoBehaviour:
