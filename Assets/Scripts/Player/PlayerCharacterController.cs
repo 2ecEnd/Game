@@ -183,6 +183,7 @@ namespace Assets.Scripts.Player
             m_isDead = false;
             gui.Death = false;
             transform.position = new Vector3(32, m_ArenaManager.heightMap[7, 7] + 1, 32);
+            CharacterVelocity = new Vector3();
         }
 
         bool isFall()

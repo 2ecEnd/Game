@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1134308615899205727}
   - component: {fileID: 1305333886322388485}
   - component: {fileID: 5865605972863367068}
-  - component: {fileID: 3703061066250749130}
-  - component: {fileID: 3140376046334690336}
+  - component: {fileID: 6111116653174774885}
+  - component: {fileID: 5679857745300339996}
   - component: {fileID: 4793845051346529946}
   - component: {fileID: 8709550983549344414}
   m_Layer: 0
@@ -92,34 +92,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &3703061066250749130
-Rigidbody:
+--- !u!143 &6111116653174774885
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3954221838382394143}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!136 &3140376046334690336
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &5679857745300339996
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,8 +136,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.45
+  m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4793845051346529946
@@ -158,7 +156,11 @@ MonoBehaviour:
   ColorDuration: 0.1
   AttackPoint: {fileID: 4296748592493711945}
   Damage: 5
-  Speed: 0.1
+  GravityDownForce: 20
+  MaxSpeedOnGround: 10
+  MovementSharpnessOnGround: 15
+  MaxSpeedInAir: 10
+  AccelerationSpeedInAir: 25
 --- !u!114 &8709550983549344414
 MonoBehaviour:
   m_ObjectHideFlags: 0
