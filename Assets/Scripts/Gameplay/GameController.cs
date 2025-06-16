@@ -10,6 +10,7 @@ namespace Assets.Scripts.Gameplay
         [Header("Enemy prefabs")]
         public GameObject MeleeEnemyPrefab;
         public GameObject RangeEnemyPrefab;
+        public GameObject CartEnemyPrefab;
 
         [Header("Spawn settings")]
         public float SpawnInterval = 30f;
@@ -68,12 +69,14 @@ namespace Assets.Scripts.Gameplay
                 }
 
                 Vector3 spawnPosition = new Vector3(x, y, z);
-                int coin = Random.Range(0, 2);
+                int coin = Random.Range(0, 3);
 
                 if (coin == 0)
                     Enemies.Add(Instantiate(MeleeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
-                else
+                else if (coin == 1)
                     Enemies.Add(Instantiate(RangeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
+                else
+                    Enemies.Add(Instantiate(CartEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
             }
             m_LastTimeSpawn = Time.time;
         }

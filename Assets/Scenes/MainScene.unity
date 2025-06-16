@@ -558,8 +558,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MeleeEnemyPrefab: {fileID: 3954221838382394143, guid: 4f186221b1dc5da4da1164a01e1610e3, type: 3}
   RangeEnemyPrefab: {fileID: 3954221838382394143, guid: bd25be321b859a64ba9f5a0167af386c, type: 3}
+  CartEnemyPrefab: {fileID: 3954221838382394143, guid: 23aaebd63fed8d44fa70d55ca4487ca8, type: 3}
   SpawnInterval: 30
-  MaxEnemies: 1
+  MaxEnemies: 10
   Enemies: []
 --- !u!1 &1432895787918744665
 GameObject:
