@@ -1,4 +1,5 @@
 using Assets.Scripts.Gameplay;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -65,7 +66,7 @@ public class ArenaManager : MonoBehaviour
     {
         if (flag != 0)
         {
-            changeArena();
+            changeArena(flag);
             flag = 0;
 
             //for (int i = 0; i < arenaSize; i++)
@@ -82,9 +83,13 @@ public class ArenaManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             flag = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            flag = 2;
         }
     }
 
@@ -341,20 +346,27 @@ public class ArenaManager : MonoBehaviour
     }
 
 
-    void changeArena()
+    void changeArena(int flag)
     {
-        float coin = Random.value;
-        if (coin < 0.7)
-            generateCircleArena();
-        else
+        float coin = UnityEngine.Random.value;
+        if (flag == 1)
+        {
+            createPresets(); // TODO: need to fix
             chooseFromPresets();
+        }
+        else if (flag == 2)
+            generateCircleArena();
+            //if (coin < 0.7)
+            //    generateCircleArena();
+            //else
+            //    chooseFromPresets();
 
         transformArena();
     }
 
     void chooseFromPresets()
     {
-        int choice = Random.Range(0, arenaPresets.Count);
+        int choice = UnityEngine.Random.Range(0, arenaPresets.Count);
         heightMap = arenaPresets[choice];
     }
 
@@ -364,10 +376,10 @@ public class ArenaManager : MonoBehaviour
         int size = arenaSize / 2;
         int[] tmpHeightMap = new int[size];
 
-        tmpHeightMap[0] = Random.Range(1, 20);
+        tmpHeightMap[0] = UnityEngine.Random.Range(1, 20);
         for (int i = 1; i < size; i++)
         {
-            int height = Random.Range(-3, 4);
+            int height = UnityEngine.Random.Range(-3, 4);
             if (height == 0)
             {
                 tmpHeightMap[i] = tmpHeightMap[i - 1];

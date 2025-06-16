@@ -7,9 +7,9 @@ namespace Assets.Scripts.Enemy
     {
         public void ReceivedDamage(float damage)
         {
-            if (gameObject.GetComponent<EnemyControl>() != null)
+            if (gameObject.GetComponent<EnemyBase>() != null)
             {
-                gameObject.GetComponent<EnemyControl>().TakeDamage(damage);
+                gameObject.GetComponent<EnemyBase>().TakeDamage(damage);
                 return;
             }
             if (gameObject.GetComponent<PlayerCharacterController>() != null)

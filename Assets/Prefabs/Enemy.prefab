@@ -153,14 +153,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  ColorDuration: 0.1
-  AttackPoint: {fileID: 4296748592493711945}
+  AttackStartPoint: {fileID: 4296748592493711945}
   Damage: 5
-  GravityDownForce: 20
+  GravityForce: 20
   MaxSpeedOnGround: 10
   MovementSharpnessOnGround: 15
   MaxSpeedInAir: 10
   AccelerationSpeedInAir: 25
+  characterVelocity: {x: 0, y: 0, z: 0}
+  ColorDuration: 0.1
 --- !u!114 &8709550983549344414
 MonoBehaviour:
   m_ObjectHideFlags: 0
