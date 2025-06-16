@@ -8,16 +8,10 @@ using UnityEngine.UIElements;
 
 public class ArenaManager : MonoBehaviour
 {
-    public int flag = 0;
-
-    public GameObject player;
-
+    [Header("Objects")]
     private GameObject arena;
-
-    private const int arenaSize = 16;
-    private const int chunkScale = 4;
-    private float chunkHeight;
-
+    private GameController gameController;
+    public GameObject player;
     public GameObject chunk;
     public GameObject stair_1;
     public GameObject stair_05;
@@ -29,13 +23,18 @@ public class ArenaManager : MonoBehaviour
     public GameObject stair_05_convex;
     public GameObject stair_025_convex;
 
+    [Header("Arena Parameters")]
+    public int[,] heightMap;
+    private List<int[,]> arenaPresets;
     private GameObject[,] chunks;
     private List<GameObject> stairs;
-    public int[,] heightMap;
 
-    private List<int[,]> arenaPresets;
-
-    private GameController gameController;
+    [Header("Other Parameters")]
+    private int flag = 0;
+    private const int arenaSize = 16;
+    private const int chunkScale = 4;
+    private float chunkHeight;
+    private const int killHeight = -20;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -79,9 +78,6 @@ public class ArenaManager : MonoBehaviour
             //    Debug.Log(str);
             //}
         }
-
-        if (playerIsFall())
-            player.transform.position = new Vector3(32, heightMap[7, 7] + 1, 32);
     }
 
     void Update()
@@ -96,10 +92,13 @@ public class ArenaManager : MonoBehaviour
     {
         return arenaSize;
     }
-
     public int getChunkScale()
     {
         return chunkScale;
+    }
+    public int getKillHeight()
+    {
+        return killHeight;
     }
 
 
@@ -487,13 +486,5 @@ public class ArenaManager : MonoBehaviour
                 gameController.Enemies[i].transform.position = new Vector3(x, y, z);
             }
         }
-    }
-
-
-    bool playerIsFall()
-    {
-        if (player.transform.position.y < -100)
-            return true;
-        return false;
     }
 }

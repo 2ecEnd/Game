@@ -1,3 +1,4 @@
+using Assets.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -62,6 +63,7 @@ namespace Assets.Scripts.Player
 
         PlayerGUI gui;
         CharacterController m_Controller;
+        private ArenaManager m_ArenaManager;
         float m_CameraVerticalAngle = 0f;
         float m_FootstepDistanceCounter;
         bool m_isDead = false;
@@ -70,6 +72,13 @@ namespace Assets.Scripts.Player
         {
             m_Controller = GetComponent<CharacterController>();
             gui = PlayerCamera.GetComponent<PlayerGUI>();
+            m_ArenaManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetComponent<ArenaManager>();
+        }
+
+        void FixedUpdate()
+        {
+            if (isFall())
+                TakeDamage(MaxHealth);
         }
 
         void Update()
@@ -81,12 +90,9 @@ namespace Assets.Scripts.Player
                 //AudioSource.PlayOneShot(LandSfx);
             }
             HandleCharacterMovement();
+
             if (Input.GetKey(KeyCode.T))
-            {
-                Health = MaxHealth;
-                m_isDead = false;
-                gui.Death = false;
-            }
+                revive();
         }
 
         void GroundCheck()
@@ -169,6 +175,19 @@ namespace Assets.Scripts.Player
                 m_isDead = true;
                 gui.Death = true;
             }
+        }
+
+        void revive()
+        {
+            Health = MaxHealth;
+            m_isDead = false;
+            gui.Death = false;
+            transform.position = new Vector3(32, m_ArenaManager.heightMap[7, 7] + 1, 32);
+        }
+
+        bool isFall()
+        {
+            return transform.position.y < m_ArenaManager.getKillHeight();
         }
     }
 }

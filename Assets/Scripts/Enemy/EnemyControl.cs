@@ -19,12 +19,14 @@ namespace Assets.Scripts.Enemy
         private Color m_OriginalColor;
         private Transform m_target;
         private GameController m_GameController;
+        private ArenaManager m_ArenaManager;
         private Vector3 VectorToPlayer;
         void Start()
         {
             rb = GetComponent<Rigidbody>();
             m_target = GameObject.FindGameObjectWithTag("Player").transform;
             m_GameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+            m_ArenaManager = m_GameController.GetComponent<ArenaManager>();
             m_Material = GetComponent<Renderer>().material;
             m_OriginalColor = m_Material.color;
         }
@@ -32,8 +34,9 @@ namespace Assets.Scripts.Enemy
         void FixedUpdate()
         {
             VectorToPlayer = (m_target.position - transform.position).normalized;
-            rb.MovePosition(transform.position + VectorToPlayer * Speed);
+            transform.Translate(VectorToPlayer * Speed, Space.World);
             transform.Rotate(0, 25, 0);
+            //transform.position += VectorToPlayer * Speed;
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackPoint.position,
@@ -44,8 +47,8 @@ namespace Assets.Scripts.Enemy
                 HandleAttack(hit.collider);
             }
 
-            if (transform.position.y < -100)
-                Destroy(gameObject);
+            if (isFall())
+                TakeDamage(Health);
         }
 
         void HandleAttack(Collider collider)
@@ -72,6 +75,11 @@ namespace Assets.Scripts.Enemy
             m_Material.color = new Color(1f, 0.5f, 0f);
             yield return new WaitForSeconds(ColorDuration);
             m_Material.color = m_OriginalColor;
+        }
+
+        bool isFall()
+        {
+            return transform.position.y < m_ArenaManager.getKillHeight();
         }
     }
 }
