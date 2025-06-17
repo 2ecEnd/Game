@@ -44,26 +44,26 @@ namespace Assets.Scripts.Enemy
         void Update()
         {
             //directionToPlayer = target.position - transform.position;
-            directionToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
-            directionToPlayer = (new Vector3(directionToPlayer.x, 0, directionToPlayer.z)).normalized;
+            fromBodyToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
+            fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             float angle;
             float acceleration;
-            if (directionToPlayer.z > 0)
+            if (fromBodyToPlayer.z > 0)
             {
-                if (directionToPlayer.x > -0.05f && 0.05f < directionToPlayer.x)
+                if (fromBodyToPlayer.x > -0.05f && 0.05f < fromBodyToPlayer.x)
                 {
-                    acceleration = Mathf.Clamp01(directionToPlayer.z / directionToPlayer.x);
+                    acceleration = Mathf.Clamp01(fromBodyToPlayer.z / fromBodyToPlayer.x);
                 }
                 else
                 {
                     acceleration = 1;
                 }
-                angle = directionToPlayer.x / directionToPlayer.z;
+                angle = fromBodyToPlayer.x / fromBodyToPlayer.z;
             }
             else
             {
                 acceleration = 0;
-                if (directionToPlayer.x > 0)
+                if (fromBodyToPlayer.x > 0)
                 {
                     angle = 1;
                 }
@@ -98,7 +98,7 @@ namespace Assets.Scripts.Enemy
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(directionToPlayer.x * 1000, 5, directionToPlayer.z * 1000); // Knockback
+                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
             }
         }
 

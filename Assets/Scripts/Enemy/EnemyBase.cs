@@ -22,7 +22,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     [Header("Target Parameters")]
     protected Transform target;
-    protected Vector3 directionToPlayer;
+    protected Vector3 fromBodyToPlayer;
 
     public abstract void ReceiveDamage(float damage);
 

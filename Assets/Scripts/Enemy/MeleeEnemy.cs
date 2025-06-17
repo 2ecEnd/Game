@@ -41,17 +41,17 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
-            directionToPlayer = target.position - transform.position;
-            directionToPlayer = (new Vector3(directionToPlayer.x, 0, directionToPlayer.z)).normalized;
+            fromBodyToPlayer = target.position - transform.position;
+            fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             if (characterController.isGrounded)
             {
-                Vector3 targetVelocity = directionToPlayer * MaxSpeedOnGround;
+                Vector3 targetVelocity = fromBodyToPlayer * MaxSpeedOnGround;
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
             }
             else
             {
-                characterVelocity += directionToPlayer * AccelerationSpeedInAir * Time.deltaTime;
+                characterVelocity += fromBodyToPlayer * AccelerationSpeedInAir * Time.deltaTime;
                 float verticalVelocity = characterVelocity.y;
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
@@ -68,7 +68,7 @@ namespace Assets.Scripts.Enemy
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(directionToPlayer.x * 1000, 5, directionToPlayer.z * 1000); // Knockback
+                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
             }
         }
 

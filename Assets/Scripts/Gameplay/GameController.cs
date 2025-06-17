@@ -69,7 +69,7 @@ namespace Assets.Scripts.Gameplay
                 }
 
                 Vector3 spawnPosition = new Vector3(x, y, z);
-                int coin = Random.Range(0, 3);
+                int coin = Random.Range(1, 2);
 
                 if (coin == 0)
                     Enemies.Add(Instantiate(MeleeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));

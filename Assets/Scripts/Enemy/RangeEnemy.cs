@@ -1,8 +1,6 @@
 using Assets.Scripts.Gameplay;
 using UnityEngine;
 using System.Collections;
-using Assets.Scripts.Player;
-using static UnityEngine.GraphicsBuffer;
 using Assets.Scripts;
 
 public class RangeEnemy : EnemyBase, IDamagable
@@ -12,6 +10,8 @@ public class RangeEnemy : EnemyBase, IDamagable
     Material material;
     Color originalColor;
     public WeaponHandler weaponHandler;
+
+    private Vector3 fromMuzzleToPlayer;
 
     void Start()
     {
@@ -36,21 +36,24 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void Update()
     {
-        directionToPlayer = target.position - transform.position;
-        float distanceToPlayer = Mathf.Sqrt(Mathf.Pow(directionToPlayer.x, 2) + Mathf.Pow(directionToPlayer.z, 2));
-        directionToPlayer = (new Vector3(directionToPlayer.x, 0, directionToPlayer.z)).normalized;
+        fromBodyToPlayer = target.position - transform.position;
+
+        float distanceToPlayer = Mathf.Sqrt(Mathf.Pow(fromBodyToPlayer.x, 2) + Mathf.Pow(fromBodyToPlayer.z, 2));
+
+        fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+        weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y, target.position.z));
 
         if (distanceToPlayer < 10)
         {
             if (characterController.isGrounded)
             {
-                Vector3 targetVelocity = directionToPlayer * -MaxSpeedOnGround;
+                Vector3 targetVelocity = fromBodyToPlayer * -MaxSpeedOnGround;
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
             }
             else
             {
-                characterVelocity -= directionToPlayer * AccelerationSpeedInAir * Time.deltaTime;
+                characterVelocity -= fromBodyToPlayer * AccelerationSpeedInAir * Time.deltaTime;
                 float verticalVelocity = characterVelocity.y;
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
@@ -62,12 +65,12 @@ public class RangeEnemy : EnemyBase, IDamagable
         {
             if (characterController.isGrounded)
             {
-                Vector3 targetVelocity = directionToPlayer * MaxSpeedOnGround;
+                Vector3 targetVelocity = fromBodyToPlayer * MaxSpeedOnGround;
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
             }
             else
             {
-                characterVelocity += directionToPlayer * AccelerationSpeedInAir * Time.deltaTime;
+                characterVelocity += fromBodyToPlayer * AccelerationSpeedInAir * Time.deltaTime;
                 float verticalVelocity = characterVelocity.y;
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
