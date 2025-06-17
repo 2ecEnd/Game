@@ -46,9 +46,9 @@ namespace Assets.Scripts.Gameplay
             float arenaSize = arenaManager.getArenaSize() * arenaManager.getChunkScale();
             while (Enemies.Count < MaxEnemies)
             {
-                float x = Random.Range(0, arenaSize + 1);
+                float x = Random.Range(0, arenaSize);
                 int i = (int)(x / arenaManager.getChunkScale());
-                float z = Random.Range(0, arenaSize + 1);
+                float z = Random.Range(0, arenaSize);
                 int j = (int)(z / arenaManager.getChunkScale());
 
                 float y = arenaManager.heightMap[i, j];

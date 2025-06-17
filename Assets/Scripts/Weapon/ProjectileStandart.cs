@@ -80,14 +80,8 @@ namespace Assets.Scripts
         
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
-            if (collider.TryGetComponent(out EnemyBase enemy))
-            {
-                enemy.ReceivedDamage(Damage);
-            }
-            if (collider.TryGetComponent(out PlayerCharacterController player))
-            {
-                player.TakeDamage(Damage);
-            }
+            if (collider.TryGetComponent(out IDamagable entity))
+                entity.ReceiveDamage(Damage);
 
             Destroy(this.gameObject);
         }

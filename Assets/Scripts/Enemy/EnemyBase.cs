@@ -2,7 +2,7 @@ using Assets.Scripts.Gameplay;
 using Assets.Scripts.Player;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IDamagable
 {
     [Header("General")]
     public float Health;
@@ -26,23 +26,10 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected abstract void Attack(Collider collider);
 
-    public abstract void TakeDamage(float damage);
+    public abstract void ReceiveDamage(float damage);
 
-    public void ReceivedDamage(float damage)
-    {
-        if (gameObject.GetComponent<EnemyBase>() != null)
-        {
-            gameObject.GetComponent<EnemyBase>().TakeDamage(damage);
-            return;
-        }
-        if (gameObject.GetComponent<PlayerCharacterController>() != null)
-        {
-            gameObject.GetComponent<PlayerCharacterController>().TakeDamage(damage);
-            return;
-        }
-    }
+    public abstract void Die();
 
     protected abstract void DestroyOnFall();
 
-    protected abstract void Die();
 }

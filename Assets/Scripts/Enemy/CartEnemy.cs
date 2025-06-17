@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 namespace Assets.Scripts.Enemy
 {
-    public class CartEnemy : EnemyBase
+    public class CartEnemy : EnemyBase, IDamagable
     {
         public float MaxAngularSpeed = 1;
         //public float ColorDuration = 0.2f;
@@ -97,17 +97,29 @@ namespace Assets.Scripts.Enemy
             if (collider.gameObject.CompareTag("Player"))
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
-                player.TakeDamage(Damage);
+                player.ReceiveDamage(Damage);
                 player.CharacterVelocity = new Vector3(directionToPlayer.x * 1000, 5, directionToPlayer.z * 1000); // Knockback
             }
         }
 
-        public override void TakeDamage(float damage)
+        public override void ReceiveDamage(float damage)
         {
             Health -= damage;
             //StartCoroutine(ChangeColor());
 
             if (Health <= 0)
+                Die();
+        }
+
+        public override void Die()
+        {
+            gameController.Enemies.Remove(gameObject);
+            Destroy(gameObject);
+        }
+
+        protected override void DestroyOnFall()
+        {
+            if (transform.position.y < arenaManager.getKillHeight())
                 Die();
         }
 
@@ -117,17 +129,5 @@ namespace Assets.Scripts.Enemy
         //    yield return new WaitForSeconds(ColorDuration);
         //    material.color = originalColor;
         //}
-
-        protected override void DestroyOnFall()
-        {
-            if (transform.position.y < arenaManager.getKillHeight())
-                Die();
-        }
-
-        protected override void Die()
-        {
-            gameController.Enemies.Remove(gameObject);
-            Destroy(gameObject);
-        }
     }
 }

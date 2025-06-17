@@ -5,7 +5,7 @@ using Assets.Scripts.Player;
 using static UnityEngine.GraphicsBuffer;
 using Assets.Scripts;
 
-public class RangeEnemy : EnemyBase
+public class RangeEnemy : EnemyBase, IDamagable
 {
     public float ColorDuration = 0.2f;
 
@@ -99,12 +99,12 @@ public class RangeEnemy : EnemyBase
         if (collider.gameObject.CompareTag("Player"))
         {
             PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
-            player.TakeDamage(Damage);
+            player.ReceiveDamage(Damage);
             player.CharacterVelocity = new Vector3(directionToPlayer.x * 1000, 5, directionToPlayer.z * 1000); // Knockback
         }
     }
 
-    public override void TakeDamage(float damage)
+    public override void ReceiveDamage(float damage)
     {
         Health -= damage;
         StartCoroutine(ChangeColor());
@@ -113,11 +113,10 @@ public class RangeEnemy : EnemyBase
             Die();
     }
 
-    IEnumerator ChangeColor()
+    public override void Die()
     {
-        material.color = new Color(0f, 1f, 0.5f);
-        yield return new WaitForSeconds(ColorDuration);
-        material.color = originalColor;
+        gameController.Enemies.Remove(gameObject);
+        Destroy(gameObject);
     }
 
     protected override void DestroyOnFall()
@@ -126,9 +125,10 @@ public class RangeEnemy : EnemyBase
             Die();
     }
 
-    protected override void Die()
+    IEnumerator ChangeColor()
     {
-        gameController.Enemies.Remove(gameObject);
-        Destroy(gameObject);
+        material.color = new Color(0f, 1f, 0.5f);
+        yield return new WaitForSeconds(ColorDuration);
+        material.color = originalColor;
     }
 }
