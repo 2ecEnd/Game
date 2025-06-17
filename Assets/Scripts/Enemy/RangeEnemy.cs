@@ -29,15 +29,7 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void FixedUpdate()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(
-            origin: AttackStartPoint.position,
-            direction: transform.forward,
-            hitInfo: out hit,
-            maxDistance: 0.5f))
-        {
-            Attack(hit.collider);
-        }
+        Attack();
 
         DestroyOnFall();
     }
@@ -87,21 +79,11 @@ public class RangeEnemy : EnemyBase, IDamagable
             characterVelocity = new Vector3();
 
         characterController.Move(characterVelocity * Time.deltaTime);
-
-
-        weaponHandler.HandleShootInputs(true, true);
-
     }
 
-    protected override void Attack(Collider collider)
+    protected void Attack()
     {
-        // if (collider.gameObject == target)
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
-            player.ReceiveDamage(Damage);
-            player.CharacterVelocity = new Vector3(directionToPlayer.x * 1000, 5, directionToPlayer.z * 1000); // Knockback
-        }
+        weaponHandler.HandleShootInputs(true, true);
     }
 
     public override void ReceiveDamage(float damage)

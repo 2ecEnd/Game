@@ -61,7 +61,7 @@ namespace Assets.Scripts.Enemy
             characterController.Move(characterVelocity * Time.deltaTime);
         }
 
-        protected override void Attack(Collider collider)
+        protected void Attack(Collider collider)
         {
             // if (collider.gameObject == target)
             if (collider.gameObject.CompareTag("Player"))

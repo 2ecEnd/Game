@@ -24,8 +24,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     protected Transform target;
     protected Vector3 directionToPlayer;
 
-    protected abstract void Attack(Collider collider);
-
     public abstract void ReceiveDamage(float damage);
 
     public abstract void Die();
