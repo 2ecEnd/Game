@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class ProjectileStandard : ProjectileBase
+    public class GunProjectile : ProjectileBase
     {
         [Header("General")]
         public Transform Tip;
