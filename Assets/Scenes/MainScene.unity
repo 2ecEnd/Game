@@ -811,9 +811,9 @@ MonoBehaviour:
   AudioSource: {fileID: 100443658}
   GravityDownForce: 20
   MaxHealth: 100
-  Health: 100
-  MaxSpeedOnGround: 20
-  MovementSharpnessOnGround: 15
+  Health: 1000
+  MaxSpeedOnGround: 15
+  MovementSharpnessOnGround: 30
   MaxSpeedCrouchedRatio: 0.5
   MaxSpeedInAir: 20
   AccelerationSpeedInAir: 25
