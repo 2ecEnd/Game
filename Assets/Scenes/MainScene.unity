@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d8a4c5cb810fd4f479b7f274d8303dd9, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 0a5b613474320f94888512c69cd5c931, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -513,6 +513,7 @@ MonoBehaviour:
   stair_1_convex: {fileID: 649348895395940818, guid: 149de2dd9815f71499c57486cac62eac, type: 3}
   stair_05_convex: {fileID: 6926286704259321333, guid: 9f750b7c7d6ad0843b95253cff77b347, type: 3}
   stair_025_convex: {fileID: 6483758248818298217, guid: ac2d8eb522300b94aa0da8c6e1d57926, type: 3}
+  BuffBoxGO: {fileID: 0}
 --- !u!1 &1166624089
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,8 +560,9 @@ MonoBehaviour:
   MeleeEnemyPrefab: {fileID: 3954221838382394143, guid: 4f186221b1dc5da4da1164a01e1610e3, type: 3}
   RangeEnemyPrefab: {fileID: 3954221838382394143, guid: bd25be321b859a64ba9f5a0167af386c, type: 3}
   CartEnemyPrefab: {fileID: 3954221838382394143, guid: 23aaebd63fed8d44fa70d55ca4487ca8, type: 3}
-  SpawnInterval: 30
-  MaxEnemies: 1
+  HealthPrefab: {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
+  SpawnInterval: 10
+  MaxEnemies: 5
   Enemies: []
 --- !u!1 &1432895787918744665
 GameObject:
@@ -683,7 +685,7 @@ Transform:
   m_GameObject: {fileID: 1432895787918744665}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 38, y: 9.1, z: 38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

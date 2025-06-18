@@ -13,8 +13,8 @@ namespace Assets.Scripts.Player
 
         [Header("General")]
         public float GravityDownForce = 20f;
-        public float MaxHealth = 20f;
-        public float Health = 20f;
+        public float MaxHealth = 100f;
+        public float Health = 100f;
 
         [Header("Movement")]
         public float MaxSpeedOnGround = 10f;
@@ -63,6 +63,7 @@ namespace Assets.Scripts.Player
 
         PlayerGUI gui;
         CharacterController controller;
+        private PlayerWeaponManager playerWeaponManager;
         private ArenaManager arenaManager;
         float cameraVerticalAngle = 0f;
         float footstepDistanceCounter;
@@ -73,6 +74,7 @@ namespace Assets.Scripts.Player
             controller = GetComponent<CharacterController>();
             gui = PlayerCamera.GetComponent<PlayerGUI>();
             arenaManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetComponent<ArenaManager>();
+            playerWeaponManager = gameObject.GetComponent<PlayerWeaponManager>();
         }
 
         void FixedUpdate()
@@ -170,7 +172,13 @@ namespace Assets.Scripts.Player
         {
             Health -= damage;
             if (Health <= 0)
+            {
                 Die();
+            }
+            else if (Health > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
         }
 
         public void Die()
@@ -188,9 +196,26 @@ namespace Assets.Scripts.Player
         void Revive()
         {
             Health = MaxHealth;
+            playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;
             isDead = false;
             gui.Death = false;
-            transform.position = new Vector3(32, arenaManager.heightMap[7, 7] + 1, 32);
+
+            float y = arenaManager.heightMap[9, 9];
+            y = Mathf.Max(y, arenaManager.heightMap[10, 9]);
+            y = Mathf.Max(y, arenaManager.heightMap[9, 10]);
+            y = Mathf.Max(y, arenaManager.heightMap[10, 10]);
+            if (y == 0) {
+                y = Mathf.Max(y, arenaManager.heightMap[8, 9]);
+                y = Mathf.Max(y, arenaManager.heightMap[8, 10]);
+                y = Mathf.Max(y, arenaManager.heightMap[9, 8]);
+                y = Mathf.Max(y, arenaManager.heightMap[10, 8]);
+                y = Mathf.Max(y, arenaManager.heightMap[11, 9]);
+                y = Mathf.Max(y, arenaManager.heightMap[11, 10]);
+                y = Mathf.Max(y, arenaManager.heightMap[9, 11]);
+                y = Mathf.Max(y, arenaManager.heightMap[10, 11]);
+            }
+            y += 0.1f;
+            transform.position = new Vector3(38, y, 38);
             CharacterVelocity = new Vector3();
         }
     }

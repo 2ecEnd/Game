@@ -187,12 +187,12 @@ MonoBehaviour:
   AttackStartPoint: {fileID: 4296748592493711945}
   Damage: 25
   GravityForce: 20
-  MaxSpeedOnGround: 10
-  MovementSharpnessOnGround: 1
-  MaxSpeedInAir: 10
-  AccelerationSpeedInAir: 1
+  MaxSpeedOnGround: 20
+  MovementSharpnessOnGround: 3
+  MaxSpeedInAir: 20
+  AccelerationSpeedInAir: 3
   characterVelocity: {x: 0, y: 0, z: 0}
-  MaxAngularSpeed: 0.1
+  MaxAngularSpeed: 0.25
 --- !u!1 &5162078911043845602
 GameObject:
   m_ObjectHideFlags: 0
