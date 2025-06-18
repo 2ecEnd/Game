@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: d8a4c5cb810fd4f479b7f274d8303dd9, type: 2}
   m_HaloStrength: 0.5
@@ -818,8 +818,9 @@ MonoBehaviour:
   MovementSharpnessOnGround: 15
   MaxSpeedCrouchedRatio: 0.5
   MaxSpeedInAir: 20
-  AccelerationSpeedInAir: 25
+  AccelerationSpeedInAir: 40
   SprintSpeedModifier: 1
+  DashForce: 100
   KillHeight: -50
   RotationSpeed: 200
   AimingRotationMultiplier: 0.4

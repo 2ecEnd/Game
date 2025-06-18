@@ -1358,6 +1358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentAmmo: 0
+  Reload: 0
   FireRate: 700
   BulletSpreadAngle: 1
   BulletsPerShot: 1

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4725198993182706094}
   - component: {fileID: 6745816559935705826}
   - component: {fileID: 5015108492241924798}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3887667263626472760}
   - component: {fileID: 4768235652913505074}
   - component: {fileID: 161301797014603123}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HealthPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -43,7 +43,6 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
-            //directionToPlayer = target.position - transform.position;
             fromBodyToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             float angle;
@@ -98,7 +97,8 @@ namespace Assets.Scripts.Enemy
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
+                Vector3 directionToPlayer = target.position - transform.position;
+                player.ExtraVelocity += new Vector3(directionToPlayer.x * 400, 20, directionToPlayer.z * 400); // Knockback
             }
         }
 

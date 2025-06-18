@@ -30,6 +30,8 @@ namespace Assets.Scripts.Player
 
         public float SprintSpeedModifier = 2f;
 
+        public float DashForce = 10;
+
         public float KillHeight = -50f;
 
         [Header("Rotation")]
@@ -59,14 +61,16 @@ namespace Assets.Scripts.Player
 
 
         public Vector3 CharacterVelocity { get; set; }
+        public Vector3 ExtraVelocity { get; set; }
         public bool IsGrounded { get; private set; }
 
+        bool canSecondJump;
         PlayerGUI gui;
         CharacterController controller;
         private PlayerWeaponManager playerWeaponManager;
         private ArenaManager arenaManager;
         float cameraVerticalAngle = 0f;
-        float footstepDistanceCounter;
+        //float footstepDistanceCounter;
         bool isDead = false;
 
         void Start()
@@ -85,7 +89,7 @@ namespace Assets.Scripts.Player
         void Update()
         {
             bool wasGrounded = IsGrounded;
-            GroundCheck();
+            IsGrounded = controller.isGrounded;
             if (IsGrounded && !wasGrounded)
             {
                 //AudioSource.PlayOneShot(LandSfx);
@@ -96,19 +100,15 @@ namespace Assets.Scripts.Player
                 Revive();
         }
 
-        void GroundCheck()
-        {
-            IsGrounded = controller.isGrounded;
-        }
-
         void HandleCharacterMovement()
         {
-            if (isDead) return;
-            {
-                transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self);
+            if (isDead) return; //мёртвые не двигаются)
+
+            {   //поворот игрока по оси Y
+                transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self); 
             }
 
-            {
+            {   //поворот камеры по оси X
                 cameraVerticalAngle -= Input.GetAxis("Mouse Y");
 
                 cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
@@ -116,56 +116,60 @@ namespace Assets.Scripts.Player
                 PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);
             }
 
-            bool isSprinting = Input.GetKey(KeyCode.LeftShift);
             {
-                float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
+                //float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
 
-                Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1));
+                Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1)); //направление ускорения движения
+
+                ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime);
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    ExtraVelocity += worldspaceMoveInput * DashForce;
+                }
 
                 if (IsGrounded)
                 {
-                    Vector3 targetVelocity = worldspaceMoveInput * MaxSpeedOnGround * speedModifier;
+                    canSecondJump = true;
 
-                    CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity,
-                            MovementSharpnessOnGround * Time.deltaTime);
+                    CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime); //направление движения
 
-                    if (Input.GetKey(KeyCode.Space))
+                    if (Input.GetKeyDown(KeyCode.Space)) //прыжок
                     {
-                        {
-                            CharacterVelocity = new Vector3(CharacterVelocity.x, 0f, CharacterVelocity.z);
+                        CharacterVelocity = new Vector3(CharacterVelocity.x, JumpForce, CharacterVelocity.z);
 
-                            CharacterVelocity += Vector3.up * JumpForce;
+                        IsGrounded = false;
 
-                            IsGrounded = false;
-
-                            AudioSource.PlayOneShot(JumpSfx);
-                        }
+                        AudioSource.PlayOneShot(JumpSfx);
                     }
+                    //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
+                    //if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
+                    //{
+                    //    footstepDistanceCounter = 0f;
+                    //    AudioSource.PlayOneShot(FootstepSfx);
+                    //}
 
-                    float chosenFootstepSfxFrequency =
-                        (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
-                    if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
-                    {
-                        footstepDistanceCounter = 0f;
-                        AudioSource.PlayOneShot(FootstepSfx);
-                    }
-
-                    footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
+                    //footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
                 }
                 else
                 {
-                    CharacterVelocity += worldspaceMoveInput * AccelerationSpeedInAir * Time.deltaTime;
+                    CharacterVelocity += AccelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput; //напрвление движения
 
-                    float verticalVelocity = CharacterVelocity.y;
-                    Vector3 horizontalVelocity = Vector3.ProjectOnPlane(CharacterVelocity, Vector3.up);
-                    horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir * speedModifier);
+                    float verticalVelocity = CharacterVelocity.y - GravityDownForce * Time.deltaTime;
+
+                    if (Input.GetKeyDown(KeyCode.Space) && canSecondJump) //прыжок
+                    {
+                        canSecondJump = false;
+                        verticalVelocity = JumpForce;
+                    }
+
+                    Vector3 horizontalVelocity = new Vector3(CharacterVelocity.x, 0, CharacterVelocity.z);
+                    horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
+
                     CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-
-                    CharacterVelocity += Vector3.down * GravityDownForce * Time.deltaTime;
                 }
             }
 
-            controller.Move(CharacterVelocity * Time.deltaTime);
+            controller.Move((CharacterVelocity + ExtraVelocity) * Time.deltaTime); //движение игрока
         }
 
         public void ReceiveDamage(float damage)
@@ -200,22 +204,27 @@ namespace Assets.Scripts.Player
             isDead = false;
             gui.Death = false;
 
-            float y = arenaManager.heightMap[9, 9];
-            y = Mathf.Max(y, arenaManager.heightMap[10, 9]);
-            y = Mathf.Max(y, arenaManager.heightMap[9, 10]);
-            y = Mathf.Max(y, arenaManager.heightMap[10, 10]);
-            if (y == 0) {
-                y = Mathf.Max(y, arenaManager.heightMap[8, 9]);
-                y = Mathf.Max(y, arenaManager.heightMap[8, 10]);
-                y = Mathf.Max(y, arenaManager.heightMap[9, 8]);
-                y = Mathf.Max(y, arenaManager.heightMap[10, 8]);
-                y = Mathf.Max(y, arenaManager.heightMap[11, 9]);
-                y = Mathf.Max(y, arenaManager.heightMap[11, 10]);
-                y = Mathf.Max(y, arenaManager.heightMap[9, 11]);
-                y = Mathf.Max(y, arenaManager.heightMap[10, 11]);
+            int arenaCenter = arenaManager.getArenaSize() / 2;
+            float y = arenaManager.heightMap[arenaCenter - 1, arenaCenter - 1];
+            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter - 1]);
+            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter]);
+            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter]);
+            if (y == 0)
+            {
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 2, arenaCenter - 1]);
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 2, arenaCenter]);
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter - 2]);
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter - 2]);
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter + 1, arenaCenter - 1]);
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter + 1, arenaCenter]);
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter + 1]);
+                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter + 1]);
             }
             y += 0.1f;
-            transform.position = new Vector3(38, y, 38);
+            transform.position = new Vector3(
+                arenaManager.getArenaSize() * arenaManager.getChunkScale() / 2 - arenaManager.getChunkScale() / 2,
+                y,
+                arenaManager.getArenaSize() * arenaManager.getChunkScale() / 2 - arenaManager.getChunkScale() / 2);
             CharacterVelocity = new Vector3();
         }
     }

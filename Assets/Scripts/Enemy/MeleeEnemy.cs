@@ -68,7 +68,7 @@ namespace Assets.Scripts.Enemy
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
+                player.ExtraVelocity = new Vector3(fromBodyToPlayer.x * 200, 20, fromBodyToPlayer.z * 200); // Knockback
             }
         }
 

@@ -86,7 +86,10 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     protected void Attack()
     {
-        weaponHandler.HandleShootInputs(true, true);
+        if (weaponHandler.CurrentAmmo > 0)
+            weaponHandler.HandleShootInputs(true, true);
+        else
+            weaponHandler.HandleReload();
     }
 
     public override void ReceiveDamage(float damage)
