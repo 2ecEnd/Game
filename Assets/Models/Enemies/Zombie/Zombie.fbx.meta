@@ -1,0 +1,2567 @@
+fileFormatVersion: 2
+guid: 0fd7994ca264f0c4597f934ee4699e2f
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Arm_L1.bmp
+    second: {fileID: 2100000, guid: 7389f9333e0515c40ae2c063fcd59536, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Arm_R1.bmp
+    second: {fileID: 2100000, guid: 3e11e9122b8d5ac46809ceac2036b464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Back1.bmp
+    second: {fileID: 2100000, guid: b932c730cbba7654bab2ee323708ce04, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Back2.bmp
+    second: {fileID: 2100000, guid: 91894a0f6a7ebdc49bdcfe28f5a482ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Chest1.bmp
+    second: {fileID: 2100000, guid: de98e57bed6908442a16c35c95236cc3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_LegBack1.bmp
+    second: {fileID: 2100000, guid: 70d72a91008b0fb40a111542025d5d61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_LegFrnt1.bmp
+    second: {fileID: 2100000, guid: dccaa5ffc36e0aa42920c4cfb22f584a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_LegFrnt2.bmp
+    second: {fileID: 2100000, guid: 0bbb132eb94a96643ae6a229612f9c1a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Pelvis.bmp
+    second: {fileID: 2100000, guid: 871ebf67c42379348b96193ae9b5d42c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sci3Shoe.bmp
+    second: {fileID: 2100000, guid: b7a2a3fba1222504bb359e58653443d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CClaws2.bmp
+    second: {fileID: 2100000, guid: 967b00076e43f9d429b77f1c1ea47704, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CClaws3.bmp
+    second: {fileID: 2100000, guid: 8dedb5e746312b34b898583df73b353b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabButt1.bmp
+    second: {fileID: 2100000, guid: bbabed10465936a44ab2575c04cf7e82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabFoot1.bmp
+    second: {fileID: 2100000, guid: a8662156b97a25e4797bb6c8921f0826, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabSide1.bmp
+    second: {fileID: 2100000, guid: 70539b57db8cc5a45af59a2e7487e970, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabSide2.bmp
+    second: {fileID: 2100000, guid: bf8cab474e8d6a543938dcc0de5436f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_Face1.bmp
+    second: {fileID: 2100000, guid: 14196bad86a24f84eba854604e638b7b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_Teeth1.bmp
+    second: {fileID: 2100000, guid: f76fbcb11d49b9e4d8bf353d7db0b929, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ZOM3_Claw1.bmp
+    second: {fileID: 2100000, guid: c2d2c4fb3dddf05489be7a9ab33236c6, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Arm_L1.bmp_baseColor
+    second: {fileID: 2800000, guid: 3d07ee2fcd8ca9e4f8c6a0ee32e1142a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Arm_R1.bmp_baseColor
+    second: {fileID: 2800000, guid: 5288405e733c6ea47a427889d2c46fac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Back1.bmp_baseColor
+    second: {fileID: 2800000, guid: 42e5def1ad2d56c46a1760f36c6dd845, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Back2.bmp_baseColor
+    second: {fileID: 2800000, guid: da20e3882738a3047b7a3bfafca10e7a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Chest1.bmp_baseColor
+    second: {fileID: 2800000, guid: e8e6e0c551786e44e8577718bcc6ef6e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_LegBack1.bmp_baseColor
+    second: {fileID: 2800000, guid: 053c58ff63b04d442901881aae5e989b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_LegFrnt1.bmp_baseColor
+    second: {fileID: 2800000, guid: 7d25655937388b64aaa0c1b2629e220a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_LegFrnt2.bmp_baseColor
+    second: {fileID: 2800000, guid: f1e0236f4727f7e47a2092677db4e1a5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SCIZOM3_Pelvis.bmp_baseColor
+    second: {fileID: 2800000, guid: 7b75477f8a57d764f99f32b9aa50ed71, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Sci3Shoe.bmp_baseColor
+    second: {fileID: 2800000, guid: edb3ce86a29118a4b86e3070633a8b84, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CClaws2.bmp_baseColor
+    second: {fileID: 2800000, guid: d277dca36ad0dcb4ba61318cac890052, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CClaws3.bmp_baseColor
+    second: {fileID: 2800000, guid: c591bd8253e051145a625db9535e9cf6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabButt1.bmp_baseColor
+    second: {fileID: 2800000, guid: 4f307b5df4bb61841a74f5363c2ea12b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabFoot1.bmp_baseColor
+    second: {fileID: 2800000, guid: f2c188d0a4be1354f813bb0c56ee1932, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabSide1.bmp_baseColor
+    second: {fileID: 2800000, guid: cf1d0656b7c989447a27459a8e8fd480, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_CrabSide2.bmp_baseColor
+    second: {fileID: 2800000, guid: ff0a5ded6da56704a8edb7fc04dfd93b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_Face1.bmp_baseColor
+    second: {fileID: 2800000, guid: 5a696e2414caade40978c8b4d08d0993, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM2_Teeth1.bmp_baseColor
+    second: {fileID: 2800000, guid: a9bc98b960a4a2b40b769657eb333c83, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ZOM3_Claw1.bmp_baseColor
+    second: {fileID: 2800000, guid: e60f1c1710980b44da13dee5731002c5, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: "\nClip 'Object_6|zombie.qc_skeleton|attack1_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|attack2_Object_6' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|bigflinch_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine3_012' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|bust_window_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|c2a3_snack_getup_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine_09' has translation animation that will be discarded.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|deadidle_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine3_012' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|deadwall_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|diebackward_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine_09' has translation animation that will be discarded.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|dieforward_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine_09' has translation animation
+      that will be discarded.\n\t'Bip01 Spine3_012' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'Bip01 Neck_013' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|dieheadshot2_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine3_012' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'Bip01 Neck_013'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|dieheadshot_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine_09' has translation animation
+      that will be discarded.\n\t'Bip01 Spine3_012' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|diesimple_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine_09' has translation animation that will be discarded.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|eatbody_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine3_012' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|eatbodystand_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|flinch_Object_6' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|flinchsmall_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine3_012' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|freakdie_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|haulzombie_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|idle1_Object_6' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|kick_punch_wall_Object_6' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Bip01 Spine3_012' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|laflinch_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine_09' has translation animation
+      that will be discarded.\n\t'Bip01 Spine3_012' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|llflinch_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine_09' has translation animation that will be discarded.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|raflinch_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine_09' has translation animation
+      that will be discarded.\n\t'Bip01 Spine3_012' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|ripdoor_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|rlflinch_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine_09' has translation animation that will be discarded.\n\t'Bip01 Spine3_012'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Object_6|zombie.qc_skeleton|slidewall_Object_6' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bip01 Spine3_012' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|vent_c1a3_Object_6'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bip01
+      Spine3_012' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\nClip 'Object_6|zombie.qc_skeleton|walk_Object_6' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Bip01 Spine_09'
+      has translation animation that will be discarded.\n\t'Bip01 Spine3_012' is
+      inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: walk
+      takeName: Object_6|zombie.qc_skeleton|walk_Object_6
+      internalID: 36393956497131098
+      firstFrame: 0
+      lastFrame: 47
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|attack2_Object_6
+      takeName: Object_6|zombie.qc_skeleton|attack2_Object_6
+      internalID: -4072256905924113921
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|bigflinch_Object_6
+      takeName: Object_6|zombie.qc_skeleton|bigflinch_Object_6
+      internalID: 590709675691226918
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|bust_window_Object_6
+      takeName: Object_6|zombie.qc_skeleton|bust_window_Object_6
+      internalID: 30668196180313409
+      firstFrame: 0
+      lastFrame: 78
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|busting_through_wall_Object_6
+      takeName: Object_6|zombie.qc_skeleton|busting_through_wall_Object_6
+      internalID: 4006212889615901817
+      firstFrame: 0
+      lastFrame: 17
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|c2a3_snack_getup_Object_6
+      takeName: Object_6|zombie.qc_skeleton|c2a3_snack_getup_Object_6
+      internalID: -8888330260911434484
+      firstFrame: 0
+      lastFrame: 96
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|deadidle_Object_6
+      takeName: Object_6|zombie.qc_skeleton|deadidle_Object_6
+      internalID: 6849969701034474723
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|deadwall_Object_6
+      takeName: Object_6|zombie.qc_skeleton|deadwall_Object_6
+      internalID: -4753425048402606449
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|diebackward_Object_6
+      takeName: Object_6|zombie.qc_skeleton|diebackward_Object_6
+      internalID: 1305424529032402418
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|dieforward_Object_6
+      takeName: Object_6|zombie.qc_skeleton|dieforward_Object_6
+      internalID: -8855013163234023622
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|dieheadshot2_Object_6
+      takeName: Object_6|zombie.qc_skeleton|dieheadshot2_Object_6
+      internalID: -1003294809637834271
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|dieheadshot_Object_6
+      takeName: Object_6|zombie.qc_skeleton|dieheadshot_Object_6
+      internalID: 753885382119391766
+      firstFrame: 0
+      lastFrame: 21
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|diesimple_Object_6
+      takeName: Object_6|zombie.qc_skeleton|diesimple_Object_6
+      internalID: 2529951642294420574
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|eat_to_stand_Object_6
+      takeName: Object_6|zombie.qc_skeleton|eat_to_stand_Object_6
+      internalID: -7078976120145414848
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|eatbody_Object_6
+      takeName: Object_6|zombie.qc_skeleton|eatbody_Object_6
+      internalID: 7616001953084535968
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|eatbodystand_Object_6
+      takeName: Object_6|zombie.qc_skeleton|eatbodystand_Object_6
+      internalID: 1113188023277514728
+      firstFrame: 0
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|eatbodytable_Object_6
+      takeName: Object_6|zombie.qc_skeleton|eatbodytable_Object_6
+      internalID: -5260464115865041831
+      firstFrame: 0
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|falling_Object_6
+      takeName: Object_6|zombie.qc_skeleton|falling_Object_6
+      internalID: -6906372388602136818
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|flinch_Object_6
+      takeName: Object_6|zombie.qc_skeleton|flinch_Object_6
+      internalID: 4514380246608845534
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|flinchsmall_Object_6
+      takeName: Object_6|zombie.qc_skeleton|flinchsmall_Object_6
+      internalID: 546606688418500227
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|freak_Object_6
+      takeName: Object_6|zombie.qc_skeleton|freak_Object_6
+      internalID: 2921707597643841739
+      firstFrame: 0
+      lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|freakdie_Object_6
+      takeName: Object_6|zombie.qc_skeleton|freakdie_Object_6
+      internalID: -1895041346181706407
+      firstFrame: 0
+      lastFrame: 6
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|getup_Object_6
+      takeName: Object_6|zombie.qc_skeleton|getup_Object_6
+      internalID: -7347334935935372519
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|haulzombie_Object_6
+      takeName: Object_6|zombie.qc_skeleton|haulzombie_Object_6
+      internalID: 4019454115947780289
+      firstFrame: 0
+      lastFrame: 88
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|idle1_Object_6
+      takeName: Object_6|zombie.qc_skeleton|idle1_Object_6
+      internalID: -5553963830150737334
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|kick_punch_wall_Object_6
+      takeName: Object_6|zombie.qc_skeleton|kick_punch_wall_Object_6
+      internalID: -1567702280926002573
+      firstFrame: 0
+      lastFrame: 52
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|laflinch_Object_6
+      takeName: Object_6|zombie.qc_skeleton|laflinch_Object_6
+      internalID: -7232372039113165462
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|llflinch_Object_6
+      takeName: Object_6|zombie.qc_skeleton|llflinch_Object_6
+      internalID: -1621142773766550140
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|pause_Object_6
+      takeName: Object_6|zombie.qc_skeleton|pause_Object_6
+      internalID: 726289737882125870
+      firstFrame: 0
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|raflinch_Object_6
+      takeName: Object_6|zombie.qc_skeleton|raflinch_Object_6
+      internalID: 8350601076126650143
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|ripdoor_Object_6
+      takeName: Object_6|zombie.qc_skeleton|ripdoor_Object_6
+      internalID: 5260367111169085648
+      firstFrame: 0
+      lastFrame: 96
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|rlflinch_Object_6
+      takeName: Object_6|zombie.qc_skeleton|rlflinch_Object_6
+      internalID: -221032916112235354
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|slideidle_Object_6
+      takeName: Object_6|zombie.qc_skeleton|slideidle_Object_6
+      internalID: -6246954113417403997
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|slidewall_Object_6
+      takeName: Object_6|zombie.qc_skeleton|slidewall_Object_6
+      internalID: 8163857405831841531
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|soda_Object_6
+      takeName: Object_6|zombie.qc_skeleton|soda_Object_6
+      internalID: -7904642815267721382
+      firstFrame: 0
+      lastFrame: 68
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|turnleft_Object_6
+      takeName: Object_6|zombie.qc_skeleton|turnleft_Object_6
+      internalID: 4418502201934109077
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|turnright_Object_6
+      takeName: Object_6|zombie.qc_skeleton|turnright_Object_6
+      internalID: -3124892567201256997
+      firstFrame: 0
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|vent_c1a3_Object_6
+      takeName: Object_6|zombie.qc_skeleton|vent_c1a3_Object_6
+      internalID: -4169370365773539553
+      firstFrame: 0
+      lastFrame: 96
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|vent_zidle_Object_6
+      takeName: Object_6|zombie.qc_skeleton|vent_zidle_Object_6
+      internalID: 3460601554790257803
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|ventclimb_Object_6
+      takeName: Object_6|zombie.qc_skeleton|ventclimb_Object_6
+      internalID: -8654634959892559949
+      firstFrame: 0
+      lastFrame: 88
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|ventclimbidle_Object_6
+      takeName: Object_6|zombie.qc_skeleton|ventclimbidle_Object_6
+      internalID: 4754871720563994982
+      firstFrame: 0
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|walk_Object_6
+      takeName: Object_6|zombie.qc_skeleton|walk_Object_6
+      internalID: 3133545625468919172
+      firstFrame: 0
+      lastFrame: 47
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|zombie_eating_Object_6
+      takeName: Object_6|zombie.qc_skeleton|zombie_eating_Object_6
+      internalID: 2613638241807508956
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Object_6|zombie.qc_skeleton|zombie_pull_scientist_Object_6
+      takeName: Object_6|zombie.qc_skeleton|zombie_pull_scientist_Object_6
+      internalID: 6377586168289977252
+      firstFrame: 0
+      lastFrame: 96
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: Bip01 Pelvis_02
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Leg_03
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Leg_06
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Leg1_04
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Leg1_07
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Foot_05
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Foot_08
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 Spine_09
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 Spine1_010
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 Head_014
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Arm_015
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Arm_031
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Arm1_016
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Arm1_032
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Arm2_017
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Arm2_033
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Hand_018
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Hand_034
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger0_019
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger01_020
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger02_021
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger1_022
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger11_023
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger12_024
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger2_025
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger21_026
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger22_027
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger3_028
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger31_029
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 L Finger32_030
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger0_035
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger01_036
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger02_037
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger1_038
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger11_039
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger12_040
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger2_041
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger21_042
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger22_043
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger3_044
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger31_045
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 R Finger32_046
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip01 Spine2_011
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Zombie(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Icosphere
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Object_10
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_11
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_12
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_13
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_14
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_15
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_16
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_17
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_18
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_19
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_20
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_21
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_22
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_23
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_24
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_25
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_26
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_27
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Object_9
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.01031, y: 4.010311, z: 4.010311}
+    - name: Sketchfab_model
+      parentName: Zombie(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: -0, w: 0.0000000754979}
+      scale: {x: 4.0103106, y: 4.010311, z: 4.010311}
+    - name: 69402c7cb56f4737897ac0b88e0d32d5.fbx
+      parentName: Sketchfab_model
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071069, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.01, y: 0.010000001, z: 0.010000001}
+    - name: Object_2
+      parentName: 69402c7cb56f4737897ac0b88e0d32d5.fbx
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: RootNode
+      parentName: Object_2
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Zom3_Template_Biped(White_Suit)1
+      parentName: RootNode
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
+      scale: {x: 100.00001, y: 100, z: 100}
+    - name: zombie.qc_skeleton
+      parentName: RootNode
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
+      scale: {x: 100.00001, y: 100, z: 100}
+    - name: Object_6
+      parentName: zombie.qc_skeleton
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Object_8
+      parentName: Object_6
+      position: {x: 0.000000019074633, y: 2.0411519e-14, z: 0.00000045776366}
+      rotation: {x: -0.70710695, y: 3.3763275e-14, z: -3.3763265e-14, w: 0.7071066}
+      scale: {x: 99.99999, y: 100.00001, z: 100.00001}
+    - name: _rootJoint
+      parentName: Object_6
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: -0.000000012101622, z: -0.00000001210162, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01_01
+      parentName: _rootJoint
+      position: {x: -0.0067806183, y: 0.038078886, z: 0.32624614}
+      rotation: {x: -1.4547161e-15, y: 9.682865e-16, z: 0.70712346, w: 0.70709014}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1}
+    - name: Bip01 Pelvis_02
+      parentName: Bip01_01
+      position: {x: -0.000010404267, y: -0.0067806244, z: 0.06302926}
+      rotation: {x: -0.43854228, y: 0.52222276, z: 0.60262495, w: 0.41449648}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000001}
+    - name: Bip01 L Leg_03
+      parentName: Bip01 Pelvis_02
+      position: {x: -0.000000058645696, y: 0.000000059069496, z: 0.044477977}
+      rotation: {x: 0.033615876, y: 0.9993989, z: -0.004040657, w: -0.007446897}
+      scale: {x: 0.99999976, y: 0.99999964, z: 0.9999997}
+    - name: Bip01 L Leg1_04
+      parentName: Bip01 L Leg_03
+      position: {x: -0.18328586, y: -0.000020818636, z: 0.0000023039058}
+      rotation: {x: -0.003785692, y: 0.0062652156, z: 0.32751402, w: 0.944818}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: Bip01 L Foot_05
+      parentName: Bip01 L Leg1_04
+      position: {x: -0.18328641, y: -0.000013333372, z: 0.000002086032}
+      rotation: {x: -0.15616743, y: 0.047604155, z: -0.35616294, w: 0.92005086}
+      scale: {x: 0.9999999, y: 1.0000002, z: 1}
+    - name: Bip01 L Foot_end_050
+      parentName: Bip01 L Foot_05
+      position: {x: -0.00000044934708, y: 0.0018521138, z: 0.0000000046021884}
+      rotation: {x: 0.0000006555089, y: 0.0000008549151, z: 0.000003282061, w: 1}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000006}
+    - name: Bip01 L Foot_end_050_end
+      parentName: Bip01 L Foot_end_050
+      position: {x: -0, y: 0.04975586, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Leg_06
+      parentName: Bip01 Pelvis_02
+      position: {x: -0.000000052950142, y: -0.00000006703522, z: -0.044477973}
+      rotation: {x: 0.0033989246, y: 0.96927357, z: -0.22957581, w: -0.088273995}
+      scale: {x: 0.9999998, y: 0.9999997, z: 0.99999994}
+    - name: Bip01 R Leg1_07
+      parentName: Bip01 R Leg_06
+      position: {x: -0.18328598, y: -0.00002072811, z: -0.00000060439106}
+      rotation: {x: -0.027111704, y: 0.040586114, z: 0.31664, w: 0.9472893}
+      scale: {x: 0.99999994, y: 0.9999998, z: 1}
+    - name: Bip01 R Foot_08
+      parentName: Bip01 R Leg1_07
+      position: {x: -0.1832864, y: -0.000013344287, z: -0.000000088661906}
+      rotation: {x: -0.1020849, y: -0.09902368, z: -0.30662504, w: 0.94114506}
+      scale: {x: 0.9999999, y: 0.99999994, z: 1}
+    - name: Bip01 R Foot_end_051
+      parentName: Bip01 R Foot_08
+      position: {x: -0.00000033078715, y: 0.0018521236, z: 0.0000000031485978}
+      rotation: {x: -0.00000074498865, y: 0.00000069924647, z: 0.0000031898053, w: 1}
+      scale: {x: 0.99999976, y: 0.99999994, z: 0.99999994}
+    - name: Bip01 R Foot_end_051_end
+      parentName: Bip01 R Foot_end_051
+      position: {x: -0, y: 0.039577637, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 Spine_09
+      parentName: Bip01 Pelvis_02
+      position: {x: -0.015590953, y: -0.00003316327, z: 0.000000036554624}
+      rotation: {x: -0.0000031712054, y: -0.00000064330465, z: -0.14811496, w: 0.98897016}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: Bip01 Spine1_010
+      parentName: Bip01 Spine_09
+      position: {x: -0.049530394, y: -0.000031566968, z: 0.00000013968648}
+      rotation: {x: 0.04358713, y: 0.000030232757, z: -0.000016480668, w: 0.99904966}
+      scale: {x: 0.9999999, y: 0.9999999, z: 0.9999999}
+    - name: Bip01 Spine2_011
+      parentName: Bip01 Spine1_010
+      position: {x: -0.04762584, y: -0.000033415927, z: 0.00000014081597}
+      rotation: {x: 0.05230003, y: 0.0009545455, z: -0.017412838, w: 0.9984791}
+      scale: {x: 0.9999998, y: 0.9999998, z: 0.99999994}
+    - name: Bip01 Spine3_012
+      parentName: Bip01 Spine2_011
+      position: {x: -0.04762458, y: -0.00003944814, z: 0.00000012040138}
+      rotation: {x: 0.0000003357418, y: 0.000000008847565, z: -0.00001440465, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: Bip01 Neck_013
+      parentName: Bip01 Spine3_012
+      position: {x: -0.058111195, y: -0.000013516396, z: -0.000000006556511}
+      rotation: {x: 0.0000006954701, y: 0.000001298999, z: 0.026167406, w: 0.9996576}
+      scale: {x: 1.0000004, y: 1.0000006, z: 1.0000002}
+    - name: Bip01 Head_014
+      parentName: Bip01 Neck_013
+      position: {x: -0.018469824, y: -0.0011380863, z: 0.010104484}
+      rotation: {x: -0.09587176, y: -0.000870887, z: -0.025659407, w: 0.99506253}
+      scale: {x: 1, y: 0.99999976, z: 1}
+    - name: Bip01 Head_end_052
+      parentName: Bip01 Head_014
+      position: {x: -0.000004615542, y: 0.0018512191, z: -0.00000023833708}
+      rotation: {x: -0.0000011869543, y: 0.0000010417999, z: -0.00009471911, w: 1}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1}
+    - name: Bip01 Head_end_052_end
+      parentName: Bip01 Head_end_052
+      position: {x: -0, y: 0.5360156, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 L Arm_015
+      parentName: Bip01 Neck_013
+      position: {x: -0.0003633042, y: -0.0015422606, z: 0.04825012}
+      rotation: {x: -0.6327723, y: 0.016418604, z: 0.773909, w: 0.019861633}
+      scale: {x: 1.0000002, y: 0.9999998, z: 0.99999976}
+    - name: Bip01 L Arm1_016
+      parentName: Bip01 L Arm_015
+      position: {x: -0.052391976, y: 0.0000020554662, z: -0.0000022481754}
+      rotation: {x: -0.063345216, y: 0.05277338, z: 0.051492825, w: 0.99526423}
+      scale: {x: 0.9999998, y: 0.99999964, z: 0.99999994}
+    - name: Bip01 L Arm2_017
+      parentName: Bip01 L Arm1_016
+      position: {x: -0.1759571, y: -0.000053129195, z: -0.000044066906}
+      rotation: {x: -0.0060012317, y: 0.008857393, z: 0.016976457, w: 0.99979866}
+      scale: {x: 0.99999976, y: 0.99999976, z: 0.99999976}
+    - name: Bip01 L Hand_018
+      parentName: Bip01 L Arm2_017
+      position: {x: -0.14796045, y: 0.00005062878, z: -0.000041347146}
+      rotation: {x: 0.01919628, y: 0.099626854, z: 0.31599233, w: 0.94332117}
+      scale: {x: 1, y: 0.99999994, z: 0.99999976}
+    - name: Bip01 L Finger0_019
+      parentName: Bip01 L Hand_018
+      position: {x: 0.008636793, y: 0.0040114205, z: -0.009414825}
+      rotation: {x: 0.6395089, y: -0.19984367, z: 0.12720543, w: 0.73137516}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: Bip01 L Finger01_020
+      parentName: Bip01 L Finger0_019
+      position: {x: -0.02419443, y: 0.0000012850761, z: -0.0000018382073}
+      rotation: {x: 0.0000918209, y: 0.00001965462, z: -0.0369706, w: 0.99931633}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+    - name: Bip01 L Finger02_021
+      parentName: Bip01 L Finger01_020
+      position: {x: -0.038364884, y: 0.000008058548, z: -0.00000467062}
+      rotation: {x: 0.00017104707, y: -0.00045763032, z: 0.7069795, w: 0.70723397}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999976}
+    - name: Bip01 L Finger02_end_053
+      parentName: Bip01 L Finger02_021
+      position: {x: -0.00000025987626, y: 0.0018520335, z: 0.00000058412553}
+      rotation: {x: -0.00015733855, y: -0.00012114458, z: -0.00018431242, w: 1}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1}
+    - name: Bip01 L Finger02_end_053_end
+      parentName: Bip01 L Finger02_end_053
+      position: {x: -0, y: 0.24662109, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 L Finger1_022
+      parentName: Bip01 L Hand_018
+      position: {x: -0.055720635, y: 0.00004226327, z: -0.021541284}
+      rotation: {x: -0.076349825, y: -0.22721605, z: 0.05416565, w: 0.9693347}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: Bip01 L Finger11_023
+      parentName: Bip01 L Finger1_022
+      position: {x: -0.042248335, y: -0.0000050139424, z: 0.000006910562}
+      rotation: {x: -0.0000016838306, y: 0.000013202424, z: -0.040053777, w: 0.99919754}
+      scale: {x: 0.9999999, y: 1, z: 1}
+    - name: Bip01 L Finger12_024
+      parentName: Bip01 L Finger11_023
+      position: {x: -0.040632598, y: 0.0000020241737, z: 0.0000064134597}
+      rotation: {x: 0.000046891306, y: 0.000029924404, z: 0.7070288, w: 0.70718473}
+      scale: {x: 0.9999999, y: 0.99999976, z: 1}
+    - name: Bip01 L Finger12_end_054
+      parentName: Bip01 L Finger12_024
+      position: {x: -0.0000004017353, y: 0.001856017, z: -0.00000013589859}
+      rotation: {x: -0.0000018738208, y: -0.000037293867, z: -0.00001851795, w: 1}
+      scale: {x: 1.0000004, y: 0.9999998, z: 1.0000004}
+    - name: Bip01 L Finger12_end_054_end
+      parentName: Bip01 L Finger12_end_054
+      position: {x: -0, y: 0.22165039, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 L Finger2_025
+      parentName: Bip01 L Hand_018
+      position: {x: -0.05872965, y: 0.000013952255, z: -0.000020723342}
+      rotation: {x: -0.04862798, y: -0.16243625, z: -0.07584643, w: 0.9825971}
+      scale: {x: 0.99999976, y: 0.99999994, z: 0.99999976}
+    - name: Bip01 L Finger21_026
+      parentName: Bip01 L Finger2_025
+      position: {x: -0.039146457, y: -0.000014199019, z: 0.0000009679794}
+      rotation: {x: -0.00009078905, y: 0.000021517277, z: -0.015539062, w: 0.9998793}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Bip01 L Finger22_027
+      parentName: Bip01 L Finger21_026
+      position: {x: -0.06917906, y: 0.00000041484833, z: -0.0000012755394}
+      rotation: {x: 0.00024877093, y: -0.0006187666, z: 0.7069668, w: 0.70724636}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000001}
+    - name: Bip01 L Finger22_end_055
+      parentName: Bip01 L Finger22_027
+      position: {x: -0.00000075578686, y: 0.0018553805, z: 0.0000010585785}
+      rotation: {x: -0.00004376471, y: 0.0000059641893, z: -0.000026795078, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Bip01 L Finger22_end_055_end
+      parentName: Bip01 L Finger22_end_055
+      position: {x: -0, y: 0.2530078, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 L Finger3_028
+      parentName: Bip01 L Hand_018
+      position: {x: -0.05835353, y: 0.0004801309, z: 0.022757836}
+      rotation: {x: 0.029166223, y: -0.11101372, z: 0.007981597, w: 0.99335873}
+      scale: {x: 0.99999964, y: 0.9999998, z: 0.99999994}
+    - name: Bip01 L Finger31_029
+      parentName: Bip01 L Finger3_028
+      position: {x: -0.040494647, y: -0.0000055217743, z: 0.0000051164625}
+      rotation: {x: -0.000103890896, y: 0.000036746264, z: -0.017365169, w: 0.99984926}
+      scale: {x: 1, y: 1.0000001, z: 0.9999998}
+    - name: Bip01 L Finger32_030
+      parentName: Bip01 L Finger31_029
+      position: {x: -0.057054196, y: 0.0000036144256, z: 0.00000292778}
+      rotation: {x: -0.0015985835, y: 0.002156445, z: 0.7072527, w: 0.7069559}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999998}
+    - name: Bip01 L Finger32_end_056
+      parentName: Bip01 L Finger32_030
+      position: {x: 0.00000084400176, y: 0.0018513083, z: -0.0000013685226}
+      rotation: {x: -0.00012931225, y: -0.00006360559, z: -0.000087581575, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+    - name: Bip01 L Finger32_end_056_end
+      parentName: Bip01 L Finger32_end_056
+      position: {x: -0, y: 0.29771483, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Arm_031
+      parentName: Bip01 Neck_013
+      position: {x: 0.00019249316, y: -0.0015405467, z: -0.019324347}
+      rotation: {x: 0.6327682, y: -0.016200943, z: 0.77391255, w: 0.020032924}
+      scale: {x: 1.0000006, y: 1.0000002, z: 1}
+    - name: Bip01 R Arm1_032
+      parentName: Bip01 R Arm_031
+      position: {x: -0.052392166, y: 0.0000020086766, z: 0.0000041234493}
+      rotation: {x: 0.346003, y: -0.13306472, z: -0.0007759181, w: 0.9287492}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
+    - name: Bip01 R Arm2_033
+      parentName: Bip01 R Arm1_032
+      position: {x: -0.1759592, y: -0.00006236076, z: 0.000003987551}
+      rotation: {x: 0.00627157, y: -0.008850432, z: 0.017029172, w: 0.99979615}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+    - name: Bip01 R Hand_034
+      parentName: Bip01 R Arm2_033
+      position: {x: -0.15650904, y: 0.000013847351, z: 0.00001103878}
+      rotation: {x: 0.08454437, y: -0.18939607, z: -0.08297173, w: 0.9747293}
+      scale: {x: 0.9999999, y: 0.99999976, z: 0.99999994}
+    - name: Bip01 R Finger0_035
+      parentName: Bip01 R Hand_034
+      position: {x: 0.0058723823, y: 0.0032172417, z: 0.015720619}
+      rotation: {x: -0.69523805, y: 0.21742347, z: 0.17833793, w: 0.6614883}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999999}
+    - name: Bip01 R Finger01_036
+      parentName: Bip01 R Finger0_035
+      position: {x: -0.042337094, y: 0.0000051784514, z: 0.0000029242037}
+      rotation: {x: -0.000004621401, y: 0.000020463805, z: 0.008756111, w: 0.9999617}
+      scale: {x: 1, y: 0.9999998, z: 0.99999994}
+    - name: Bip01 R Finger02_037
+      parentName: Bip01 R Finger01_036
+      position: {x: -0.028196935, y: 0.0000058174132, z: 0.0000038063524}
+      rotation: {x: 0.00056686177, y: -0.0008592974, z: 0.7072737, w: 0.706939}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bip01 R Finger02_end_057
+      parentName: Bip01 R Finger02_037
+      position: {x: 0.0000013184547, y: 0.0018519211, z: 0.0000010335445}
+      rotation: {x: -0.00010056606, y: 0.00007056257, z: 0.00012070312, w: 1}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: Bip01 R Finger02_end_057_end
+      parentName: Bip01 R Finger02_end_057
+      position: {x: -0, y: 0.23890625, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Finger1_038
+      parentName: Bip01 R Hand_034
+      position: {x: -0.049839467, y: 0.00034807084, z: 0.024848303}
+      rotation: {x: -0.06538322, y: 0.22758277, z: -0.053012777, w: 0.97011375}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+    - name: Bip01 R Finger11_039
+      parentName: Bip01 R Finger1_038
+      position: {x: -0.059963573, y: -0.000016676187, z: 0.000014742017}
+      rotation: {x: -0.000053040665, y: 0.000072687835, z: -0.027860286, w: 0.99961185}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: Bip01 R Finger12_040
+      parentName: Bip01 R Finger11_039
+      position: {x: -0.023793513, y: 0.0000018656253, z: 0.0000023782252}
+      rotation: {x: 0.00003809347, y: 0.000009093399, z: 0.7071081, w: 0.7071056}
+      scale: {x: 0.9999998, y: 1, z: 0.9999999}
+    - name: Bip01 R Finger12_end_058
+      parentName: Bip01 R Finger12_040
+      position: {x: 0.00000012844801, y: 0.001852734, z: 0.000000008940696}
+      rotation: {x: -0.00000068126246, y: -0.000025558282, z: 0.00001156947, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Bip01 R Finger12_end_058_end
+      parentName: Bip01 R Finger12_end_058
+      position: {x: -0, y: 0.21407226, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Finger2_041
+      parentName: Bip01 R Hand_034
+      position: {x: -0.053234074, y: -0.0008326447, z: 0.0033545732}
+      rotation: {x: -0.05209375, y: 0.19261354, z: 0.06854033, w: 0.977491}
+      scale: {x: 0.99999976, y: 0.99999976, z: 0.99999994}
+    - name: Bip01 R Finger21_042
+      parentName: Bip01 R Finger2_041
+      position: {x: -0.045212105, y: -0.00000695467, z: -0.000010428428}
+      rotation: {x: -0.0000061131977, y: -0.0000478625, z: -0.026154298, w: 0.999658}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Finger22_043
+      parentName: Bip01 R Finger21_042
+      position: {x: -0.049234655, y: -0.000004415512, z: -0.000006546974}
+      rotation: {x: -0.00016366749, y: 0.00014949225, z: 0.7071182, w: 0.7070954}
+      scale: {x: 0.99999994, y: 1.0000001, z: 0.99999994}
+    - name: Bip01 R Finger22_end_059
+      parentName: Bip01 R Finger22_043
+      position: {x: -0.0000001335144, y: 0.0018527126, z: -0.00000023603438}
+      rotation: {x: 0.000033739954, y: 0.000025052574, z: -0.000007973519, w: 1}
+      scale: {x: 1.0000002, y: 0.99999994, z: 1.0000001}
+    - name: Bip01 R Finger22_end_059_end
+      parentName: Bip01 R Finger22_end_059
+      position: {x: -0, y: 0.24202149, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Finger3_044
+      parentName: Bip01 R Hand_034
+      position: {x: -0.051615555, y: -0.000090681315, z: -0.016157603}
+      rotation: {x: -0.17658187, y: 0.19157363, z: 0.08756935, w: 0.96148324}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Bip01 R Finger31_045
+      parentName: Bip01 R Finger3_044
+      position: {x: -0.04433789, y: 0.000014264583, z: -0.0000016403197}
+      rotation: {x: -0.000029250969, y: -0.000021293752, z: -0.027165314, w: 0.99963105}
+      scale: {x: 0.99999976, y: 0.99999976, z: 1}
+    - name: Bip01 R Finger32_046
+      parentName: Bip01 R Finger31_045
+      position: {x: -0.052951362, y: 0.0000056028366, z: -0.00000058174135}
+      rotation: {x: -0.0002740793, y: 0.0006535554, z: 0.7069721, w: 0.70724106}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: Bip01 R Finger32_end_060
+      parentName: Bip01 R Finger32_046
+      position: {x: -0.00000047206876, y: 0.0018533992, z: -0.0000009346008}
+      rotation: {x: 0.0000027120116, y: 0.0000023171308, z: 0.000013869257, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Bip01 R Finger32_end_060_end
+      parentName: Bip01 R Finger32_end_060
+      position: {x: -0, y: 0.28492185, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone04_047
+      parentName: Bip01 Spine2_011
+      position: {x: -0.019470572, y: 0.004313974, z: 0.021123957}
+      rotation: {x: 0.8040437, y: -0.5945702, z: -0.0000019983775, w: -0.0000004840873}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.99999994}
+    - name: Bone04_end_00
+      parentName: Bone04_047
+      position: {x: 0.000000023543834, y: 0.0018529269, z: 0.00000008698553}
+      rotation: {x: -0.00000010477378, y: -0.00000004481989, z: 0.000002132263, w: 1}
+      scale: {x: 1.0000001, y: 0.9999998, z: 1.0000004}
+    - name: Bone04_end_00_end
+      parentName: Bone04_end_00
+      position: {x: -0, y: 0.44634277, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone01_048
+      parentName: Bip01 Spine2_011
+      position: {x: -0.02880135, y: 0.0026907509, z: -0.036039982}
+      rotation: {x: 0.8040439, y: -0.59457, z: -0.0000021963303, w: 0.000000031973986}
+      scale: {x: 0.9999999, y: 1, z: 1.0000001}
+    - name: Bone01_end_061
+      parentName: Bone01_048
+      position: {x: 0.00000004887581, y: 0.0018528545, z: 0.00000015094876}
+      rotation: {x: 0.0000005620532, y: -0.00000021155576, z: 0.0000021220187, w: 1}
+      scale: {x: 0.9999999, y: 0.99999976, z: 1}
+    - name: Bone01_end_061_end
+      parentName: Bone01_end_061
+      position: {x: -0, y: 0.45470214, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone07_049
+      parentName: Bip01 Spine_09
+      position: {x: -0.034378186, y: 0.010193944, z: -0.03772414}
+      rotation: {x: 0.80404025, y: -0.59457487, z: -0.0000015053398, w: -0.0000002851187}
+      scale: {x: 0.9999998, y: 0.9999998, z: 1}
+    - name: Bone07_end_062
+      parentName: Bone07_049
+      position: {x: 0.000000012120036, y: 0.0018530432, z: 0.00000010239939}
+      rotation: {x: -0.00000050576216, y: -0.00000015218716, z: 0.000000015873074, w: 1}
+      scale: {x: 0.99999976, y: 1, z: 0.9999998}
+    - name: Bone07_end_062_end
+      parentName: Bone07_end_062
+      position: {x: -0, y: 0.3755127, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

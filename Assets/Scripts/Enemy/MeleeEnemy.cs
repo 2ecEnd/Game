@@ -7,10 +7,13 @@ namespace Assets.Scripts.Enemy
 {
     public class MeleeEnemy : EnemyBase, IDamagable
     {
-        public float ColorDuration = 0.2f;
+        public float DisappearanceRate = 10;
+        public float SinkSpeed = 5;
+        public float AttackRate = 0.5f;
 
-        Material material;
-        Color originalColor;
+        bool isDead;
+        float lastTimeAttacking = Mathf.NegativeInfinity;
+        Animator animator;
 
         void Start()
         {
@@ -19,9 +22,8 @@ namespace Assets.Scripts.Enemy
             characterController = gameObject.GetComponent<CharacterController>();
 
             target = GameObject.FindGameObjectWithTag("Player").transform;
-
-            material = GetComponent<Renderer>().material;
-            originalColor = material.color;
+            animator = GetComponent<Animator>();
+            isDead = false;
         }
 
         void FixedUpdate()
@@ -31,7 +33,7 @@ namespace Assets.Scripts.Enemy
                 origin: AttackStartPoint.position,
                 direction: transform.forward,
                 hitInfo: out hit,
-                maxDistance: 0.5f))
+                maxDistance: 1f))
             {
                 Attack(hit.collider);
             }
@@ -41,6 +43,8 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
+            if (isDead) return;
+
             fromBodyToPlayer = target.position - transform.position;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
@@ -63,9 +67,13 @@ namespace Assets.Scripts.Enemy
 
         protected void Attack(Collider collider)
         {
+            if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
             // if (collider.gameObject == target)
             if (collider.gameObject.CompareTag("Player"))
             {
+                animator.SetTrigger("Attack");
+                lastTimeAttacking = Time.time;
+
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
                 player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
@@ -74,8 +82,9 @@ namespace Assets.Scripts.Enemy
 
         public override void ReceiveDamage(float damage)
         {
+            if (isDead) return;
+
             Health -= damage;
-            StartCoroutine(ChangeColor());
 
             if (Health <= 0)
                 Die();
@@ -83,6 +92,34 @@ namespace Assets.Scripts.Enemy
 
         public override void Die()
         {
+            isDead = true;
+            animator.SetTrigger("Die");
+            characterController.enabled = false;
+
+            StartCoroutine(Disappeare());
+        }
+
+        IEnumerator Disappeare()
+        {
+            yield return new WaitForSeconds(0.1f);
+            float fallTimer = 0f;
+            while (fallTimer < 0.25)
+            {
+                transform.Translate(Vector3.down * 5 * Time.deltaTime);
+                fallTimer += Time.deltaTime;
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(2f);
+
+            float sinkTimer = 0f;
+            while (sinkTimer < DisappearanceRate)
+            {
+                transform.Translate(Vector3.down * SinkSpeed * Time.deltaTime);
+                sinkTimer += Time.deltaTime;
+                yield return null;
+            }
+
             gameController.Enemies.Remove(gameObject);
             Destroy(gameObject);
         }
@@ -91,13 +128,6 @@ namespace Assets.Scripts.Enemy
         {
             if (transform.position.y < arenaManager.getKillHeight())
                 Die();
-        }
-
-        IEnumerator ChangeColor()
-        {
-            material.color = new Color(1f, 0.5f, 0f);
-            yield return new WaitForSeconds(ColorDuration);
-            material.color = originalColor;
         }
     }
 }
