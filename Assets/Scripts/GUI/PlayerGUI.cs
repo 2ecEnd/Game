@@ -11,6 +11,7 @@ public class PlayerGUI : MonoBehaviour
     private Rect[] rects = new Rect[3];
     private int screenWidth;
     private int screenHeight;
+
     private void Start()
     {
         player = transform.parent.gameObject;
@@ -24,8 +25,9 @@ public class PlayerGUI : MonoBehaviour
         screenHeight = Screen.height;
         rects[0] = new Rect(screenWidth * 0.5f - 1, screenHeight * 0.5f - 1, 2, 2); //перекрестие
         rects[1] = new Rect(0, 0, screenWidth, screenHeight); //экран смерти
-        rects[2] = new Rect(screenWidth * 0.9f, screenHeight * 0.9f, screenWidth * 0.1f, screenHeight * 0.1f); //количество патронов и хп
+        rects[2] = new Rect(screenWidth * 0.9f, screenHeight * 0.8f, screenWidth * 0.1f, screenHeight * 0.2f); //количество патронов и хп
     }
+
     private void OnGUI()
     {
         GUI.skin.box.fontSize = 40;
@@ -38,11 +40,11 @@ public class PlayerGUI : MonoBehaviour
         GUI.Box(rects[0], "");
         if (!weaponHandler.Reload)
         {
-            GUI.Box(rects[2], weaponHandler.CurrentAmmo.ToString() + "\n" + characterController.Health.ToString());
+            GUI.Box(rects[2], weaponHandler.CurrentAmmo.ToString() + "\n" + characterController.Health.ToString() + "\n" + GlobalInspector.GetScore().ToString());
         }
         else
         {
-            GUI.Box(rects[2], "R\n" + characterController.Health.ToString());
+            GUI.Box(rects[2], "R\n" + characterController.Health.ToString() + "\n" + GlobalInspector.GetScore().ToString());
         }
     }
 }

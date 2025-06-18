@@ -18,20 +18,14 @@ namespace Assets.Scripts.Player
 
         [Header("Movement")]
         public float MaxSpeedOnGround = 10f;
-
         public float MovementSharpnessOnGround = 15;
 
         [Range(0, 1)]
         public float MaxSpeedCrouchedRatio = 0.5f;
-
         public float MaxSpeedInAir = 10f;
-
         public float AccelerationSpeedInAir = 25f;
-
         public float SprintSpeedModifier = 2f;
-
         public float DashForce = 10;
-
         public float KillHeight = -50f;
 
         [Header("Rotation")]
@@ -45,11 +39,8 @@ namespace Assets.Scripts.Player
 
         [Header("Stance")]
         public float CameraHeightRatio = 0.9f;
-
         public float CapsuleHeightStanding = 1.8f;
-
         public float CapsuleHeightCrouching = 0.9f;
-
         public float CrouchingSharpness = 10f;
 
         [Header("SFX")]
@@ -72,6 +63,7 @@ namespace Assets.Scripts.Player
         float cameraVerticalAngle = 0f;
         //float footstepDistanceCounter;
         bool isDead = false;
+        bool needRevive = false;
 
         void Start()
         {
@@ -84,6 +76,13 @@ namespace Assets.Scripts.Player
         void FixedUpdate()
         {
             DestroyOnFall();
+
+
+            if (needRevive)
+            {
+                Revive();
+                needRevive = false;
+            }
         }
 
         void Update()
@@ -96,8 +95,8 @@ namespace Assets.Scripts.Player
             }
             HandleCharacterMovement();
 
-            if (Input.GetKey(KeyCode.T))
-                Revive();
+            if (Input.GetKeyDown(KeyCode.T))
+                needRevive = true;
         }
 
         void HandleCharacterMovement()
@@ -185,20 +184,26 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public void Die()
+        public void Die(bool needScored = true)
         {
             isDead = true;
             gui.Death = true;
+
+            if (needScored)
+                GlobalInspector.DeathCount++;
         }
 
         void DestroyOnFall()
         {
-            if (transform.position.y < arenaManager.getKillHeight())
+            if (transform.position.y < arenaManager.getKillHeight() && !isDead)
                 Die();
         }
 
         void Revive()
         {
+            if (!isDead)
+                Die();
+
             Health = MaxHealth;
             playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;
             isDead = false;

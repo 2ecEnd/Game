@@ -81,16 +81,19 @@ namespace Assets.Scripts.Enemy
                 Die();
         }
 
-        public override void Die()
+        public override void Die(bool needScored = true)
         {
             gameController.Enemies.Remove(gameObject);
             Destroy(gameObject);
+
+            if (needScored)
+                GlobalInspector.KilledMelee++;
         }
 
         protected override void DestroyOnFall()
         {
             if (transform.position.y < arenaManager.getKillHeight())
-                Die();
+                Die(false);
         }
 
         IEnumerator ChangeColor()
