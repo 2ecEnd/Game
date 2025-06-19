@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df99363abd5eb343878a8b7fed9e4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1432895787918744665}
+  player: {fileID: 2133045341}
   chunk: {fileID: 6255993869813837955, guid: eccb391a7a95e634986df16c25655075, type: 3}
   stair_1: {fileID: 3861264058774730328, guid: d31484264f0524f4495a883fdd97a820, type: 3}
   stair_05: {fileID: 5322386632154448788, guid: 4b272e0a39c28ce41a8d1d9555cba34e, type: 3}
@@ -313,49 +313,7 @@ MonoBehaviour:
   stair_05_convex: {fileID: 6926286704259321333, guid: 9f750b7c7d6ad0843b95253cff77b347, type: 3}
   stair_025_convex: {fileID: 6483758248818298217, guid: ac2d8eb522300b94aa0da8c6e1d57926, type: 3}
   BuffBoxGO: {fileID: 0}
---- !u!114 &1032319112475742915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7045998957987457206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35dd7b1e24b49914ca2fc1e32eb964f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MeleeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
-  RangeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
-  CartEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
-  HealthPrefab: {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
-  SpawnInterval: 10
-  MaxEnemies: 1
-  Enemies: []
---- !u!1 &1432895787918744665 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8725828170183608584, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
-  m_PrefabInstance: {fileID: 7287457050712344427}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7045998957987457206
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8018207831419217491}
-  - component: {fileID: 1032319112475742915}
-  - component: {fileID: 1115473506}
-  m_Layer: 0
-  m_Name: GameController
-  m_TagString: GameController
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1001 &7287457050712344427
+--- !u!1001 &2133045340
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -363,17 +321,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1815073771671128211, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
-      propertyPath: Health
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -407,10 +361,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5548720710495874460, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
-      propertyPath: near clip plane
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 8725828170183608584, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -418,11 +368,50 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8725828170183608584, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8862437126181784438}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+--- !u!1 &2133045341 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8725828170183608584, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+  m_PrefabInstance: {fileID: 2133045340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1032319112475742915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045998957987457206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35dd7b1e24b49914ca2fc1e32eb964f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MeleeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+  RangeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+  CartEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+  HealthPrefab: {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
+  SpawnInterval: 10
+  MaxEnemies: 1
+  Enemies: []
+--- !u!1 &7045998957987457206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8018207831419217491}
+  - component: {fileID: 1032319112475742915}
+  - component: {fileID: 1115473506}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &8018207831419217491
 Transform:
   m_ObjectHideFlags: 0
@@ -438,51 +427,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8862437126181784438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432895787918744665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 853d4c0c2f9827049a162605445e7a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerCamera: {fileID: 0}
-  AudioSource: {fileID: 0}
-  GravityDownForce: 20
-  MaxHealth: 100
-  Health: 1000
-  MaxSpeedOnGround: 15
-  MovementSharpnessOnGround: 30
-  MaxSpeedCrouchedRatio: 0.5
-  MaxSpeedInAir: 20
-  AccelerationSpeedInAir: 40
-  SprintSpeedModifier: 1
-  KillHeight: -50
-  RotationSpeed: 200
-  AimingRotationMultiplier: 0.4
-  JumpForce: 9
-  DashMaxCount: 2
-  DashCount: 0
-  DashForce: 100
-  DashReload: 2
-  CameraHeightRatio: 0.9
-  CapsuleHeightStanding: 1.8
-  CapsuleHeightCrouching: 0.9
-  CrouchingSharpness: 10
-  FootstepSfx: {fileID: 8300000, guid: 06f8411919fa97a47bcab3b27126b7d1, type: 3}
-  JumpSfx: {fileID: 8300000, guid: fa9e7a88bda5ec94182d26279a89fde6, type: 3}
-  LandSfx: {fileID: 8300000, guid: 3b91586947f43564d9c9c5e54a08ced1, type: 3}
-  FootstepSfxFrequency: 0.2
-  SprintingSfxFrequency: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 7287457050712344427}
   - {fileID: 8018207831419217491}
+  - {fileID: 2133045340}

@@ -182,8 +182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2e68a7c4c694f41858ff8a37fd9b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainGUISkin: {fileID: 0}
+  MainGUISkin: {fileID: 11400000, guid: 4dd8fa4c6878c744fa5e1b1016663961, type: 2}
+  HP_Menu: {fileID: 2800000, guid: afe52c0eef1a03f438326532cebeaae5, type: 3}
+  Arrow: {fileID: 2800000, guid: 8394d2562f492f64eadde8ab1d05796a, type: 3}
   Death: 0
+  HPArrowStart: 0
+  HPArrowStep: 0.9
 --- !u!1 &8725828170183608584
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,17 +265,21 @@ MonoBehaviour:
   AudioSource: {fileID: 2462623062026594534}
   GravityDownForce: 20
   MaxHealth: 100
-  Health: 1000
-  MaxSpeedOnGround: 15
+  Health: 100
+  MaxSpeedOnGround: 20
   MovementSharpnessOnGround: 30
   MaxSpeedCrouchedRatio: 0.5
   MaxSpeedInAir: 20
-  AccelerationSpeedInAir: 25
+  AccelerationSpeedInAir: 5
   SprintSpeedModifier: 1
   KillHeight: -50
   RotationSpeed: 200
   AimingRotationMultiplier: 0.4
   JumpForce: 9
+  DashMaxCount: 2
+  DashCount: 0
+  DashForce: 100
+  DashReload: 2
   CameraHeightRatio: 0.9
   CapsuleHeightStanding: 1.8
   CapsuleHeightCrouching: 0.9
