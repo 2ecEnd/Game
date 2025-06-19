@@ -7,9 +7,6 @@ namespace Assets.Scripts.Enemy
 {
     public class MeleeEnemy : EnemyBase, IDamagable
     {
-        public float DisappearanceRate = 10;
-        public float SinkSpeed = 5;
-        public float AttackRate = 0.5f;
 
         bool isDead;
         float lastTimeAttacking = Mathf.NegativeInfinity;
@@ -43,7 +40,7 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
-            if (isDead) return;
+            if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
             fromBodyToPlayer = target.position - transform.position;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
@@ -101,14 +98,14 @@ namespace Assets.Scripts.Enemy
 
         IEnumerator Disappeare()
         {
-            yield return new WaitForSeconds(0.1f);
-            float fallTimer = 0f;
-            while (fallTimer < 0.25)
-            {
-                transform.Translate(Vector3.down * 5 * Time.deltaTime);
-                fallTimer += Time.deltaTime;
-                yield return null;
-            }
+            // yield return new WaitForSeconds(0.1f);
+            // float fallTimer = 0f;
+            // while (fallTimer < 0.25)
+            // {
+            //     transform.Translate(Vector3.down * 5 * Time.deltaTime);
+            //     fallTimer += Time.deltaTime;
+            //     yield return null;
+            // }
 
             yield return new WaitForSeconds(2f);
 

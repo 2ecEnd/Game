@@ -5,13 +5,16 @@ using Assets.Scripts;
 
 public class RangeEnemy : EnemyBase, IDamagable
 {
-    public float ColorDuration = 0.2f;
-
-    Material material;
-    Color originalColor;
+    public float NumberOfShotsPerBurst = 5;
     public WeaponHandler weaponHandler;
+    public float AttackAnimationDelay = 1f;
 
+    bool isDead;
+    float lastTimeAttacking = Mathf.NegativeInfinity;
+    float currentBurstCount = 0;
+    float distanceToPlayer = 0;
     private Vector3 fromMuzzleToPlayer;
+    Animator animator;
 
     void Start()
     {
@@ -20,10 +23,8 @@ public class RangeEnemy : EnemyBase, IDamagable
         characterController = gameObject.GetComponent<CharacterController>();
 
         target = GameObject.FindGameObjectWithTag("Player").transform;
-
-        material = GetComponent<Renderer>().material;
-        originalColor = material.color;
-
+        animator = GetComponent<Animator>();
+        isDead = false;
         weaponHandler.Owner = gameObject;
     }
 
@@ -36,9 +37,11 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void Update()
     {
+        if (isDead) return;
+
         fromBodyToPlayer = target.position - transform.position;
 
-        float distanceToPlayer = Mathf.Sqrt(Mathf.Pow(fromBodyToPlayer.x, 2) + Mathf.Pow(fromBodyToPlayer.z, 2));
+        distanceToPlayer = Mathf.Sqrt(Mathf.Pow(fromBodyToPlayer.x, 2) + Mathf.Pow(fromBodyToPlayer.z, 2));
 
         fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
@@ -46,6 +49,9 @@ public class RangeEnemy : EnemyBase, IDamagable
 
         if (distanceToPlayer < 10)
         {
+            animator.SetBool("IsRunning", true);
+            animator.SetFloat("RunningSpeed", -1);
+
             if (characterController.isGrounded)
             {
                 Vector3 targetVelocity = fromBodyToPlayer * -MaxSpeedOnGround;
@@ -63,6 +69,9 @@ public class RangeEnemy : EnemyBase, IDamagable
         }
         else if (distanceToPlayer > 20)
         {
+            animator.SetBool("IsRunning", true);
+            animator.SetFloat("RunningSpeed", 1);
+
             if (characterController.isGrounded)
             {
                 Vector3 targetVelocity = fromBodyToPlayer * MaxSpeedOnGround;
@@ -79,20 +88,44 @@ public class RangeEnemy : EnemyBase, IDamagable
             }
         }
         else
-            characterVelocity = new Vector3();
+        {
+            animator.SetBool("IsRunning", false);
 
+            characterVelocity = new Vector3();
+        }
+
+        if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
+        
         characterController.Move(characterVelocity * Time.deltaTime);
     }
 
     protected void Attack()
     {
-        weaponHandler.HandleShootInputs(true, true);
+        if (isDead || lastTimeAttacking + AttackRate > Time.time
+        || distanceToPlayer < 10 || distanceToPlayer > 20) return;
+
+        StartCoroutine(Shooting());
+    }
+
+    IEnumerator Shooting()
+    {
+        animator.SetTrigger("Attack");
+        lastTimeAttacking = Time.time;
+        yield return new WaitForSeconds(0.3f);
+
+        while (currentBurstCount < NumberOfShotsPerBurst)
+        {
+            bool hasFired = weaponHandler.HandleShootInputs(true, true);
+            yield return new WaitForSeconds(0.01f);
+            if (hasFired) currentBurstCount++;
+        }
+
+        currentBurstCount = 0;
     }
 
     public override void ReceiveDamage(float damage)
     {
         Health -= damage;
-        StartCoroutine(ChangeColor());
 
         if (Health <= 0)
             Die();
@@ -100,6 +133,34 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     public override void Die()
     {
+        isDead = true;
+        animator.SetTrigger("Die");
+        characterController.enabled = false;
+
+        StartCoroutine(Disappeare());
+    }
+
+    IEnumerator Disappeare()
+    {
+        // yield return new WaitForSeconds(0.1f);
+        // float fallTimer = 0f;
+        // while (fallTimer < 0.25)
+        // {
+        //     transform.Translate(Vector3.down * 5 * Time.deltaTime);
+        //     fallTimer += Time.deltaTime;
+        //     yield return null;
+        // }
+
+        yield return new WaitForSeconds(2f);
+
+        float sinkTimer = 0f;
+        while (sinkTimer < DisappearanceRate)
+        {
+            transform.Translate(Vector3.down * SinkSpeed * Time.deltaTime);
+            sinkTimer += Time.deltaTime;
+            yield return null;
+        }
+
         gameController.Enemies.Remove(gameObject);
         Destroy(gameObject);
     }
@@ -108,12 +169,5 @@ public class RangeEnemy : EnemyBase, IDamagable
     {
         if (transform.position.y < arenaManager.getKillHeight())
             Die();
-    }
-
-    IEnumerator ChangeColor()
-    {
-        material.color = new Color(0f, 1f, 0.5f);
-        yield return new WaitForSeconds(ColorDuration);
-        material.color = originalColor;
     }
 }
