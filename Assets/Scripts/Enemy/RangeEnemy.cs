@@ -64,7 +64,6 @@ public class RangeEnemy : EnemyBase, IDamagable
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
                 characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
             }
         }
         else if (distanceToPlayer > 20)
@@ -84,7 +83,6 @@ public class RangeEnemy : EnemyBase, IDamagable
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
                 characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
             }
         }
         else
@@ -94,6 +92,8 @@ public class RangeEnemy : EnemyBase, IDamagable
             characterVelocity = new Vector3();
         }
 
+        if (!characterController.isGrounded) characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
+        
         if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
         
         characterController.Move(characterVelocity * Time.deltaTime);

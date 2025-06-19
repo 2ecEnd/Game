@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5157964426762524998}
   - component: {fileID: 8193852122359278991}
+  - component: {fileID: 8893139912517754883}
   m_Layer: 0
   m_Name: AlienGun
   m_TagString: Untagged
@@ -58,3 +59,25 @@ MonoBehaviour:
   ShootSfx: {fileID: 0}
   MisfireSfx: {fileID: 0}
   ReloadingSfx: {fileID: 0}
+--- !u!95 &8893139912517754883
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634800062377314302}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
