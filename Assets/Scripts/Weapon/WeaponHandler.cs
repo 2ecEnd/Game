@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Assets.Scripts
 {
@@ -24,6 +25,7 @@ namespace Assets.Scripts
         [Header("Ammo Parameters")]
         public int MagazineSize = 30;
         public float AmmoReloadRate;
+        public string ReloadingType = "Magazine";
 
         [Header("Recoil Parameters")]
         public float RecoilForce = 1f;
@@ -35,6 +37,7 @@ namespace Assets.Scripts
         public AudioClip ShootSfx;
         public AudioClip MisfireSfx;
         public AudioClip ReloadingSfx;
+        public AudioClip ManualPumpSfx;
 
         float m_LastTimeShot = Mathf.NegativeInfinity;
         float m_LastTimeReloading = Mathf.NegativeInfinity;
@@ -102,14 +105,44 @@ namespace Assets.Scripts
 
         public void HandleReload()
         {
-            if (!Reload && m_LastTimeShot + delayBetweenShots < Time.time)
+            if (!Reload && m_LastTimeShot + delayBetweenShots < Time.time && CurrentAmmo < MagazineSize)
             {
-                animator.SetTrigger("Reload");
-                CurrentAmmo = MagazineSize;
-                Reload = true;
-                m_LastTimeReloading = Time.time;
-                m_ShootAudioSource.PlayOneShot(ReloadingSfx);
+                if (ReloadingType == "Magazine")
+                    MagazineReloading();
+                else
+                    StartCoroutine(ManualReloading());
             }
+        }
+
+        public void MagazineReloading()
+        {
+            animator.SetTrigger("Reload");
+            CurrentAmmo = MagazineSize;
+            Reload = true;
+            m_LastTimeReloading = Time.time;
+            m_ShootAudioSource.PlayOneShot(ReloadingSfx);
+        }
+
+        public IEnumerator ManualReloading()
+        {
+            animator.SetBool("IsReloading", true);
+            animator.SetTrigger("Reload");
+
+            m_LastTimeReloading = Time.time;
+            Reload = true;
+            yield return new WaitForSeconds(0.334f);
+
+            while (CurrentAmmo < MagazineSize)
+            {
+                CurrentAmmo += 1;
+                m_ShootAudioSource.PlayOneShot(ReloadingSfx);
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            animator.SetBool("IsReloading", false);
+            m_ShootAudioSource.PlayOneShot(ManualPumpSfx);
+            yield return new WaitForSeconds(0.8f);
+            Reload = false;
         }
 
         bool TryShoot()
@@ -145,7 +178,18 @@ namespace Assets.Scripts
 
             animator.SetTrigger("Fire");
             m_LastTimeShot = Time.time;
+
+            if (ReloadingType == "Magazine")
+                m_ShootAudioSource.PlayOneShot(ShootSfx);
+            else
+                StartCoroutine(PlayShootSound());
+        }
+
+        IEnumerator PlayShootSound()
+        {
             m_ShootAudioSource.PlayOneShot(ShootSfx);
+            yield return new WaitForSeconds(0.334f);
+            m_ShootAudioSource.PlayOneShot(ManualPumpSfx);
         }
 
         public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)

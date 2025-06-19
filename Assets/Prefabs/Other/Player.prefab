@@ -183,7 +183,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainGUISkin: {fileID: 0}
+  HP_Menu: {fileID: 0}
+  Arrow: {fileID: 0}
   Death: 0
+  HPArrowStart: 0
+  HPArrowStep: 0
 --- !u!1 &8725828170183608584
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +276,10 @@ MonoBehaviour:
   RotationSpeed: 200
   AimingRotationMultiplier: 0.4
   JumpForce: 9
+  DashMaxCount: 2
+  DashCount: 0
+  DashForce: 10
+  DashReload: 5
   CameraHeightRatio: 0.9
   CapsuleHeightStanding: 1.8
   CapsuleHeightCrouching: 0.9
@@ -293,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a46009448e20e4dbd5925c2167eb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartWeaponPrefab: {fileID: 2583856138238376327, guid: 75dd50b1de53f8a4c97dca0b4b86eae9, type: 3}
+  StartWeaponPrefab: {fileID: 2583856138238376327, guid: 446e339520f732943adf5f024ea59cb4, type: 3}
   WeaponPos: {fileID: 9168700380704313049}
   RecoilSharpness: 50
   RecoilRestitutionSharpness: 10

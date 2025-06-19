@@ -415,13 +415,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9123156512658913943, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: Arrow
+      value: 
+      objectReference: {fileID: 2800000, guid: 8394d2562f492f64eadde8ab1d05796a, type: 3}
+    - target: {fileID: 9123156512658913943, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: HP_Menu
+      value: 
+      objectReference: {fileID: 2800000, guid: afe52c0eef1a03f438326532cebeaae5, type: 3}
+    - target: {fileID: 9123156512658913943, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: HPArrowStep
+      value: 0.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8725828170183608584, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8862437126181784438}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
 --- !u!4 &8018207831419217491
 Transform:
@@ -438,46 +447,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8862437126181784438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432895787918744665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 853d4c0c2f9827049a162605445e7a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerCamera: {fileID: 0}
-  AudioSource: {fileID: 0}
-  GravityDownForce: 20
-  MaxHealth: 100
-  Health: 1000
-  MaxSpeedOnGround: 15
-  MovementSharpnessOnGround: 30
-  MaxSpeedCrouchedRatio: 0.5
-  MaxSpeedInAir: 20
-  AccelerationSpeedInAir: 40
-  SprintSpeedModifier: 1
-  KillHeight: -50
-  RotationSpeed: 200
-  AimingRotationMultiplier: 0.4
-  JumpForce: 9
-  DashMaxCount: 2
-  DashCount: 0
-  DashForce: 100
-  DashReload: 2
-  CameraHeightRatio: 0.9
-  CapsuleHeightStanding: 1.8
-  CapsuleHeightCrouching: 0.9
-  CrouchingSharpness: 10
-  FootstepSfx: {fileID: 8300000, guid: 06f8411919fa97a47bcab3b27126b7d1, type: 3}
-  JumpSfx: {fileID: 8300000, guid: fa9e7a88bda5ec94182d26279a89fde6, type: 3}
-  LandSfx: {fileID: 8300000, guid: 3b91586947f43564d9c9c5e54a08ced1, type: 3}
-  FootstepSfxFrequency: 0.2
-  SprintingSfxFrequency: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
