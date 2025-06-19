@@ -41,68 +41,49 @@ public class RangeEnemy : EnemyBase, IDamagable
 
         fromBodyToPlayer = target.position - transform.position;
 
-        distanceToPlayer = Mathf.Sqrt(Mathf.Pow(fromBodyToPlayer.x, 2) + Mathf.Pow(fromBodyToPlayer.z, 2));
+        distanceToPlayer = fromBodyToPlayer.magnitude;
 
         fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
-        weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y, target.position.z));
+        weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1, target.position.z));
 
+        Vector3 targetVelocity = Vector3.zero;
         if (distanceToPlayer < 10)
         {
             animator.SetBool("IsRunning", true);
             animator.SetFloat("RunningSpeed", -1);
-
-            if (characterController.isGrounded)
-            {
-                Vector3 targetVelocity = fromBodyToPlayer * -MaxSpeedOnGround;
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
-            }
-            else
-            {
-                characterVelocity -= fromBodyToPlayer * AccelerationSpeedInAir * Time.deltaTime;
-                float verticalVelocity = characterVelocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
-                characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
-            }
+            targetVelocity = -fromBodyToPlayer;
         }
         else if (distanceToPlayer > 20)
         {
             animator.SetBool("IsRunning", true);
             animator.SetFloat("RunningSpeed", 1);
-
-            if (characterController.isGrounded)
-            {
-                Vector3 targetVelocity = fromBodyToPlayer * MaxSpeedOnGround;
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
-            }
-            else
-            {
-                characterVelocity += fromBodyToPlayer * AccelerationSpeedInAir * Time.deltaTime;
-                float verticalVelocity = characterVelocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
-                characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
-            }
+            targetVelocity = fromBodyToPlayer;
         }
         else
         {
             animator.SetBool("IsRunning", false);
+        }
 
-            characterVelocity = new Vector3();
+        float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
+        if (characterController.isGrounded)
+        {
+            characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+        }
+        else
+        {
+            characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
         }
 
         if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
-        
+
+        characterVelocity = new Vector3(characterVelocity.x, verticalVelocity, characterVelocity.z);
         characterController.Move(characterVelocity * Time.deltaTime);
     }
 
     protected void Attack()
     {
-        if (isDead || lastTimeAttacking + AttackRate > Time.time
-        || distanceToPlayer < 10 || distanceToPlayer > 20) return;
+        if (isDead || lastTimeAttacking + AttackRate > Time.time || distanceToPlayer < 10 || distanceToPlayer > 20 || !characterController.isGrounded) return;
 
         StartCoroutine(Shooting());
     }
