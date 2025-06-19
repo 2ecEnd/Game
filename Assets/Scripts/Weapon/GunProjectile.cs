@@ -49,7 +49,8 @@ namespace Assets.Scripts
                 }
             }
 
-            transform.position += m_Velocity * Time.fixedDeltaTime;
+            //transform.position += m_ProjectileBase.InheritedMuzzleVelocity * Time.fixedDeltaTime;
+            transform.position += (m_ProjectileBase.InheritedMuzzleVelocity + m_Velocity) * Time.fixedDeltaTime;
 
             transform.forward = m_Velocity.normalized;
 
@@ -63,8 +64,8 @@ namespace Assets.Scripts
         {
             m_Velocity = transform.forward * Speed;
             m_IgnoredColliders = new List<Collider>();
-            //transform.position += m_ProjectileBase.InheritedMuzzleVelocity * Time.fixedDeltaTime;
 
+            m_IgnoredColliders.AddRange(Owner.GetComponents<Collider>());
             m_IgnoredColliders.AddRange(Owner.GetComponentsInChildren<Collider>());
 
         }

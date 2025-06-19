@@ -25,7 +25,6 @@ namespace Assets.Scripts.Player
         public float MaxSpeedInAir = 10f;
         public float AccelerationSpeedInAir = 25f;
         public float SprintSpeedModifier = 2f;
-        public float DashForce = 10;
         public float KillHeight = -50f;
 
         [Header("Rotation")]
@@ -36,6 +35,13 @@ namespace Assets.Scripts.Player
 
         [Header("Jump")]
         public float JumpForce = 9f;
+
+        [Header("Dash")]
+        public int DashMaxCount = 2;
+        public int DashCount;
+        public float DashForce = 10;
+        public float DashReload = 5;
+        private float DashReloadTime;
 
         [Header("Stance")]
         public float CameraHeightRatio = 0.9f;
@@ -71,6 +77,7 @@ namespace Assets.Scripts.Player
             gui = PlayerCamera.GetComponent<PlayerGUI>();
             arenaManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetComponent<ArenaManager>();
             playerWeaponManager = gameObject.GetComponent<PlayerWeaponManager>();
+            DashCount = DashMaxCount;
         }
 
         void FixedUpdate()
@@ -103,71 +110,72 @@ namespace Assets.Scripts.Player
         {
             if (isDead) return; //мёртвые не двигаются)
 
-            {   //поворот игрока по оси Y
-                transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self); 
-            }
+            transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self); //поворот игрока по оси Y
 
-            {   //поворот камеры по оси X
-                cameraVerticalAngle -= Input.GetAxis("Mouse Y");
+            cameraVerticalAngle -= Input.GetAxis("Mouse Y");
+            cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
+            PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);//поворот камеры по оси X
 
-                cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
+            //float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
 
-                PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);
-            }
+            Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1)); //направление ускорения движения
 
+            ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime); //Дополнительное направление движения без ограничений скорости
+            if (Input.GetKeyDown(KeyCode.LeftShift) && DashCount > 0) //рывок
             {
-                //float speedModifier = isSprinting ? SprintSpeedModifier : 1f;
-
-                Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1)); //направление ускорения движения
-
-                ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime);
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                ExtraVelocity += worldspaceMoveInput * DashForce;
+                if(DashCount == DashMaxCount)
                 {
-                    ExtraVelocity += worldspaceMoveInput * DashForce;
+                    DashReloadTime = Time.time + DashReload;
                 }
-
-                if (IsGrounded)
-                {
-                    canSecondJump = true;
-
-                    CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime); //направление движения
-
-                    if (Input.GetKeyDown(KeyCode.Space)) //прыжок
-                    {
-                        CharacterVelocity = new Vector3(CharacterVelocity.x, JumpForce, CharacterVelocity.z);
-
-                        IsGrounded = false;
-
-                        AudioSource.PlayOneShot(JumpSfx);
-                    }
-                    //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
-                    //if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
-                    //{
-                    //    footstepDistanceCounter = 0f;
-                    //    AudioSource.PlayOneShot(FootstepSfx);
-                    //}
-
-                    //footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
-                }
-                else
-                {
-                    CharacterVelocity += AccelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput; //напрвление движения
-
-                    float verticalVelocity = CharacterVelocity.y - GravityDownForce * Time.deltaTime;
-
-                    if (Input.GetKeyDown(KeyCode.Space) && canSecondJump) //прыжок
-                    {
-                        canSecondJump = false;
-                        verticalVelocity = JumpForce;
-                    }
-
-                    Vector3 horizontalVelocity = new Vector3(CharacterVelocity.x, 0, CharacterVelocity.z);
-                    horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
-
-                    CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                }
+                DashCount--;
+            }
+            if (Time.time > DashReloadTime && DashCount < DashMaxCount)
+            {
+                DashCount++;
+                DashReloadTime = Time.time + DashReload;
             }
 
+            if (IsGrounded)
+            {
+                canSecondJump = true;
+
+                CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime); //направление движения с ограничением скорости
+
+                if (Input.GetKeyDown(KeyCode.Space)) //прыжок
+                {
+                    CharacterVelocity = new Vector3(CharacterVelocity.x, JumpForce, CharacterVelocity.z);
+
+                    IsGrounded = false;
+
+                    AudioSource.PlayOneShot(JumpSfx);
+                }
+                //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
+                //if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
+                //{
+                //    footstepDistanceCounter = 0f;
+                //    AudioSource.PlayOneShot(FootstepSfx);
+                //}
+
+                //footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
+            }
+            else
+            {
+                CharacterVelocity += AccelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput; //напрвление движения
+
+                float verticalVelocity = CharacterVelocity.y - GravityDownForce * Time.deltaTime;
+
+                if (Input.GetKeyDown(KeyCode.Space) && canSecondJump) //прыжок
+                {
+                    canSecondJump = false;
+                    verticalVelocity = JumpForce;
+                }
+
+                Vector3 horizontalVelocity = new Vector3(CharacterVelocity.x, 0, CharacterVelocity.z);
+                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
+
+                CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+            }
             controller.Move((CharacterVelocity + ExtraVelocity) * Time.deltaTime); //движение игрока
         }
 
@@ -205,6 +213,7 @@ namespace Assets.Scripts.Player
                 Die();
 
             Health = MaxHealth;
+            DashCount = DashMaxCount;
             playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;
             isDead = false;
             gui.Death = false;

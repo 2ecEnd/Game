@@ -97,8 +97,9 @@ namespace Assets.Scripts.Enemy
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                Vector3 directionToPlayer = target.position - transform.position;
-                player.ExtraVelocity += new Vector3(directionToPlayer.x * 400, 20, directionToPlayer.z * 400); // Knockback
+                Vector3 directionToPlayer = (target.position - transform.position);
+                directionToPlayer = new Vector3(directionToPlayer.x, 0, directionToPlayer.z).normalized;
+                player.ExtraVelocity += new Vector3(directionToPlayer.x * 300, 20, directionToPlayer.z * 300); // Knockback
             }
         }
 
