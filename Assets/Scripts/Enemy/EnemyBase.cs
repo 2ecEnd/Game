@@ -2,18 +2,25 @@ using Assets.Scripts.Gameplay;
 using Assets.Scripts.Player;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IDamagable
 {
     [Header("General")]
     public float Health;
     public Transform AttackStartPoint;
     public float Damage;
+    public float AttackRate = 0.5f;
+
+    [Header("Movement")]
     public float GravityForce;
     public float MaxSpeedOnGround;
     public float MovementSharpnessOnGround;
     public float MaxSpeedInAir;
     public float AccelerationSpeedInAir;
     public Vector3 characterVelocity;
+
+    [Header("Disappearance")]
+    public float DisappearanceRate = 10;
+    public float SinkSpeed = 5;
 
     [Header("Scripts")]
     protected GameController gameController;
@@ -22,27 +29,12 @@ public abstract class EnemyBase : MonoBehaviour
 
     [Header("Target Parameters")]
     protected Transform target;
-    protected Vector3 directionToPlayer;
+    protected Vector3 fromBodyToPlayer;
 
-    protected abstract void Attack(Collider collider);
+    public abstract void ReceiveDamage(float damage);
 
-    public abstract void TakeDamage(float damage);
-
-    public void ReceivedDamage(float damage)
-    {
-        if (gameObject.GetComponent<EnemyBase>() != null)
-        {
-            gameObject.GetComponent<EnemyBase>().TakeDamage(damage);
-            return;
-        }
-        if (gameObject.GetComponent<PlayerCharacterController>() != null)
-        {
-            gameObject.GetComponent<PlayerCharacterController>().TakeDamage(damage);
-            return;
-        }
-    }
+    public abstract void Die();
 
     protected abstract void DestroyOnFall();
 
-    protected abstract void Die();
 }

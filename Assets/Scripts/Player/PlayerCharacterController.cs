@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerCharacterController : MonoBehaviour
+    public class PlayerCharacterController : MonoBehaviour, IDamagable
     {
         [Header("References")]
         public Camera PlayerCamera;
@@ -13,8 +13,8 @@ namespace Assets.Scripts.Player
 
         [Header("General")]
         public float GravityDownForce = 20f;
-        public float MaxHealth = 20f;
-        public float Health = 20f;
+        public float MaxHealth = 100f;
+        public float Health = 100f;
 
         [Header("Movement")]
         public float MaxSpeedOnGround = 10f;
@@ -62,23 +62,24 @@ namespace Assets.Scripts.Player
         public bool IsGrounded { get; private set; }
 
         PlayerGUI gui;
-        CharacterController m_Controller;
-        private ArenaManager m_ArenaManager;
-        float m_CameraVerticalAngle = 0f;
-        float m_FootstepDistanceCounter;
-        bool m_isDead = false;
+        CharacterController controller;
+        private PlayerWeaponManager playerWeaponManager;
+        private ArenaManager arenaManager;
+        float cameraVerticalAngle = 0f;
+        float footstepDistanceCounter;
+        bool isDead = false;
 
         void Start()
         {
-            m_Controller = GetComponent<CharacterController>();
+            controller = GetComponent<CharacterController>();
             gui = PlayerCamera.GetComponent<PlayerGUI>();
-            m_ArenaManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetComponent<ArenaManager>();
+            arenaManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetComponent<ArenaManager>();
+            playerWeaponManager = gameObject.GetComponent<PlayerWeaponManager>();
         }
 
         void FixedUpdate()
         {
-            if (IsFall())
-                TakeDamage(MaxHealth);
+            DestroyOnFall();
         }
 
         void Update()
@@ -97,22 +98,22 @@ namespace Assets.Scripts.Player
 
         void GroundCheck()
         {
-            IsGrounded = m_Controller.isGrounded;
+            IsGrounded = controller.isGrounded;
         }
 
         void HandleCharacterMovement()
         {
-            if (m_isDead) return;
+            if (isDead) return;
             {
                 transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self);
             }
 
             {
-                m_CameraVerticalAngle -= Input.GetAxis("Mouse Y");
+                cameraVerticalAngle -= Input.GetAxis("Mouse Y");
 
-                m_CameraVerticalAngle = Mathf.Clamp(m_CameraVerticalAngle, -89f, 89f);
+                cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
 
-                PlayerCamera.transform.localEulerAngles = new Vector3(m_CameraVerticalAngle, 0, 0);
+                PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);
             }
 
             bool isSprinting = Input.GetKey(KeyCode.LeftShift);
@@ -143,13 +144,13 @@ namespace Assets.Scripts.Player
 
                     float chosenFootstepSfxFrequency =
                         (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
-                    if (m_FootstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
+                    if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
                     {
-                        m_FootstepDistanceCounter = 0f;
+                        footstepDistanceCounter = 0f;
                         AudioSource.PlayOneShot(FootstepSfx);
                     }
 
-                    m_FootstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
+                    footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
                 }
                 else
                 {
@@ -164,31 +165,58 @@ namespace Assets.Scripts.Player
                 }
             }
 
-            m_Controller.Move(CharacterVelocity * Time.deltaTime);
+            controller.Move(CharacterVelocity * Time.deltaTime);
         }
 
-        public void TakeDamage(float damage)
+        public void ReceiveDamage(float damage)
         {
             Health -= damage;
             if (Health <= 0)
             {
-                m_isDead = true;
-                gui.Death = true;
+                Die();
             }
+            else if (Health > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
+        }
+
+        public void Die()
+        {
+            isDead = true;
+            gui.Death = true;
+        }
+
+        void DestroyOnFall()
+        {
+            if (transform.position.y < arenaManager.getKillHeight())
+                Die();
         }
 
         void Revive()
         {
             Health = MaxHealth;
-            m_isDead = false;
+            playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;
+            isDead = false;
             gui.Death = false;
-            transform.position = new Vector3(32, m_ArenaManager.heightMap[7, 7] + 1, 32);
-            CharacterVelocity = new Vector3();
-        }
 
-        bool IsFall()
-        {
-            return transform.position.y < m_ArenaManager.getKillHeight();
+            float y = arenaManager.heightMap[9, 9];
+            y = Mathf.Max(y, arenaManager.heightMap[10, 9]);
+            y = Mathf.Max(y, arenaManager.heightMap[9, 10]);
+            y = Mathf.Max(y, arenaManager.heightMap[10, 10]);
+            if (y == 0) {
+                y = Mathf.Max(y, arenaManager.heightMap[8, 9]);
+                y = Mathf.Max(y, arenaManager.heightMap[8, 10]);
+                y = Mathf.Max(y, arenaManager.heightMap[9, 8]);
+                y = Mathf.Max(y, arenaManager.heightMap[10, 8]);
+                y = Mathf.Max(y, arenaManager.heightMap[11, 9]);
+                y = Mathf.Max(y, arenaManager.heightMap[11, 10]);
+                y = Mathf.Max(y, arenaManager.heightMap[9, 11]);
+                y = Mathf.Max(y, arenaManager.heightMap[10, 11]);
+            }
+            y += 0.1f;
+            transform.position = new Vector3(38, y, 38);
+            CharacterVelocity = new Vector3();
         }
     }
 }

@@ -30,9 +30,12 @@ public class ArenaManager : MonoBehaviour
     private GameObject[,] chunks;
     private List<GameObject> stairs;
 
+    [Header("BuffBox Parameters")]
+    public GameObject BuffBoxGO;
+
     [Header("Other Parameters")]
     private int flag = 0;
-    private const int arenaSize = 16;
+    private const int arenaSize = 20;
     private const int chunkScale = 4;
     private float chunkHeight;
     private const int killHeight = -20;
@@ -68,16 +71,6 @@ public class ArenaManager : MonoBehaviour
         {
             changeArena(flag);
             flag = 0;
-
-            //for (int i = 0; i < arenaSize; i++)
-            //{
-            //    string str = "";
-            //    for (int j = 0; j < arenaSize; j++)
-            //    {
-            //         str += heightMap[i, j].ToString() + " ";
-            //    }
-            //    Debug.Log(str);
-            //}
         }
     }
 
@@ -111,67 +104,41 @@ public class ArenaManager : MonoBehaviour
     {
         arenaPresets = new List<int[,]>();
 
-        int[,] flatArena = new int[arenaSize, arenaSize]
-        {
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-        };
+        int[,] flatArena = new int[arenaSize, arenaSize];
+        for (int i = 0; i < arenaSize; i++)
+            for (int j = 0; j < arenaSize; j++)
+                flatArena[i, j] = 9;
+
         int[,] pillars = new int[arenaSize, arenaSize]
         {
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 20, 20, 9, 9, 9,   9, 9, 9, 20, 20, 9, 9, 9 },
-            { 9, 9, 9, 20, 20, 9, 9, 9,   9, 9, 9, 20, 20, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 20, 20, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 20, 20, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 20, 20, 9, 9, 9,   9, 9, 9, 20, 20, 9, 9, 9 },
-            { 9, 9, 9, 20, 20, 9, 9, 9,   9, 9, 9, 20, 20, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-            { 9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9,   9, 9, 9, 9 },
-        };
-        int[,] X = new int[arenaSize, arenaSize] // TODO: replace 9 to 6
-        {
-            { 10, 10, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 10, 10 },
-            { 10, 10, 10, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 10, 10, 10 },
-            { 0, 10, 10, 10, 0, 0, 9, 9, 9, 9, 0, 0, 10, 10, 10, 0 },
-            { 0, 0, 10, 10, 10, 0, 0, 9, 9, 0, 0, 10, 10, 10, 0, 0 },
-            { 9, 0, 0, 10, 10, 10, 0, 0, 0, 0, 10, 10, 10, 0, 0, 9 },
-            { 9, 9, 0, 0, 10, 10, 10, 0, 0, 10, 10, 10, 0, 0, 9, 9 },
-            { 9, 9, 9, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 9, 9, 9 },
-            { 9, 9, 9, 9, 0, 0, 10, 10, 10, 10, 0, 0, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 0, 0, 10, 10, 10, 10, 0, 0, 9, 9, 9, 9 },
-            { 9, 9, 9, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 9, 9, 9 },
-            { 9, 9, 0, 0, 10, 10, 10, 0, 0, 10, 10, 10, 0, 0, 9, 9 },
-            { 9, 0, 0, 10, 10, 10, 0, 0, 0, 0, 10, 10, 10, 0, 0, 9 },
-            { 0, 0, 10, 10, 10, 0, 0, 9, 9, 0, 0, 10, 10, 10, 0, 0 },
-            { 0, 10, 10, 10, 0, 0, 9, 9, 9, 9, 0, 0, 10, 10, 10, 0 },
-            { 10, 10, 10, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 10, 10, 10 },
-            { 10, 10, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 10, 10 },
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+
+            { 5, 5, 5, 5,   9, 7, 7, 7,   5, 5, 5, 5,   7, 7, 7, 9,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   7, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 7,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   7, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 7,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   7, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 7,   5, 5, 5, 5},
+
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+
+            { 5, 5, 5, 5,   7, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 7,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   7, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 7,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   7, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 7,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   9, 7, 7, 7,   5, 5, 5, 5,   7, 7, 7, 9,   5, 5, 5, 5},
+
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
+            { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
         };
 
         arenaPresets.Add(flatArena);
         arenaPresets.Add(pillars);
-        //arenaPresets.Add(X);
     }
 
 
@@ -448,9 +415,7 @@ public class ArenaManager : MonoBehaviour
             if (chunk_i >= 0 && chunk_j >= 0 && chunk_i < arenaSize && chunk_j < arenaSize)
             {
                 float y = heightMap[chunk_i, chunk_j];
-                if (y != 0)
-                    y++;
-                else
+                if (y == 0)
                 {
                     if (chunk_i >= 0)
                         y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
@@ -460,10 +425,8 @@ public class ArenaManager : MonoBehaviour
                         y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
                     if (chunk_j < arenaSize)
                         y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
-
-                    y++;
                 }
-
+                y++;
                 player.transform.position = new Vector3(player_x, y, player_z);
             }
         }
@@ -479,9 +442,7 @@ public class ArenaManager : MonoBehaviour
             if (chunk_i >= 0 && chunk_j >= 0 && chunk_i < arenaSize && chunk_j < arenaSize)
             {
                 float y = heightMap[chunk_i, chunk_j];
-                if (y != 0)
-                    y++;
-                else
+                if (y == 0)
                 {
                     if (chunk_i >= 0)
                         y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
@@ -491,12 +452,17 @@ public class ArenaManager : MonoBehaviour
                         y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
                     if (chunk_j < arenaSize)
                         y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
-
-                    y++;
                 }
+                y++;
 
                 gameController.Enemies[i].transform.position = new Vector3(x, y, z);
             }
+        }
+
+        //Destroy all BuffBoxes
+        for(int i = 0; i < BuffBoxGO.transform.childCount; i++)
+        {
+            Destroy(BuffBoxGO.transform.GetChild(i).gameObject);
         }
     }
 }

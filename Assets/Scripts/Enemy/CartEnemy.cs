@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 namespace Assets.Scripts.Enemy
 {
-    public class CartEnemy : EnemyBase
+    public class CartEnemy : EnemyBase, IDamagable
     {
         public float MaxAngularSpeed = 1;
         //public float ColorDuration = 0.2f;
@@ -44,26 +44,26 @@ namespace Assets.Scripts.Enemy
         void Update()
         {
             //directionToPlayer = target.position - transform.position;
-            directionToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
-            directionToPlayer = (new Vector3(directionToPlayer.x, 0, directionToPlayer.z)).normalized;
+            fromBodyToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
+            fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             float angle;
             float acceleration;
-            if (directionToPlayer.z > 0)
+            if (fromBodyToPlayer.z > 0)
             {
-                if (directionToPlayer.x > -0.05f && 0.05f < directionToPlayer.x)
+                if (fromBodyToPlayer.x > -0.05f && 0.05f < fromBodyToPlayer.x)
                 {
-                    acceleration = Mathf.Clamp01(directionToPlayer.z / directionToPlayer.x);
+                    acceleration = Mathf.Clamp01(fromBodyToPlayer.z / fromBodyToPlayer.x);
                 }
                 else
                 {
                     acceleration = 1;
                 }
-                angle = directionToPlayer.x / directionToPlayer.z;
+                angle = fromBodyToPlayer.x / fromBodyToPlayer.z;
             }
             else
             {
                 acceleration = 0;
-                if (directionToPlayer.x > 0)
+                if (fromBodyToPlayer.x > 0)
                 {
                     angle = 1;
                 }
@@ -91,23 +91,35 @@ namespace Assets.Scripts.Enemy
             characterController.Move(characterVelocity * Time.deltaTime);
         }
 
-        protected override void Attack(Collider collider)
+        protected void Attack(Collider collider)
         {
             // if (collider.gameObject == target)
             if (collider.gameObject.CompareTag("Player"))
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
-                player.TakeDamage(Damage);
-                player.CharacterVelocity = new Vector3(directionToPlayer.x * 1000, 5, directionToPlayer.z * 1000); // Knockback
+                player.ReceiveDamage(Damage);
+                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
             }
         }
 
-        public override void TakeDamage(float damage)
+        public override void ReceiveDamage(float damage)
         {
             Health -= damage;
             //StartCoroutine(ChangeColor());
 
             if (Health <= 0)
+                Die();
+        }
+
+        public override void Die()
+        {
+            gameController.Enemies.Remove(gameObject);
+            Destroy(gameObject);
+        }
+
+        protected override void DestroyOnFall()
+        {
+            if (transform.position.y < arenaManager.getKillHeight())
                 Die();
         }
 
@@ -117,17 +129,5 @@ namespace Assets.Scripts.Enemy
         //    yield return new WaitForSeconds(ColorDuration);
         //    material.color = originalColor;
         //}
-
-        protected override void DestroyOnFall()
-        {
-            if (transform.position.y < arenaManager.getKillHeight())
-                Die();
-        }
-
-        protected override void Die()
-        {
-            gameController.Enemies.Remove(gameObject);
-            Destroy(gameObject);
-        }
     }
 }
