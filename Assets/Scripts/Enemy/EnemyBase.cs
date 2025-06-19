@@ -33,7 +33,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     public abstract void ReceiveDamage(float damage);
 
-    public abstract void Die();
+    public abstract void Die(bool needScored = true);
 
     protected abstract void DestroyOnFall();
 

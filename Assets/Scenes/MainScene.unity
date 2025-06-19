@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: fba2ecd7f1b12584eb43aba3c152c705, type: 2}
   m_HaloStrength: 0.5
@@ -431,6 +431,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8862437126181784438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432895787918744665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853d4c0c2f9827049a162605445e7a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerCamera: {fileID: 3505742760021801838}
+  AudioSource: {fileID: 100443658}
+  GravityDownForce: 20
+  MaxHealth: 100
+  Health: 1000
+  MaxSpeedOnGround: 15
+  MovementSharpnessOnGround: 30
+  MaxSpeedCrouchedRatio: 0.5
+  MaxSpeedInAir: 20
+  AccelerationSpeedInAir: 40
+  SprintSpeedModifier: 1
+  KillHeight: -50
+  RotationSpeed: 200
+  AimingRotationMultiplier: 0.4
+  JumpForce: 9
+  DashMaxCount: 2
+  DashCount: 0
+  DashForce: 100
+  DashReload: 2
+  CameraHeightRatio: 0.9
+  CapsuleHeightStanding: 1.8
+  CapsuleHeightCrouching: 0.9
+  CrouchingSharpness: 10
+  FootstepSfx: {fileID: 8300000, guid: 06f8411919fa97a47bcab3b27126b7d1, type: 3}
+  JumpSfx: {fileID: 8300000, guid: fa9e7a88bda5ec94182d26279a89fde6, type: 3}
+  LandSfx: {fileID: 8300000, guid: 3b91586947f43564d9c9c5e54a08ced1, type: 3}
+  FootstepSfxFrequency: 0.2
+  SprintingSfxFrequency: 0.3
+--- !u!114 &9193850461486012783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708929020041947660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2e68a7c4c694f41858ff8a37fd9b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainGUISkin: {fileID: 11400000, guid: 4dd8fa4c6878c744fa5e1b1016663961, type: 2}
+  HP_Menu: {fileID: 2800000, guid: afe52c0eef1a03f438326532cebeaae5, type: 3}
+  Arrow: {fileID: 2800000, guid: 8394d2562f492f64eadde8ab1d05796a, type: 3}
+  Death: 0
+  HPArrowStart: 0
+  HPArrowStep: 0.9
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -73,7 +73,7 @@ namespace Assets.Scripts.Enemy
 
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
+                player.ExtraVelocity = new Vector3(fromBodyToPlayer.x * 100, 20, fromBodyToPlayer.z * 100); // Knockback
             }
         }
 
@@ -87,11 +87,14 @@ namespace Assets.Scripts.Enemy
                 Die();
         }
 
-        public override void Die()
+        public override void Die(bool needScored = true)
         {
             isDead = true;
             animator.SetTrigger("Die");
             characterController.enabled = false;
+
+            if (needScored)
+                GlobalInspector.KilledMelee++;
 
             StartCoroutine(Disappeare());
         }
@@ -124,7 +127,7 @@ namespace Assets.Scripts.Enemy
         protected override void DestroyOnFall()
         {
             if (transform.position.y < arenaManager.getKillHeight())
-                Die();
+                Die(false);
         }
     }
 }

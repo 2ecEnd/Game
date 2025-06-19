@@ -53,29 +53,24 @@ namespace Assets.Scripts.Gameplay
             float arenaSize = (arenaManager.getArenaSize() - 1) * arenaManager.getChunkScale();
             //while (Enemies.Count < MaxEnemies)
             {
-                float x = Random.Range(0, arenaSize);
-                int i = (int)(x / arenaManager.getChunkScale());
-                float z = Random.Range(0, arenaSize);
-                int j = (int)(z / arenaManager.getChunkScale());
-
-                float y = arenaManager.heightMap[i, j];
-                if (y == 0)
+                int y = 0;
+                while (y == 0)
                 {
-                    if (i != 0)
-                        y = Mathf.Max(y, arenaManager.heightMap[i - 1, j]);
-                    if (i != arenaManager.getArenaSize() - 1)
-                        y = Mathf.Max(y, arenaManager.heightMap[i + 1, j]);
-                    if (j != 0)
-                        y = Mathf.Max(y, arenaManager.heightMap[i, j - 1]);
-                    if (j != arenaManager.getArenaSize() - 1)
-                        y = Mathf.Max(y, arenaManager.heightMap[i, j + 1]);
-                }
-                y++;
+                    float x = Random.Range(0, arenaSize);
+                    int i = (int)((x + 2) / arenaManager.getChunkScale());
+                    float z = Random.Range(0, arenaSize);
+                    int j = (int)((z + 2) / arenaManager.getChunkScale());
 
-                Vector3 spawnPosition = new Vector3(x, y, z);
+                    y = arenaManager.heightMap[i, j];
+                    if (y > 0)
+                    {
+                        y++;
+                        Vector3 spawnPosition = new Vector3(x, y, z);
+                        Instantiate(HealthPrefab, spawnPosition, Quaternion.identity, buffBoxGO.transform);
+                    }
+                }
                 //int coin = Random.Range(0, 3);
 
-                Instantiate(HealthPrefab, spawnPosition, Quaternion.identity, buffBoxGO.transform);
 
                 //if (coin == 0)
                 //    Enemies.Add(Instantiate(MeleeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
@@ -92,11 +87,11 @@ namespace Assets.Scripts.Gameplay
             while (Enemies.Count < MaxEnemies)
             {
                 float x = Random.Range(0, arenaSize);
-                int i = (int)(x / arenaManager.getChunkScale());
+                int i = (int)((x + 2) / arenaManager.getChunkScale());
                 float z = Random.Range(0, arenaSize);
-                int j = (int)(z / arenaManager.getChunkScale());
+                int j = (int)((z + 2) / arenaManager.getChunkScale());
 
-                float y = arenaManager.heightMap[i, j];
+                int y = arenaManager.heightMap[i, j];
                 if (y == 0)
                 {
                     if (i != 0)

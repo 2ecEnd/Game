@@ -131,11 +131,14 @@ public class RangeEnemy : EnemyBase, IDamagable
             Die();
     }
 
-    public override void Die()
+    public override void Die(bool needScored = true)
     {
         isDead = true;
         animator.SetTrigger("Die");
         characterController.enabled = false;
+
+        if (needScored)
+            GlobalInspector.KilledRange++;
 
         StartCoroutine(Disappeare());
     }
@@ -168,6 +171,6 @@ public class RangeEnemy : EnemyBase, IDamagable
     protected override void DestroyOnFall()
     {
         if (transform.position.y < arenaManager.getKillHeight())
-            Die();
+            Die(false);
     }
 }

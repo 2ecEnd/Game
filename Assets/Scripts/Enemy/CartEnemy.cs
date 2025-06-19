@@ -43,7 +43,6 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
-            //directionToPlayer = target.position - transform.position;
             fromBodyToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             float angle;
@@ -98,7 +97,9 @@ namespace Assets.Scripts.Enemy
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
+                Vector3 directionToPlayer = (target.position - transform.position);
+                directionToPlayer = new Vector3(directionToPlayer.x, 0, directionToPlayer.z).normalized;
+                player.ExtraVelocity += new Vector3(directionToPlayer.x * 300, 20, directionToPlayer.z * 300); // Knockback
             }
         }
 
@@ -111,16 +112,19 @@ namespace Assets.Scripts.Enemy
                 Die();
         }
 
-        public override void Die()
+        public override void Die(bool needScored = true)
         {
             gameController.Enemies.Remove(gameObject);
             Destroy(gameObject);
+
+            if (needScored)
+                GlobalInspector.KilledCart++;
         }
 
         protected override void DestroyOnFall()
         {
             if (transform.position.y < arenaManager.getKillHeight())
-                Die();
+                Die(false);
         }
 
         //IEnumerator ChangeColor()
