@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: d8a4c5cb810fd4f479b7f274d8303dd9, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: fba2ecd7f1b12584eb43aba3c152c705, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -355,92 +355,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &817180902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 817180905}
-  - component: {fileID: 817180904}
-  - component: {fileID: 817180903}
-  m_Layer: 0
-  m_Name: Plane
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &817180903
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817180902}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 1e6932de068ae1d43a200455857c008e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &817180904
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817180902}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &817180905
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817180902}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: 0}
-  m_LocalScale: {x: 1000, y: 1, z: 1000}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,9 +471,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dd7b1e24b49914ca2fc1e32eb964f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeleeEnemyPrefab: {fileID: 3954221838382394143, guid: 4f186221b1dc5da4da1164a01e1610e3, type: 3}
-  RangeEnemyPrefab: {fileID: 3954221838382394143, guid: bd25be321b859a64ba9f5a0167af386c, type: 3}
-  CartEnemyPrefab: {fileID: 3954221838382394143, guid: 23aaebd63fed8d44fa70d55ca4487ca8, type: 3}
+  MeleeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+  RangeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+  CartEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
   HealthPrefab: {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
   SpawnInterval: 10
   MaxEnemies: 5
@@ -813,9 +727,9 @@ MonoBehaviour:
   AudioSource: {fileID: 100443658}
   GravityDownForce: 20
   MaxHealth: 100
-  Health: 100
-  MaxSpeedOnGround: 20
-  MovementSharpnessOnGround: 15
+  Health: 1000
+  MaxSpeedOnGround: 15
+  MovementSharpnessOnGround: 30
   MaxSpeedCrouchedRatio: 0.5
   MaxSpeedInAir: 20
   AccelerationSpeedInAir: 40
@@ -863,4 +777,3 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 3879466072481131239}
   - {fileID: 8018207831419217491}
-  - {fileID: 817180905}

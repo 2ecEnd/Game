@@ -1,0 +1,743 @@
+fileFormatVersion: 2
+guid: f3ca6cfb7e20c3f4e8dce4daa316b5f9
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|attack3
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|attack3
+      internalID: -1473326531559797073
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|attack3_2
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|attack3_2
+      internalID: -9174868657970869360
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|diebackward
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|diebackward
+      internalID: 4396446185204073793
+      firstFrame: 0
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|hornetattack_blend01
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|hornetattack_blend01
+      internalID: -8167741661098379646
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|idle1
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|idle1
+      internalID: 142589617664786069
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|longshoot_blend01
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|longshoot_blend01
+      internalID: 3310592220052128260
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|quickshoot_blend01
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|quickshoot_blend01
+      internalID: -7195854244051773644
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|quickshoot_blend02
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|quickshoot_blend02
+      internalID: -2566624474443568662
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AGRUNT_Template_Model(Gun_body)3_skeleton|run
+      takeName: AGRUNT_Template_Model(Gun_body)3_skeleton|run
+      internalID: -5743295379902841334
+      firstFrame: 0
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: AlienSoldier(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: AGRUNT_Template_Model(Gun_arm)2
+      parentName: AlienSoldier(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: AGRUNT_Template_Model(Gun_body)3
+      parentName: AlienSoldier(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: AGRUNT_Template_Model(Gun_body)3_skeleton
+      parentName: AlienSoldier(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Bip01
+      parentName: AGRUNT_Template_Model(Gun_body)3_skeleton
+      position: {x: -0.0047847, y: -0.020499239, z: 0.37804905}
+      rotation: {x: 0.12576248, y: -0.1257614, z: 0.69583625, w: 0.6958303}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 Pelvis
+      parentName: Bip01
+      position: {x: 0.06463612, y: -0.0047849417, z: 0.0938213}
+      rotation: {x: -0.56009483, y: 0.44306913, z: 0.3387016, w: 0.6125886}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bip01 L Leg
+      parentName: Bip01 Pelvis
+      position: {x: 0.00000002219709, y: 0.00000011942412, z: 0.06849276}
+      rotation: {x: -0.030414758, y: 0.006068721, z: 0.9602988, w: -0.2772444}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bip01 L Leg1
+      parentName: Bip01 L Leg
+      position: {x: -0.21934259, y: 0.00000000834465, z: 0.0000000023841857}
+      rotation: {x: 0.001022597, y: -0.003549851, z: 0.18476318, w: 0.98277617}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999998}
+    - name: Bip01 L Foot
+      parentName: Bip01 L Leg1
+      position: {x: -0.1175864, y: 4.4703483e-10, z: -0.00000002026558}
+      rotation: {x: 0.94078356, y: -0.3377633, z: 0.023799954, w: 0.016606042}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Bip01 L Toe0
+      parentName: Bip01 L Foot
+      position: {x: -0.114841506, y: 0.106300846, z: -0.000000009993079}
+      rotation: {x: 0.0000000021524595, y: -0.0000000010395338, z: -0.7431237, w: 0.66915405}
+      scale: {x: 0.9999999, y: 0.9999999, z: 0.9999999}
+    - name: Bip01 L Toe0_end
+      parentName: Bip01 L Toe0
+      position: {x: -0, y: 0.0033875713, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone27
+      parentName: Bip01 L Foot
+      position: {x: -0.09278793, y: 0.039147723, z: -0.06737088}
+      rotation: {x: 0.502176, y: 0.49781454, z: 0.5021758, w: -0.49781466}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: Bone27_end
+      parentName: Bone27
+      position: {x: -0, y: 0.0033875704, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone30
+      parentName: Bip01 L Foot
+      position: {x: -0.092891335, y: 0.03931378, z: 0.080668785}
+      rotation: {x: 0.5021759, y: 0.49781457, z: 0.50217587, w: -0.49781463}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: Bone30_end
+      parentName: Bone30
+      position: {x: -0, y: 0.0033875704, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Leg
+      parentName: Bip01 Pelvis
+      position: {x: -0.000000099693004, y: -0.00000007257157, z: -0.06849276}
+      rotation: {x: 0.106945366, y: -0.022398993, z: 0.9615247, w: -0.252054}
+      scale: {x: 1, y: 0.99999976, z: 0.9999998}
+    - name: Bip01 R Leg1
+      parentName: Bip01 R Leg
+      position: {x: -0.22131518, y: -0.000000014044344, z: 0.00000003712252}
+      rotation: {x: -0.024629656, y: 0.042674374, z: 0.19225137, w: 0.98010796}
+      scale: {x: 0.99999976, y: 0.99999994, z: 0.9999999}
+    - name: Bip01 R Foot
+      parentName: Bip01 R Leg1
+      position: {x: -0.10900647, y: 0.0000000166893, z: -0.000000017285346}
+      rotation: {x: 0.9586611, y: -0.2659664, z: -0.051303588, w: -0.087170884}
+      scale: {x: 1.0000001, y: 0.9999999, z: 1}
+    - name: Bip01 R Toe0
+      parentName: Bip01 R Foot
+      position: {x: -0.11315101, y: 0.1077492, z: -0.0000000114493375}
+      rotation: {x: -1.7001839e-10, y: 8.031185e-10, z: -0.7071067, w: 0.7071069}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Bip01 R Toe0_end
+      parentName: Bip01 R Toe0
+      position: {x: -0, y: 0.0033875704, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone21
+      parentName: Bip01 R Foot
+      position: {x: -0.09185179, y: 0.040506944, z: 0.06594053}
+      rotation: {x: 0.502176, y: 0.49781454, z: 0.5021758, w: -0.49781466}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone21_end
+      parentName: Bone21
+      position: {x: -0, y: 0.0033875704, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone24
+      parentName: Bip01 R Foot
+      position: {x: -0.09192932, y: 0.040507793, z: -0.065790296}
+      rotation: {x: 0.502176, y: 0.49781454, z: 0.5021758, w: -0.49781466}
+      scale: {x: 0.99999994, y: 0.9999998, z: 1}
+    - name: Bone24_end
+      parentName: Bone24
+      position: {x: -0, y: 0.0033875704, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 Spine
+      parentName: Bip01 Pelvis
+      position: {x: -0.022715712, y: -0.054068606, z: 0.00000019055747}
+      rotation: {x: -0.0000021255073, y: 0.0000006944209, z: 0.14733271, w: 0.989087}
+      scale: {x: 0.99999964, y: 0.99999964, z: 1}
+    - name: Bip01 Spine1
+      parentName: Bip01 Spine
+      position: {x: -0.05801802, y: -0.000054177945, z: 3.8180586e-10}
+      rotation: {x: -0.04330657, y: 0.0049890806, z: 0.11519619, w: 0.99238575}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 Spine2
+      parentName: Bip01 Spine1
+      position: {x: -0.06956609, y: -0.000051232204, z: 0.0000000011920929}
+      rotation: {x: 0.0000000013699155, y: 6.9953127e-10, z: 0.05448352, w: 0.9985147}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Bip01 Spine3
+      parentName: Bip01 Spine2
+      position: {x: -0.06463005, y: -0.00007558957, z: -0.0000000020861626}
+      rotation: {x: -0.043560017, y: 0.0017662869, z: 0.04137685, w: 0.9981921}
+      scale: {x: 0.99999994, y: 1.0000001, z: 0.9999999}
+    - name: Bip01 Neck
+      parentName: Bip01 Spine3
+      position: {x: -0.095080554, y: -0.000020783693, z: 0.0000000011920929}
+      rotation: {x: 0.00000001094564, y: 0.0000000023288593, z: 0.021803759, w: 0.9997623}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Bip01 Head
+      parentName: Bip01 Neck
+      position: {x: -0.026167095, y: -0.000000040829182, z: -0.0000000023841857}
+      rotation: {x: 0.085538335, y: 0.0073289545, z: -0.37122744, w: 0.9245646}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone01
+      parentName: Bip01 Head
+      position: {x: -0.028552508, y: 0.06738581, z: 0.04919916}
+      rotation: {x: 0.6958334, y: 0.12576152, z: -0.69583327, w: 0.12576154}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Bone01_end
+      parentName: Bone01
+      position: {x: -0, y: 0.003387575, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone04
+      parentName: Bip01 Head
+      position: {x: -0.028595356, y: 0.06747376, z: -0.049359314}
+      rotation: {x: -0.6954094, y: -0.14154655, z: 0.69590867, w: -0.10991619}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Bone04_end
+      parentName: Bone04
+      position: {x: -0, y: 0.0033875664, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 L Arm
+      parentName: Bip01 Neck
+      position: {x: 0.00000007867813, y: 0.00002063632, z: 0.05622176}
+      rotation: {x: -0.632665, y: 0.020296745, z: 0.7740806, w: 0.011061546}
+      scale: {x: 0.99999964, y: 0.99999976, z: 0.9999997}
+    - name: Bip01 L Arm1
+      parentName: Bip01 L Arm
+      position: {x: -0.1311272, y: 0.000000088214875, z: -0.000000088214875}
+      rotation: {x: 0.30217203, y: 0.08581827, z: -0.047488354, w: 0.9481942}
+      scale: {x: 1.0000001, y: 0.9999999, z: 1}
+    - name: Bip01 L Arm2
+      parentName: Bip01 L Arm1
+      position: {x: -0.23167196, y: -0.00000002326793, z: 0.00000008225441}
+      rotation: {x: -0.011013535, y: 0.008821754, z: 0.0028306406, w: 0.99989647}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Bone33
+      parentName: Bip01 L Arm2
+      position: {x: -0.2792976, y: -0.00526072, z: 0.00140154}
+      rotation: {x: 0.7689154, y: -0.42420408, z: 0.31215703, w: 0.3624611}
+      scale: {x: 0.9999998, y: 0.9999999, z: 1.0000001}
+    - name: Bone33_end
+      parentName: Bone33
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone36
+      parentName: Bip01 L Arm2
+      position: {x: -0.27566874, y: 0.0390574, z: -0.0102397045}
+      rotation: {x: 0.047282647, y: -0.18239313, z: -0.8042574, w: 0.5636197}
+      scale: {x: 0.9999998, y: 0.99999994, z: 1.0000001}
+    - name: Bone36_end
+      parentName: Bone36
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Arm
+      parentName: Bip01 Neck
+      position: {x: 0.00000018000603, y: 0.000020925998, z: -0.056221724}
+      rotation: {x: 0.671926, y: 0.10469776, z: 0.72350156, w: 0.11874059}
+      scale: {x: 1, y: 0.9999997, z: 0.99999976}
+    - name: Bip01 R Arm1
+      parentName: Bip01 R Arm
+      position: {x: -0.13892679, y: -0.000000038146972, z: 0.000000047087667}
+      rotation: {x: -0.42538878, y: -0.082086414, z: 0.12660156, w: 0.8923443}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip01 R Arm2
+      parentName: Bip01 R Arm1
+      position: {x: -0.2236372, y: 0.000000010445365, z: 0.000000047683713}
+      rotation: {x: 0.013574867, y: -0.016344538, z: 0.0051021385, w: 0.9997612}
+      scale: {x: 1.0000001, y: 0.99999994, z: 0.9999999}
+    - name: Bip01 R Hand
+      parentName: Bip01 R Arm2
+      position: {x: -0.2812203, y: -0.000000044107438, z: -0.000000033676624}
+      rotation: {x: 0.6603036, y: -0.35676, z: -0.031478226, w: 0.66009897}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Dummy07X
+      parentName: Bip01 R Hand
+      position: {x: -0.0810892, y: 0.0671192, z: 0.06756183}
+      rotation: {x: 0.19312556, y: 0.7214162, z: -0.109001435, w: 0.6560336}
+      scale: {x: 0.99999994, y: 1.0000001, z: 0.99999994}
+    - name: Bone47X
+      parentName: Dummy07X
+      position: {x: -0.0035691496, y: 0.0031367568, z: -0.0087979175}
+      rotation: {x: 0.67535764, y: -0.18257356, z: -0.45369127, w: 0.5520175}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone48X
+      parentName: Bone47X
+      position: {x: -0.0038444048, y: -0.06494032, z: 0.0058896015}
+      rotation: {x: 0.8360343, y: 0.000028081236, z: 0.5460223, w: 0.053910892}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+    - name: Bone48X_end
+      parentName: Bone48X
+      position: {x: -0, y: 0.0033875753, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dummy08X
+      parentName: Bip01 R Hand
+      position: {x: -0.08915525, y: -0.053502202, z: 0.03849835}
+      rotation: {x: 0.3497304, y: 0.50986046, z: 0.24423134, w: 0.7470489}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: Bone43X
+      parentName: Dummy08X
+      position: {x: -0.0010292563, y: 0.007307007, z: -0.0058225296}
+      rotation: {x: 0.9041134, y: 0.2689514, z: 0.013665615, w: 0.33174887}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone44X
+      parentName: Bone43X
+      position: {x: 0.02491614, y: -0.059415374, z: -0.00000007867813}
+      rotation: {x: 0.0000027418134, y: 0.0000017564741, z: -0.980353, w: 0.1972513}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Bone44X_end
+      parentName: Bone44X
+      position: {x: -0, y: 0.0033875706, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone39
+      parentName: Bip01 R Arm2
+      position: {x: -0.28017822, y: -0.0060336445, z: -0.0019083614}
+      rotation: {x: -0.5401243, y: -0.5170387, z: 0.60090095, w: -0.2825858}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Bone39_end
+      parentName: Bone39
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone42
+      parentName: Bip01 R Arm2
+      position: {x: -0.2820591, y: 0.04174812, z: 0.00021355659}
+      rotation: {x: -0.5401242, y: -0.51703894, z: 0.60090077, w: -0.282586}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Bone42_end
+      parentName: Bone42
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dummy02X
+      parentName: Bip01 R Arm2
+      position: {x: -0.19883403, y: -0.03194099, z: 0.07484967}
+      rotation: {x: 0.5501102, y: 0.56386095, z: -0.41546467, w: 0.45478427}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Bone39X
+      parentName: Dummy02X
+      position: {x: 0.0032329955, y: 0.004504161, z: 0.002230141}
+      rotation: {x: 0.21419959, y: -0.030357262, z: -0.13574927, w: 0.9668346}
+      scale: {x: 1.0000001, y: 1, z: 0.9999999}
+    - name: Bone39X_end
+      parentName: Bone39X
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dummy06X
+      parentName: Bip01 R Arm2
+      position: {x: -0.19920944, y: 0.0045610857, z: -0.0696392}
+      rotation: {x: 0.53524214, y: 0.57318836, z: -0.4434187, w: 0.43399394}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone41X
+      parentName: Dummy06X
+      position: {x: 0.0026162853, y: 0.00039271265, z: 0.0018547463}
+      rotation: {x: 0.19832356, y: -0.019709898, z: -0.102631554, w: 0.9745492}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone41X_end
+      parentName: Bone41X
+      position: {x: -0, y: 0.0033876037, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dummy01
+      parentName: Bip01 Spine1
+      position: {x: -0.023133468, y: 0.062504746, z: -0.0047955606}
+      rotation: {x: 0.00000068447747, y: -0.0000007220121, z: 0.6854841, w: 0.72808754}
+      scale: {x: 1, y: 1.0000001, z: 0.9999999}
+    - name: Bone07
+      parentName: Dummy01
+      position: {x: 0.03158926, y: 0.045403063, z: -0.000000013113022}
+      rotation: {x: -2.7755574e-17, y: 0.0000000037980503, z: 8.731127e-11, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: Bone08
+      parentName: Bone07
+      position: {x: 0.12620343, y: -0.070245266, z: 0.000000010430813}
+      rotation: {x: -3.4924597e-10, y: 0.0000000038271537, z: 8.731171e-11, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Bone09
+      parentName: Bone08
+      position: {x: 0.07679355, y: 0.018454328, z: 0.0000000023841857}
+      rotation: {x: -0.0000000034924594, y: 0.0000000021536835, z: 0.00000000745058, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Bone10
+      parentName: Bone09
+      position: {x: 0.060552377, y: 0.034120355, z: 0.021709528}
+      rotation: {x: 2.3283067e-10, y: 1.4551939e-10, z: 0.000000020721927, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Bone11
+      parentName: Bone10
+      position: {x: 0.040489767, y: 0.0012108125, z: 0.0183927}
+      rotation: {x: 8.1490725e-10, y: -1.4551915e-11, z: -0.000000012892998, w: 1}
+      scale: {x: 0.99999994, y: 1.0000001, z: 0.9999999}
+    - name: Bone11_end
+      parentName: Bone11
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone14
+      parentName: Bone09
+      position: {x: 0.027383719, y: -0.04405202, z: -0.0000000038743018}
+      rotation: {x: -0.00000000372529, y: -0.000000001498847, z: 0.000000026164342, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Bone14_end
+      parentName: Bone14
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone17
+      parentName: Bone09
+      position: {x: 0.060055874, y: 0.034272596, z: -0.018672597}
+      rotation: {x: -0.0000000018626454, y: -0.0000000016443666, z: 0.000000018830182, w: 1}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.99999994}
+    - name: Bone18
+      parentName: Bone17
+      position: {x: 0.04153381, y: 0.001218856, z: -0.02112813}
+      rotation: {x: 0.0000000022118916, y: -0.0000000019063013, z: -0.0000000015425033, w: 1}
+      scale: {x: 0.99999976, y: 0.9999998, z: 0.9999998}
+    - name: Bone18_end
+      parentName: Bone18
+      position: {x: -0, y: 0.0033875655, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: AGRUNT_Template_Model(Gun_body)3_skeleton
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

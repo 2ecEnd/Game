@@ -8,12 +8,19 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     public float Health;
     public Transform AttackStartPoint;
     public float Damage;
+    public float AttackRate = 0.5f;
+
+    [Header("Movement")]
     public float GravityForce;
     public float MaxSpeedOnGround;
     public float MovementSharpnessOnGround;
     public float MaxSpeedInAir;
     public float AccelerationSpeedInAir;
     public Vector3 characterVelocity;
+
+    [Header("Disappearance")]
+    public float DisappearanceRate = 10;
+    public float SinkSpeed = 5;
 
     [Header("Scripts")]
     protected GameController gameController;
