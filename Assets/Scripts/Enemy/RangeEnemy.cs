@@ -75,6 +75,8 @@ public class RangeEnemy : EnemyBase, IDamagable
             characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
         }
 
+        if (!characterController.isGrounded) characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
+        
         if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
 
         characterVelocity = new Vector3(characterVelocity.x, verticalVelocity, characterVelocity.z);

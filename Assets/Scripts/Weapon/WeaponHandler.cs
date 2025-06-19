@@ -40,15 +40,20 @@ namespace Assets.Scripts
         float m_LastTimeReloading = Mathf.NegativeInfinity;
         Vector3 m_LastMuzzlePosition;
         AudioSource m_ShootAudioSource;
+        Animator animator;
         bool m_inputHeldCurrentFrame = false;
         bool m_inputWasHeld = false;
+        float delayBetweenShots;
 
         void Start()
         {
             m_ShootAudioSource = GetComponent<AudioSource>();
+            animator = GetComponent<Animator>();
             CurrentAmmo = MagazineSize;
             Reload = false;
             m_LastMuzzlePosition = WeaponMuzzle.position;
+
+            delayBetweenShots = 60f / FireRate;
         }
 
         void Update()
@@ -97,8 +102,9 @@ namespace Assets.Scripts
 
         public void HandleReload()
         {
-            if (!Reload)
+            if (!Reload && m_LastTimeShot + delayBetweenShots < Time.time)
             {
+                animator.SetTrigger("Reload");
                 CurrentAmmo = MagazineSize;
                 Reload = true;
                 m_LastTimeReloading = Time.time;
@@ -110,9 +116,8 @@ namespace Assets.Scripts
         {
             if (Reload) return false;
 
-            float DelayBetweenShots = 60f / FireRate;
             if (CurrentAmmo >= 1
-                && m_LastTimeShot + DelayBetweenShots < Time.time)
+                && m_LastTimeShot + delayBetweenShots < Time.time)
             {
                 HandleShoot();
                 CurrentAmmo -= 1;
@@ -138,6 +143,7 @@ namespace Assets.Scripts
                 newProjectile.Shoot(this);
             }
 
+            animator.SetTrigger("Fire");
             m_LastTimeShot = Time.time;
             m_ShootAudioSource.PlayOneShot(ShootSfx);
         }
