@@ -86,7 +86,7 @@ MonoBehaviour:
   BulletsPerShot: 12
   ShootType: 0
   WeaponMuzzle: {fileID: 8691114785854688947}
-  ProjectilePrefab: {fileID: 6774801006451134850, guid: e3193ad2d89190b47a9900a54de35643, type: 3}
+  ProjectilePrefab: {fileID: 6774801006451134850, guid: 1b43a1017504ffd488dc4f088254f4be, type: 3}
   MagazineSize: 8
   AmmoReloadRate: 6
   ReloadingType: Manual

@@ -72,20 +72,14 @@ namespace Assets.Scripts.Enemy
                 }
             }
             transform.Rotate(0, Mathf.Clamp(angle, -MaxAngularSpeed, MaxAngularSpeed), 0);
-            //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            Vector3 targetVelocity = transform.forward * acceleration;
             if (characterController.isGrounded)
             {
-                Vector3 targetVelocity = transform.forward * acceleration * MaxSpeedOnGround;
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
             }
             else
             {
-                characterVelocity += transform.forward * acceleration * AccelerationSpeedInAir * Time.deltaTime;
-                float verticalVelocity = characterVelocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
-                characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
             }
             characterController.Move(characterVelocity * Time.deltaTime);
         }

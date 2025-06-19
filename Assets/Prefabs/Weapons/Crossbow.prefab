@@ -90,9 +90,9 @@ MonoBehaviour:
   MagazineSize: 5
   AmmoReloadRate: 6
   RecoilForce: 0.1
-  ShootSfx: {fileID: 8300000, guid: f838a749443941d44bfecc66d2fea337, type: 3}
+  ShootSfx: {fileID: 8300000, guid: 2cae3907e501fd84b8c2ca9c59f4987e, type: 3}
   MisfireSfx: {fileID: 0}
-  ReloadingSfx: {fileID: 8300000, guid: 55f86cac37a605246a1fd39b836d34d8, type: 3}
+  ReloadingSfx: {fileID: 0}
 --- !u!95 &3248870576414451964
 Animator:
   serializedVersion: 7

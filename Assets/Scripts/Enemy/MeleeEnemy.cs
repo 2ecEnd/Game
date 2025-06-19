@@ -45,20 +45,17 @@ namespace Assets.Scripts.Enemy
             fromBodyToPlayer = target.position - transform.position;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            Vector3 targetVelocity = fromBodyToPlayer;
+            float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
             {
-                Vector3 targetVelocity = fromBodyToPlayer * MaxSpeedOnGround;
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
             }
             else
             {
-                characterVelocity += fromBodyToPlayer * AccelerationSpeedInAir * Time.deltaTime;
-                float verticalVelocity = characterVelocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
-                characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
             }
+            characterVelocity = new Vector3(characterVelocity.x, verticalVelocity, characterVelocity.z);
             characterController.Move(characterVelocity * Time.deltaTime);
         }
 

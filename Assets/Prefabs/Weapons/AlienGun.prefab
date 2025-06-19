@@ -47,13 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentAmmo: 0
   Reload: 0
-  FireRate: 600
+  FireRate: 750
   BulletSpreadAngle: 2
   BulletsPerShot: 1
   ShootType: 1
   WeaponMuzzle: {fileID: 5157964426762524998}
-  ProjectilePrefab: {fileID: 6774801006451134850, guid: af195d39249c8d94fba4f2435ab93f09, type: 3}
-  MagazineSize: 5
+  ProjectilePrefab: {fileID: 6774801006451134850, guid: 13efacec8a97e1f429f88ec936dc1264, type: 3}
+  MagazineSize: 100000
   AmmoReloadRate: 3.5
   RecoilForce: 1
   ShootSfx: {fileID: 0}

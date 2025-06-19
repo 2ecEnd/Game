@@ -162,14 +162,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8193852122359278991, guid: 83fdf13f6ab5e8242bf24fff119e909b, type: 3}
-      propertyPath: FireRate
-      value: 750
-      objectReference: {fileID: 0}
-    - target: {fileID: 8193852122359278991, guid: 83fdf13f6ab5e8242bf24fff119e909b, type: 3}
-      propertyPath: MagazineSize
-      value: 100000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
