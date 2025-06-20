@@ -270,7 +270,7 @@ MonoBehaviour:
   MovementSharpnessOnGround: 30
   MaxSpeedCrouchedRatio: 0.5
   MaxSpeedInAir: 20
-  AccelerationSpeedInAir: 5
+  AccelerationSpeedInAir: 3
   SprintSpeedModifier: 1
   KillHeight: -50
   RotationSpeed: 200

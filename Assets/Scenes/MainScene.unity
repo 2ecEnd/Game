@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2356142903320451562, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: StartWeaponPrefab
+      value: 
+      objectReference: {fileID: 2583856138238376327, guid: 446e339520f732943adf5f024ea59cb4, type: 3}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38
@@ -392,7 +396,7 @@ MonoBehaviour:
   CartEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
   HealthPrefab: {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
   SpawnInterval: 10
-  MaxEnemies: 1
+  MaxEnemies: 2
   Enemies: []
 --- !u!1 &7045998957987457206
 GameObject:
