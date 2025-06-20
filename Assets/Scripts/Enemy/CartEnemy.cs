@@ -117,7 +117,7 @@ namespace Assets.Scripts.Enemy
 
         protected override void DestroyOnFall()
         {
-            if (transform.position.y < arenaManager.getKillHeight())
+            if (transform.position.y < arenaManager.GetKillHeight())
                 Die(false);
         }
 

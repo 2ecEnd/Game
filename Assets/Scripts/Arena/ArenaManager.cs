@@ -2,6 +2,7 @@ using Assets.Scripts.Gameplay;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -14,6 +15,7 @@ public class ArenaManager : MonoBehaviour
     private GameController gameController;
     public GameObject player;
     public GameObject chunk;
+    public GameObject quad;
     public GameObject stair_1;
     public GameObject stair_05;
     public GameObject stair_025;
@@ -26,7 +28,8 @@ public class ArenaManager : MonoBehaviour
 
     [Header("Arena Parameters")]
     public int[,] heightMap;
-    private List<int[,]> arenaPresets;
+    public int[,] stairsMap;
+    private List<List<int[,]>> arenaPresets;
     private GameObject[,] chunks;
     private List<GameObject> stairs;
 
@@ -40,12 +43,13 @@ public class ArenaManager : MonoBehaviour
     private float chunkHeight;
     private const int killHeight = -20;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         arena = new GameObject("Arena");
         arena.transform.position = new Vector3(0, 10, 0);
-        createPresets();
+        CreatePresets();
 
         gameController = gameObject.GetComponent<GameController>();
 
@@ -54,13 +58,14 @@ public class ArenaManager : MonoBehaviour
 
         chunks = new GameObject[arenaSize, arenaSize];
         stairs = new List<GameObject>();
-        heightMap = arenaPresets[0];
+        heightMap = arenaPresets[0][0];
+        stairsMap = arenaPresets[0][1];
         for (int i = 0; i < chunks.GetLength(0); i++)
             for (int j = 0; j < chunks.GetLength(1); j++)
             {
-                Vector3 position = new Vector3(chunkScale * i, heightMap[i, j] - chunkHeight, chunkScale * j);
-                chunks[i, j] = Instantiate(chunk, position, Quaternion.identity, arena.transform);
-                chunks[i, j].transform.localScale = new Vector3(chunkScale, 64, chunkScale);
+                Vector3 position = new Vector3(chunkScale * i, heightMap[i, j], chunkScale * j);
+                chunks[i, j] = Instantiate(quad, position, Quaternion.Euler(90, 0, 0), arena.transform);
+                chunks[i, j].transform.localScale = new Vector3(chunkScale, chunkScale, 1);
             }
     }
 
@@ -69,7 +74,7 @@ public class ArenaManager : MonoBehaviour
     {
         if (flag != 0)
         {
-            changeArena(flag);
+            ChangeArena(flag);
             flag = 0;
         }
     }
@@ -86,30 +91,34 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    public int getArenaSize()
+    public int GetArenaSize()
     {
         return arenaSize;
     }
-    public int getChunkScale()
+    public int GetChunkScale()
     {
         return chunkScale;
     }
-    public int getKillHeight()
+    public int GetKillHeight()
     {
         return killHeight;
     }
 
 
-    void createPresets()
+    void CreatePresets()
     {
-        arenaPresets = new List<int[,]>();
+        arenaPresets = new List<List<int[,]>>();
 
-        int[,] flatArena = new int[arenaSize, arenaSize];
+        int[,] flatArenaHeightMap = new int[arenaSize, arenaSize];
+        int[,] flatArenaStairsMap = new int[arenaSize, arenaSize];
         for (int i = 0; i < arenaSize; i++)
             for (int j = 0; j < arenaSize; j++)
-                flatArena[i, j] = 9;
+            {
+                flatArenaHeightMap[i, j] = 9;
+                flatArenaStairsMap[i, j] = 0;
+            }
 
-        int[,] pillars = new int[arenaSize, arenaSize]
+        int[,] pillarsHeightMap = new int[arenaSize, arenaSize]
         {
             { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
             { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
@@ -136,63 +145,56 @@ public class ArenaManager : MonoBehaviour
             { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
             { 5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5,   5, 5, 5, 5},
         };
+        int[,] pillarsStairsMap = new int[arenaSize, arenaSize];
+        for (int i = 0; i < arenaSize; i++)
+            for (int j = 0; j < arenaSize; j++)
+                pillarsStairsMap[i, j] = 0;
 
-        arenaPresets.Add(flatArena);
-        arenaPresets.Add(pillars);
+        arenaPresets.Add(new List<int[,]> { flatArenaHeightMap, flatArenaStairsMap });
+        arenaPresets.Add(new List<int[,]> { pillarsHeightMap, pillarsStairsMap });
     }
 
 
-    void placeStair(int x, int z)
+    void PlaceStair(int x, int z)
     {
-        if (x == 0 || z == 0 || x == arenaSize - 1 || z == arenaSize - 1)
-            return;
-
-        int up      = heightMap[x, z - 1];
-        int right   = heightMap[x + 1, z];
-        int down    = heightMap[x, z + 1];
-        int left    = heightMap[x - 1, z];
-
-        if (up == 0 && down == 0 || left == 0 && right == 0)
-            placeFrontStair(x, z);
+        if (stairsMap[x, z] < 5)
+            PlaceFrontStair(x, z);
         else
-            placeCornerStair(x, z);
+            PlaceCornerStair(x, z);
     }
 
-    void placeFrontStair(int x, int z)
+    void PlaceFrontStair(int x, int z)
     {
-        int up = heightMap[x, z - 1];
-        int right = heightMap[x + 1, z];
-        int down = heightMap[x, z + 1];
-        int left = heightMap[x - 1, z];
+        int current = heightMap[x, z];
 
         int difference;
         Vector3 position;
         Quaternion rotation;
         GameObject stairType;
 
-        if (up > down)
+        if (stairsMap[x, z] == 1)
         {
-            difference = up - down;
-            position = new Vector3(chunkScale * x, down, chunkScale * z);
-            rotation = Quaternion.Euler(0, 180, 0);
+            difference = heightMap[x - 1, z] - current;
+            position = new Vector3(chunkScale * x, current, chunkScale * z);
+            rotation = Quaternion.Euler(0, 270, 0);
         }
-        else if (up < down)
+        else if (stairsMap[x, z] == 2)
         {
-            difference = down - up;
-            position = new Vector3(chunkScale * x, up, chunkScale * z);
+            difference = heightMap[x, z + 1] - current;
+            position = new Vector3(chunkScale * x, current, chunkScale * z);
             rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (right > left)
+        else if (stairsMap[x, z] == 3)
         {
-            difference = right - left;
-            position = new Vector3(chunkScale * x, left, chunkScale * z);
+            difference = heightMap[x + 1, z] - current;
+            position = new Vector3(chunkScale * x, current, chunkScale * z);
             rotation = Quaternion.Euler(0, 90, 0);
         }
-        else //if (right < left)
+        else //if (stairsMap[x, z] == 4)
         {
-            difference = left - right;
-            position = new Vector3(chunkScale * x, right, chunkScale * z);
-            rotation = Quaternion.Euler(0, 270, 0);
+            difference = heightMap[x, z - 1] - current;
+            position = new Vector3(chunkScale * x, current, chunkScale * z);
+            rotation = Quaternion.Euler(0, 180, 0);
         }
 
         if (difference == chunkScale)
@@ -208,86 +210,76 @@ public class ArenaManager : MonoBehaviour
         stairs.Add(stair);
     }
 
-    void placeCornerStair(int x, int z)
+    void PlaceCornerStair(int x, int z)
     {
-        int up_right = heightMap[x + 1, z - 1];
-        int down_right = heightMap[x + 1, z + 1];
-        int down_left = heightMap[x - 1, z + 1];
-        int up_left = heightMap[x - 1, z - 1];
+        int current = heightMap[x, z];
 
         int difference;
         bool isConvex;
-        Vector3 position;
+        Vector3 position = new Vector3(chunkScale * x, current, chunkScale * z); ;
         Quaternion rotation;
         GameObject stairType;
 
-        if (up_right == down_right && down_right == down_left)
+        // 0 - лестницы нет
+        // 1 - лестница вверх
+        // 2 - лестница вправо
+        // 3 - лестница вниз
+        // 4 - лестница влево
+        // 5 - выпукла€ вправо-вверх
+        // 6 - выпукла€ вправо-вниз
+        // 7 - выпукла€ влево-вниз
+        // 8 - выпукла€ влево-вверх
+        // 9 - вогнута€ вправо-вверх
+        // 10 - вогнута€ вправо-вниз
+        // 11 - вогнута€ влево-вниз
+        // 12 - вогнута€ влево-вверх
+        if (stairsMap[x, z] == 5)
         {
-            if (down_right > up_left)
-            {
-                difference = down_right - up_left;
-                isConvex = false;
-                position = new Vector3(chunkScale * x, up_left, chunkScale * z);
-                rotation = Quaternion.Euler(0, 0, 0);
-            }
-            else
-            {
-                difference = up_left - down_right;
-                isConvex = true;
-                position = new Vector3(chunkScale * x, down_right, chunkScale * z);
-                rotation = Quaternion.Euler(0, 180, 0);
-            }
+            difference = heightMap[x - 1, z + 1] - current;
+            isConvex = true;
+            rotation = Quaternion.Euler(0, 270, 0);
         }
-        else if (down_right == down_left && down_left == up_left)
+        else if (stairsMap[x, z] == 6)
         {
-            if (down_left > up_right)
-            {
-                difference = down_left - up_right;
-                isConvex = false;
-                position = new Vector3(chunkScale * x, up_right, chunkScale * z);
-                rotation = Quaternion.Euler(0, 270, 0);
-            }
-            else
-            {
-                difference = up_right - down_left;
-                isConvex = true;
-                position = new Vector3(chunkScale * x, down_left, chunkScale * z);
-                rotation = Quaternion.Euler(0, 90, 0);
-            }
+            difference = heightMap[x + 1, z + 1] - current;
+            isConvex = true;
+            rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (down_left == up_left && up_left == up_right)
+        else if (stairsMap[x, z] == 7)
         {
-            if (up_left > down_right)
-            {
-                difference = up_left - down_right;
-                isConvex = false;
-                position = new Vector3(chunkScale * x, down_right, chunkScale * z);
-                rotation = Quaternion.Euler(0, 180, 0);
-            }
-            else
-            {
-                difference = down_right - up_left;
-                isConvex = true;
-                position = new Vector3(chunkScale * x, up_left, chunkScale * z);
-                rotation = Quaternion.Euler(0, 0, 0);
-            }
+            difference = heightMap[x + 1, z - 1] - current;
+            isConvex = true;
+            rotation = Quaternion.Euler(0, 90, 0);
         }
-        else //if (up_left == up_right && up_right == down_right)
+        else if (stairsMap[x, z] == 8)
         {
-            if (up_right > down_left)
-            {
-                difference = up_right - down_left;
-                isConvex = false;
-                position = new Vector3(chunkScale * x, down_left, chunkScale * z);
-                rotation = Quaternion.Euler(0, 90, 0);
-            }
-            else
-            {
-                difference = down_left - up_right;
-                isConvex = true;
-                position = new Vector3(chunkScale * x, up_right, chunkScale * z);
-                rotation = Quaternion.Euler(0, 270, 0);
-            }
+            difference = heightMap[x - 1, z - 1] - current;
+            isConvex = true;
+            rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (stairsMap[x, z] == 9)
+        {
+            difference = heightMap[x - 1, z + 1] - current;
+            isConvex = false;
+            rotation = Quaternion.Euler(0, 270, 0);
+        }
+        else if(stairsMap[x, z] == 10)
+        {
+            difference = heightMap[x + 1, z + 1] - current;
+            isConvex = false;
+            rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (stairsMap[x, z] == 11)
+        {
+            difference = heightMap[x + 1, z - 1] - current;
+            isConvex = false;
+            rotation = Quaternion.Euler(0, 90, 0);
+        }
+        else //if (stairsMap[x, z] == 12)
+        {
+            difference = heightMap[x - 1, z - 1] - current;
+            isConvex = false;
+            rotation = Quaternion.Euler(0, 180, 0);
         }
 
         if (difference == chunkScale)
@@ -298,12 +290,12 @@ public class ArenaManager : MonoBehaviour
             stairType = isConvex ? stair_025_convex : stair_025_concave;
 
         GameObject stair = Instantiate(stairType, position, rotation, arena.transform);
-        stair.transform.localScale = new Vector3(chunkScale, chunkScale * stair.transform.localScale.y, chunkScale);
+        stair.transform.localScale *= chunkScale;
 
         stairs.Add(stair);
     }
 
-    void removeStairs()
+    void RemoveStairs()
     {
         while (stairs.Count > 0)
         {
@@ -313,70 +305,71 @@ public class ArenaManager : MonoBehaviour
     }
 
 
-    void changeArena(int flag)
+    void ChangeArena(int flag)
     {
         float coin = UnityEngine.Random.value;
         if (flag == 1)
         {
-            createPresets(); // TODO: need to fix
-            chooseFromPresets();
+            CreatePresets(); // TODO: need to fix
+            ChooseFromPresets();
         }
         else if (flag == 2)
-            generateCircleArena();
-            //if (coin < 0.7)
-            //    generateCircleArena();
-            //else
-            //    chooseFromPresets();
+            GenerateCircleArena();
+        //if (coin < 0.7)
+        //    generateCircleArena();
+        //else
+        //    chooseFromPresets();
 
-        transformArena();
+        TransformArena();
     }
 
-    void chooseFromPresets()
+    void ChooseFromPresets()
     {
         int choice = UnityEngine.Random.Range(0, arenaPresets.Count);
-        heightMap = arenaPresets[choice];
+        heightMap = arenaPresets[choice][0];
+        stairsMap = arenaPresets[choice][1];
     }
 
-    // TODO: need to change choice logic
-    void generateCircleArena()
+    void GenerateCircleArena()
+    {
+        GenerateHeightMap();
+        GenerateStairsMap();
+    }
+
+    void GenerateHeightMap()
     {
         int size = arenaSize / 2;
         int[] tmpHeightMap = new int[size];
 
-        tmpHeightMap[0] = UnityEngine.Random.Range(1, 20);
+        tmpHeightMap[0] = 50;
         for (int i = 1; i < size; i++)
         {
-            int height = UnityEngine.Random.Range(-3, 4);
-            if (height == 0)
-            {
-                tmpHeightMap[i] = tmpHeightMap[i - 1];
-                continue;
-            }
-
-            if (height == -3)
-                height = -4;
-            else if (height == 3)
-                height = 4;
-
-            if (i + 1 == tmpHeightMap.Length)
-            {
-                tmpHeightMap[i] = tmpHeightMap[i - 1];
-            }
+            int height;
+            int coin = UnityEngine.Random.Range(0, 2);
+            if (coin == 0)
+                height = 0;
             else
             {
-                tmpHeightMap[i] = 0;
-                int tmp = tmpHeightMap[i - 1] + height;
-                if (tmp < 1 || tmp > 20)
-                    tmpHeightMap[i + 1] = tmpHeightMap[i - 1] - height;
-                else
-                    tmpHeightMap[i + 1] = tmp;
-                i++;
+                int isNegative = UnityEngine.Random.Range(0, 2);
+                height = UnityEngine.Random.Range(0, 4);
+
+                if (height == 3)
+                    height = 4;
+
+                if (isNegative == 1)
+                    height = -height;
             }
+
+            tmpHeightMap[i] = tmpHeightMap[i - 1] + height;
         }
+
+        for (int i = 1; i < size - 1; i++)
+            if (tmpHeightMap[i] < tmpHeightMap[i - 1] && tmpHeightMap[i] < tmpHeightMap[i + 1])
+                tmpHeightMap[i] = tmpHeightMap[i - 1];
 
         for (int i = 0; i < size; i++)
         {
-            for (int j = i; j < arenaSize - i; j++) 
+            for (int j = i; j < arenaSize - i; j++)
             {
                 heightMap[i, j] = tmpHeightMap[i];
                 heightMap[arenaSize - i - 1, j] = tmpHeightMap[i];
@@ -386,22 +379,170 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    void transformArena()
+    void GenerateStairsMap()
     {
-        removeStairs();
+        // 0 - лестницы нет
+        // 1 - лестница вверх
+        // 2 - лестница вправо
+        // 3 - лестница вниз
+        // 4 - лестница влево
+        // 5 - выпукла€ вправо-вверх
+        // 6 - выпукла€ вправо-вниз
+        // 7 - выпукла€ влево-вниз
+        // 8 - выпукла€ влево-вверх
+        // 9 - вогнута€ вправо-вверх
+        // 10 - вогнута€ вправо-вниз
+        // 11 - вогнута€ влево-вниз
+        // 12 - вогнута€ влево-вверх
 
-        for (int i = 0; i < chunks.GetLength(0); i++)
-            for (int j = 0; j < chunks.GetLength(1); j++)
+        int up, right, down, left;
+        int up_right, down_right, down_left, up_left;
+        int current;
+
+        // -=-=-=-=-–асстановка угловых лестниц на главной диагонали-=-=-=-=-
+        // ѕроверка лестин на углах
+        if (heightMap[1, 1] > heightMap[0, 0])
+        {
+            stairsMap[0, 0] = 6;
+            stairsMap[arenaSize - 1, arenaSize - 1] = 8;
+        }
+        else
+        {
+            stairsMap[0, 0] = 0;
+            stairsMap[arenaSize - 1, arenaSize - 1] = 0;
+        }
+        // ќставшиес€
+        for (int i = 1; i < arenaSize / 2; i++)
+        {
+            up_left = heightMap[i - 1, i - 1];
+            current = heightMap[i, i];
+            down_right = heightMap[i + 1, i + 1];
+
+            if (up_left > current)
             {
-                if (heightMap[i, j] == 0)
+                stairsMap[i, i] = 12;
+                stairsMap[arenaSize - i - 1, arenaSize - i - 1] = 10;
+            }
+            else if (current < down_right)
+            {
+                stairsMap[i, i] = 6;
+                stairsMap[arenaSize - i - 1, arenaSize - i - 1] = 8;
+            }
+            else
+            {
+                stairsMap[i, i] = 0;
+                stairsMap[arenaSize - i - 1, arenaSize - i - 1] = 0;
+            }
+        }
+
+        // -=-=-=-=-–асстановка угловых лестниц на побочной диагонали-=-=-=-=-
+        // ѕроверка лестин на углах
+        if (heightMap[1, arenaSize - 2] > heightMap[0, arenaSize - 1])
+        {
+            stairsMap[0, arenaSize - 1] = 7;
+            stairsMap[arenaSize - 1, 0] = 5;
+        }
+        else
+        {
+            stairsMap[0, arenaSize - 1] = 0;
+            stairsMap[arenaSize - 1, 0] = 0;
+        }
+        // ќставшиес€
+        for (int i = 1; i < arenaSize / 2; i++)
+        {
+            up_right = heightMap[i - 1, arenaSize - i];
+            current = heightMap[i, arenaSize - i - 1];
+            down_left = heightMap[i + 1, arenaSize - i - 2];
+
+            if (up_right > current)
+            {
+                stairsMap[i, arenaSize - i - 1] = 9;
+                stairsMap[arenaSize - i - 1, i] = 11;
+            }
+            else if (current < down_left)
+            {
+                stairsMap[i, arenaSize - i - 1] = 7;
+                stairsMap[arenaSize - i - 1, i] = 5;
+            }
+            else
+            {
+                stairsMap[i, arenaSize - i - 1] = 0;
+                stairsMap[arenaSize - i - 1, i] = 0;
+            }
+        }
+
+        // -=-=-=-=-–асстановка фронтальных лестниц-=-=-=-=-
+        // ѕроверка лестин на кра€х
+        if (heightMap[1, 2] > heightMap[0, 2])
+        {
+            for (int i = 1; i < arenaSize - 1; i++)
+            {
+                stairsMap[arenaSize - 1, i] = 1;
+                stairsMap[i, 0] = 2;
+                stairsMap[0, i] = 3;
+                stairsMap[i, arenaSize - 1] = 4;
+            }
+        }
+        else
+        {
+            for (int i = 1; i < arenaSize - 1; i++)
+            {
+                stairsMap[arenaSize - 1, i] = 0;
+                stairsMap[i, 0] = 0;
+                stairsMap[0, i] = 0;
+                stairsMap[i, arenaSize - 1] = 0;
+            }
+        }
+        // ќставшиес€
+        for (int i = 1; i < arenaSize - 1; i++)
+        {
+            for (int j = 1; j < arenaSize - 1; j++)
+            {
+                if (i < j && i + j < arenaSize - 1 ||
+                    i > j && i + j > arenaSize - 1)
                 {
-                    chunks[i, j].transform.position = new Vector3(chunkScale * i, -chunkHeight, chunkScale * j);
-                    placeStair(i, j);
+                    up = heightMap[i - 1, j];
+                    current = heightMap[i, j];
+                    down = heightMap[i + 1, j];
+
+                    if (up > current)
+                        stairsMap[i, j] = 1;
+                    else if (current < down)
+                        stairsMap[i, j] = 3;
+                    else
+                        stairsMap[i, j] = 0;
                 }
-                else
+                else if (i < j && i + j > arenaSize - 1 ||
+                    i > j && i + j < arenaSize - 1)
                 {
-                    Vector3 position = new Vector3(chunkScale * i, heightMap[i, j] - chunkHeight, chunkScale * j);
-                    chunks[i, j].transform.position = position;
+                    left = heightMap[i, j - 1];
+                    current = heightMap[i, j];
+                    right = heightMap[i, j + 1];
+
+                    if (left > current)
+                        stairsMap[i, j] = 4;
+                    else if (current < right)
+                        stairsMap[i, j] = 2;
+                    else
+                        stairsMap[i, j] = 0;
+                }
+            }
+        }
+    }
+
+    void TransformArena()
+    {
+        RemoveStairs();
+
+        for (int i = 0; i < arenaSize; i++)
+            for (int j = 0; j < arenaSize; j++)
+            {
+                Vector3 position = new Vector3(chunkScale * i, heightMap[i, j], chunkScale * j);
+                chunks[i, j].transform.position = position;
+
+                if (stairsMap[i, j] != 0)
+                {
+                    PlaceStair(i, j);
                 }
             }
 
@@ -460,7 +601,7 @@ public class ArenaManager : MonoBehaviour
         }
 
         //Destroy all BuffBoxes
-        for(int i = 0; i < BuffBoxGO.transform.childCount; i++)
+        for (int i = 0; i < BuffBoxGO.transform.childCount; i++)
         {
             Destroy(BuffBoxGO.transform.GetChild(i).gameObject);
         }

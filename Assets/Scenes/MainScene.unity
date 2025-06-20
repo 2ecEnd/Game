@@ -365,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 9956604}
   chunk: {fileID: 6255993869813837955, guid: eccb391a7a95e634986df16c25655075, type: 3}
+  quad: {fileID: 1692201033522189356, guid: 0d31ca3d722e6494387003e967834352, type: 3}
   stair_1: {fileID: 3861264058774730328, guid: d31484264f0524f4495a883fdd97a820, type: 3}
   stair_05: {fileID: 5322386632154448788, guid: 4b272e0a39c28ce41a8d1d9555cba34e, type: 3}
   stair_025: {fileID: 7525081310911971700, guid: 3baa97b219155084a9c59fd791c6c7e4, type: 3}
@@ -392,7 +393,7 @@ MonoBehaviour:
   BuffBoxPrefabs:
   - {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
   SpawnInterval: 10
-  MaxEnemies: 5
+  MaxEnemies: 0
   Enemies: []
 --- !u!1 &7045998957987457206
 GameObject:

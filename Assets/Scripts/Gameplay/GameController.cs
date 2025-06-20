@@ -48,16 +48,16 @@ namespace Assets.Scripts.Gameplay
 
         void SpawnBuffBox()
         {
-            float arenaSize = (arenaManager.getArenaSize() - 1) * arenaManager.getChunkScale();
+            float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
             //while (Enemies.Count < MaxEnemies)
             {
                 int y = 0;
                 while (y == 0)
                 {
                     float x = Random.Range(0, arenaSize);
-                    int i = (int)((x + 2) / arenaManager.getChunkScale());
+                    int i = (int)((x + 2) / arenaManager.GetChunkScale());
                     float z = Random.Range(0, arenaSize);
-                    int j = (int)((z + 2) / arenaManager.getChunkScale());
+                    int j = (int)((z + 2) / arenaManager.GetChunkScale());
 
                     y = arenaManager.heightMap[i, j];
                     if (y > 0)
@@ -72,24 +72,24 @@ namespace Assets.Scripts.Gameplay
         }
         void SpawnEnemies()
         {
-            float arenaSize = (arenaManager.getArenaSize() - 1) * arenaManager.getChunkScale();
+            float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
             while (Enemies.Count < MaxEnemies)
             {
                 float x = Random.Range(0, arenaSize);
-                int i = (int)((x + 2) / arenaManager.getChunkScale());
+                int i = (int)((x + 2) / arenaManager.GetChunkScale());
                 float z = Random.Range(0, arenaSize);
-                int j = (int)((z + 2) / arenaManager.getChunkScale());
+                int j = (int)((z + 2) / arenaManager.GetChunkScale());
 
                 int y = arenaManager.heightMap[i, j];
                 if (y == 0)
                 {
                     if (i != 0)
                         y = Mathf.Max(y, arenaManager.heightMap[i - 1, j]);
-                    if (i != arenaManager.getArenaSize() - 1)
+                    if (i != arenaManager.GetArenaSize() - 1)
                         y = Mathf.Max(y, arenaManager.heightMap[i + 1, j]);
                     if (j != 0)
                         y = Mathf.Max(y, arenaManager.heightMap[i, j - 1]);
-                    if (j != arenaManager.getArenaSize() - 1)
+                    if (j != arenaManager.GetArenaSize() - 1)
                         y = Mathf.Max(y, arenaManager.heightMap[i, j + 1]);
                 }
                 y++;

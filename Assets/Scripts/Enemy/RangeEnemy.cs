@@ -153,7 +153,7 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     protected override void DestroyOnFall()
     {
-        if (transform.position.y < arenaManager.getKillHeight())
+        if (transform.position.y < arenaManager.GetKillHeight())
             Die(false);
     }
 }
