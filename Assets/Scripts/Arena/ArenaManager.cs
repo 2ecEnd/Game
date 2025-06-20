@@ -29,6 +29,7 @@ public class ArenaManager : MonoBehaviour
     [Header("Arena Parameters")]
     public int[,] heightMap;
     public int[,] stairsMap;
+    public int[,] prevStairsMap;
     private List<List<int[,]>> arenaPresets;
     private GameObject[,] chunks;
     private List<GameObject> stairs;
@@ -37,6 +38,7 @@ public class ArenaManager : MonoBehaviour
     public GameObject BuffBoxGO;
 
     [Header("Other Parameters")]
+    public float ChangeSpeed = 1;
     private int flag = 0;
     private const int arenaSize = 20;
     private const int chunkScale = 4;
@@ -60,6 +62,7 @@ public class ArenaManager : MonoBehaviour
         stairs = new List<GameObject>();
         heightMap = arenaPresets[0][0];
         stairsMap = arenaPresets[0][1];
+        prevStairsMap = new int[arenaSize, arenaSize];
         for (int i = 0; i < chunks.GetLength(0); i++)
             for (int j = 0; j < chunks.GetLength(1); j++)
             {
@@ -168,46 +171,45 @@ public class ArenaManager : MonoBehaviour
         int current = heightMap[x, z];
 
         int difference;
-        Vector3 position;
-        Quaternion rotation;
-        GameObject stairType;
+
+        Mesh mesh = chunks[x, z].GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = mesh.vertices; // 0 - top_left
+                                            // 1 - bottom_left
+                                            // 2 - top_right
+                                            // 3 - bottom_right
 
         if (stairsMap[x, z] == 1)
         {
             difference = heightMap[x - 1, z] - current;
-            position = new Vector3(chunkScale * x, current, chunkScale * z);
-            rotation = Quaternion.Euler(0, 270, 0);
+
+            vertices[0].z -= difference;
+            vertices[2].z -= difference;
         }
         else if (stairsMap[x, z] == 2)
         {
             difference = heightMap[x, z + 1] - current;
-            position = new Vector3(chunkScale * x, current, chunkScale * z);
-            rotation = Quaternion.Euler(0, 0, 0);
+
+            vertices[2].z -= difference;
+            vertices[3].z -= difference;
         }
         else if (stairsMap[x, z] == 3)
         {
             difference = heightMap[x + 1, z] - current;
-            position = new Vector3(chunkScale * x, current, chunkScale * z);
-            rotation = Quaternion.Euler(0, 90, 0);
+
+            vertices[1].z -= difference;
+            vertices[3].z -= difference;
         }
         else //if (stairsMap[x, z] == 4)
         {
             difference = heightMap[x, z - 1] - current;
-            position = new Vector3(chunkScale * x, current, chunkScale * z);
-            rotation = Quaternion.Euler(0, 180, 0);
+
+            vertices[0].z -= difference;
+            vertices[1].z -= difference;
         }
 
-        if (difference == chunkScale)
-            stairType = stair_1;
-        else if (difference == chunkScale / 2)
-            stairType = stair_05;
-        else //if (difference == chunkScale / 4)
-            stairType = stair_025;
-
-        GameObject stair = Instantiate(stairType, position, rotation, arena.transform);
-        stair.transform.localScale = new Vector3(chunkScale, chunkScale * stair.transform.localScale.y, chunkScale);
-
-        stairs.Add(stair);
+        mesh.vertices = vertices;
+        mesh.RecalculateBounds();
+        chunks[x, z].GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
     void PlaceCornerStair(int x, int z)
@@ -215,10 +217,12 @@ public class ArenaManager : MonoBehaviour
         int current = heightMap[x, z];
 
         int difference;
-        bool isConvex;
-        Vector3 position = new Vector3(chunkScale * x, current, chunkScale * z); ;
-        Quaternion rotation;
-        GameObject stairType;
+
+        Mesh mesh = chunks[x, z].GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = mesh.vertices; // 0 - top_left
+                                            // 1 - bottom_left
+                                            // 2 - top_right
+                                            // 3 - bottom_right
 
         // 0 - лестницы нет
         // 1 - лестница вверх
@@ -233,66 +237,71 @@ public class ArenaManager : MonoBehaviour
         // 10 - вогнутая вправо-вниз
         // 11 - вогнутая влево-вниз
         // 12 - вогнутая влево-вверх
+
         if (stairsMap[x, z] == 5)
         {
             difference = heightMap[x - 1, z + 1] - current;
-            isConvex = true;
-            rotation = Quaternion.Euler(0, 270, 0);
+
+            chunks[x, z].transform.rotation = Quaternion.Euler(90, 0, 270);
+            vertices[0].z -= difference;
         }
         else if (stairsMap[x, z] == 6)
         {
             difference = heightMap[x + 1, z + 1] - current;
-            isConvex = true;
-            rotation = Quaternion.Euler(0, 0, 0);
+
+            vertices[3].z -= difference;
         }
         else if (stairsMap[x, z] == 7)
         {
             difference = heightMap[x + 1, z - 1] - current;
-            isConvex = true;
-            rotation = Quaternion.Euler(0, 90, 0);
+
+            chunks[x, z].transform.rotation = Quaternion.Euler(90, 0, 270);
+            vertices[3].z -= difference;
         }
         else if (stairsMap[x, z] == 8)
         {
             difference = heightMap[x - 1, z - 1] - current;
-            isConvex = true;
-            rotation = Quaternion.Euler(0, 180, 0);
+
+            vertices[0].z -= difference;
         }
         else if (stairsMap[x, z] == 9)
         {
             difference = heightMap[x - 1, z + 1] - current;
-            isConvex = false;
-            rotation = Quaternion.Euler(0, 270, 0);
+
+            chunks[x, z].transform.rotation = Quaternion.Euler(90, 0, 270);
+            vertices[0].z -= difference;
+            vertices[1].z -= difference;
+            vertices[2].z -= difference;
         }
         else if(stairsMap[x, z] == 10)
         {
             difference = heightMap[x + 1, z + 1] - current;
-            isConvex = false;
-            rotation = Quaternion.Euler(0, 0, 0);
+
+            vertices[1].z -= difference;
+            vertices[2].z -= difference;
+            vertices[3].z -= difference;
         }
         else if (stairsMap[x, z] == 11)
         {
             difference = heightMap[x + 1, z - 1] - current;
-            isConvex = false;
-            rotation = Quaternion.Euler(0, 90, 0);
+
+            chunks[x, z].transform.rotation = Quaternion.Euler(90, 0, 270);
+            vertices[1].z -= difference;
+            vertices[2].z -= difference;
+            vertices[3].z -= difference;
         }
         else //if (stairsMap[x, z] == 12)
         {
             difference = heightMap[x - 1, z - 1] - current;
-            isConvex = false;
-            rotation = Quaternion.Euler(0, 180, 0);
+
+            vertices[0].z -= difference;
+            vertices[1].z -= difference;
+            vertices[2].z -= difference;
         }
 
-        if (difference == chunkScale)
-            stairType = isConvex ? stair_1_convex : stair_1_concave;
-        else if (difference == chunkScale / 2)
-            stairType = isConvex ? stair_05_convex : stair_05_concave;
-        else //if (difference == chunkScale / 4)
-            stairType = isConvex ? stair_025_convex : stair_025_concave;
-
-        GameObject stair = Instantiate(stairType, position, rotation, arena.transform);
-        stair.transform.localScale *= chunkScale;
-
-        stairs.Add(stair);
+        mesh.vertices = vertices;
+        mesh.RecalculateBounds();
+        chunks[x, z].GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
     void RemoveStairs()
@@ -381,6 +390,10 @@ public class ArenaManager : MonoBehaviour
 
     void GenerateStairsMap()
     {
+        for (int i = 0; i < arenaSize; i++)
+            for (int j = 0; j < arenaSize; j++)
+                prevStairsMap[i, j] = stairsMap[i, j];
+
         // 0 - лестницы нет
         // 1 - лестница вверх
         // 2 - лестница вправо
@@ -538,12 +551,21 @@ public class ArenaManager : MonoBehaviour
             for (int j = 0; j < arenaSize; j++)
             {
                 Vector3 position = new Vector3(chunkScale * i, heightMap[i, j], chunkScale * j);
-                chunks[i, j].transform.position = position;
+                chunks[i, j].transform.position = Vector3.Lerp(chunks[i, j].transform.position, position, ChangeSpeed * Time.deltaTime);
+
+                Mesh mesh = chunks[i, j].GetComponent<MeshFilter>().mesh;
+                Vector3[] vertices = mesh.vertices;
+                vertices[0].z = 0;
+                vertices[1].z = 0;
+                vertices[2].z = 0;
+                vertices[3].z = 0;
+
+                mesh.vertices = vertices;
+                mesh.RecalculateBounds();
+                chunks[i, j].GetComponent<MeshCollider>().sharedMesh = mesh;
 
                 if (stairsMap[i, j] != 0)
-                {
                     PlaceStair(i, j);
-                }
             }
 
         // Change player's position
