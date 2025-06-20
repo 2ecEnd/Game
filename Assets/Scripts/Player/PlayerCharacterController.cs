@@ -145,6 +145,10 @@ namespace Assets.Scripts.Player
                     IsGrounded = false;
                     AudioSource.PlayOneShot(JumpSfx);
                 }
+                else
+                {
+                    verticalVelocity = -GravityDownForce * Time.deltaTime;
+                }
                 //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
                 //if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
                 //{
@@ -182,8 +186,8 @@ namespace Assets.Scripts.Player
 
         public void Die(bool needScored = true)
         {
+            GlobalInspector.PlayerDeath();
             isDead = true;
-            gui.Death = true;
 
             if (needScored)
                 GlobalInspector.DeathCount++;
@@ -194,11 +198,17 @@ namespace Assets.Scripts.Player
             if (transform.position.y < arenaManager.GetKillHeight() && !isDead)
                 Die();
         }
+        public void PRevive()
+        {
+            needRevive = true;
+        }
 
         void Revive()
         {
             if (!isDead)
                 Die();
+
+            GlobalInspector.PlayerRevive();
 
             Health = MaxHealth;
             DashCount = DashMaxCount;

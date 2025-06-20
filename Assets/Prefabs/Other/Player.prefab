@@ -183,6 +183,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainGUISkin: {fileID: 11400000, guid: 4dd8fa4c6878c744fa5e1b1016663961, type: 2}
+  CrossDash1: {fileID: 2800000, guid: 7620ff29383e328428ea7dc709445ffb, type: 3}
+  CrossDash2: {fileID: 2800000, guid: bfd2425ef6fa2574daa66eb6c3b8828f, type: 3}
+  CrossNoDash1: {fileID: 2800000, guid: 0c596e79b387f8344ba1f869b19d0aa6, type: 3}
+  CrossNoDash2: {fileID: 2800000, guid: cfdf1323d9f0e1b4faaf8378006362d7, type: 3}
+  DeathScreen: {fileID: 2800000, guid: b6908bd6b6edaca4f952cd006603c5fb, type: 3}
   HP_Menu: {fileID: 2800000, guid: afe52c0eef1a03f438326532cebeaae5, type: 3}
   Arrow: {fileID: 2800000, guid: 8394d2562f492f64eadde8ab1d05796a, type: 3}
   Death: 0
@@ -270,7 +275,7 @@ MonoBehaviour:
   MovementSharpnessOnGround: 30
   MaxSpeedCrouchedRatio: 0.5
   MaxSpeedInAir: 20
-  AccelerationSpeedInAir: 5
+  AccelerationSpeedInAir: 3
   SprintSpeedModifier: 1
   KillHeight: -50
   RotationSpeed: 200

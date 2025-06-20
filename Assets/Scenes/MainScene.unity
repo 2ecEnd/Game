@@ -392,8 +392,8 @@ MonoBehaviour:
   - {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
   BuffBoxPrefabs:
   - {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
-  SpawnInterval: 10
-  MaxEnemies: 0
+  SpawnInterval: 1
+  MaxEnemies: 1
   Enemies: []
 --- !u!1 &7045998957987457206
 GameObject:

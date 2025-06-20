@@ -50,6 +50,7 @@ namespace Assets.Scripts.Enemy
             if (characterController.isGrounded)
             {
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+                verticalVelocity = -GravityForce * Time.deltaTime;
             }
             else
             {

@@ -551,7 +551,7 @@ public class ArenaManager : MonoBehaviour
             for (int j = 0; j < arenaSize; j++)
             {
                 Vector3 position = new Vector3(chunkScale * i, heightMap[i, j], chunkScale * j);
-                chunks[i, j].transform.position = Vector3.Lerp(chunks[i, j].transform.position, position, ChangeSpeed * Time.deltaTime);
+                chunks[i, j].transform.position = position;//Vector3.Lerp(chunks[i, j].transform.position, position, ChangeSpeed * Time.deltaTime);
 
                 Mesh mesh = chunks[i, j].GetComponent<MeshFilter>().mesh;
                 Vector3[] vertices = mesh.vertices;

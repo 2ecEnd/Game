@@ -7,6 +7,11 @@ using UnityEngine.Rendering;
 public class PlayerGUI : MonoBehaviour
 {
     public GUISkin MainGUISkin;
+    public Texture2D CrossDash1;
+    public Texture2D CrossDash2;
+    public Texture2D CrossNoDash1;
+    public Texture2D CrossNoDash2;
+    public Texture2D DeathScreen;
     public Texture2D HP_Menu;
     public Texture2D Arrow;
     public bool Death;
@@ -16,7 +21,7 @@ public class PlayerGUI : MonoBehaviour
     private PlayerCharacterController characterController;
     private PlayerWeaponManager playerWeaponManager;
     //private WeaponHandler weaponHandler;
-    private Rect[] rects = new Rect[8];
+    private Rect[] rects = new Rect[7];
     private int screenWidth;
     private int screenHeight;
 
@@ -32,14 +37,13 @@ public class PlayerGUI : MonoBehaviour
 
         screenWidth = Screen.width;
         screenHeight = Screen.height;
-        rects[0] = new Rect(screenWidth * 0.5f - 1, screenHeight * 0.5f - 1, 2, 2); //перекрестие
+        rects[0] = new Rect(screenWidth * 0.5f - screenHeight * 0.02f, screenHeight * 0.5f - screenHeight * 0.02f, screenHeight * 0.04f, screenHeight * 0.04f); //перекрестие
         rects[1] = new Rect(0, 0, screenWidth, screenHeight); //экран смерти
         rects[2] = new Rect(0, screenHeight - screenWidth * 0.125f, screenWidth * 0.125f, screenWidth * 0.125f); //хп и количество патронов
         rects[3] = new Rect(screenWidth * -0.125f, screenHeight - screenWidth * 0.125f, screenWidth * 0.125f, screenWidth * 0.125f); //стрелка хп
         rects[4] = new Rect(screenWidth * 0.005f, screenHeight - screenWidth * 0.0425f, screenWidth * 0.05f, screenWidth * 0.0375f); //количество патронов
-        rects[5] = new Rect(screenWidth * 0.005f, screenHeight - screenWidth * 0.0675f, screenWidth * 0.02f, screenWidth * 0.02f); //рывок 1
-        rects[6] = new Rect(screenWidth * 0.030f, screenHeight - screenWidth * 0.0675f, screenWidth * 0.02f, screenWidth * 0.02f); //рывок 2
-        rects[7] = new Rect(screenWidth * 0.925f, screenHeight * 0.925f, screenWidth * 0.075f, screenHeight * 0.075f); //результат
+        rects[5] = new Rect(screenWidth * 0.5f - screenWidth * 0.08f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //кнопка возрождения
+        rects[6] = new Rect(screenWidth * 0.925f, screenHeight * 0.925f, screenWidth * 0.075f, screenHeight * 0.075f); //результат
     }
 
     private void OnGUI()
@@ -47,13 +51,19 @@ public class PlayerGUI : MonoBehaviour
         GUI.skin = MainGUISkin;
         GUI.skin.label.fontSize = screenHeight / 20;
         GUI.skin.box.fontSize = screenHeight / 20;
+        GUI.skin.button.fontSize = screenHeight / 40;
         GUI.depth = 0;
-        GUI.Box(rects[0], "");
-        if (Death)
+        if (!GlobalInspector.PlayerAlive)
         {
-            GUI.Box(rects[1], "смэртб");
+            GUI.DrawTexture(rects[1], DeathScreen);
+            if (GUI.Button(rects[5], "Вставай заибал"))
+            {
+                player.GetComponent<PlayerCharacterController>().PRevive();
+            }
             return;
         }
+        //GUI.DrawTexture(rects[0], Cross);
+        //GUI.Box(rects[0], "");
         if (!playerWeaponManager.ActiveWeapon.Reload)
         {
             GUI.Box(rects[4], playerWeaponManager.ActiveWeapon.CurrentAmmo.ToString());
@@ -64,13 +74,21 @@ public class PlayerGUI : MonoBehaviour
         }
         if (characterController.DashCount > 0)
         {
-            GUI.Box(rects[5], "");
+            GUI.DrawTexture(rects[0], CrossDash1);
+        }
+        else
+        {
+            GUI.DrawTexture(rects[0], CrossNoDash1);
         }
         if (characterController.DashCount > 1)
         {
-            GUI.Box(rects[6], "");
+            GUI.DrawTexture(rects[0], CrossDash2);
         }
-        GUI.Box(rects[7], GlobalInspector.GetScore().ToString());
+        else
+        {
+            GUI.DrawTexture(rects[0], CrossNoDash2);
+        }
+        GUI.Box(rects[6], GlobalInspector.GetScore().ToString());
         GUI.DrawTexture(rects[2], HP_Menu);
         GUI.depth = 1;
         float arrow_rotation = characterController.Health * HPArrowStep;
