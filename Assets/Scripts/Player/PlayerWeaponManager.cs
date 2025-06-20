@@ -5,7 +5,7 @@ namespace Assets.Scripts.Player
     public class PlayerWeaponManager : MonoBehaviour
     {
         [Header("General")]
-        public WeaponHandler StartWeaponPrefab;
+        public WeaponHandler[] Weapons;
         public Transform WeaponPos;
 
         [Header("Recoil Parameters")]
@@ -18,10 +18,12 @@ namespace Assets.Scripts.Player
         Vector3 OriginalWeaponPos;
         Vector3 m_WeaponRecoilLocalPosition;
         Vector3 m_AccumulatedRecoil;
+        int curentGun;
         void Start()
         {
             //m_InputHandler = GetComponent<PlayerInputHandler>();
-            AddWeapon(StartWeaponPrefab);
+            curentGun = 0;
+            AddWeapon(Weapons[curentGun]);
             OriginalWeaponPos = WeaponPos.localPosition;
         }
 
@@ -36,6 +38,15 @@ namespace Assets.Scripts.Player
             if (Input.GetKeyDown(KeyCode.R))
             {
                 ActiveWeapon.HandleReload();
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                curentGun++;
+                if(curentGun == Weapons.Length)
+                {
+                    curentGun = 0;
+                }
+                AddWeapon(Weapons[curentGun]);
             }
         }
 
@@ -65,6 +76,11 @@ namespace Assets.Scripts.Player
 
         void AddWeapon(WeaponHandler weaponPrefab)
         {
+            if(ActiveWeapon != null)
+            {
+                Destroy(ActiveWeapon.gameObject);
+            }
+
             WeaponHandler weaponInstance = Instantiate(weaponPrefab, WeaponPos);
 
             weaponInstance.transform.localPosition = Vector3.zero;

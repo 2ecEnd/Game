@@ -387,12 +387,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dd7b1e24b49914ca2fc1e32eb964f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeleeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
-  RangeEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
-  CartEnemyPrefab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
-  HealthPrefab: {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
+  EnemyPrefabs:
+  - {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+  BuffBoxPrefabs:
+  - {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
   SpawnInterval: 10
-  MaxEnemies: 1
+  MaxEnemies: 5
   Enemies: []
 --- !u!1 &7045998957987457206
 GameObject:

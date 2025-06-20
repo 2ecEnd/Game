@@ -8,12 +8,10 @@ namespace Assets.Scripts.Gameplay
     public class GameController : MonoBehaviour
     {
         [Header("Enemy prefabs")]
-        public GameObject MeleeEnemyPrefab;
-        public GameObject RangeEnemyPrefab;
-        public GameObject CartEnemyPrefab;
+        public GameObject[] EnemyPrefabs;
 
         [Header("BuffBox prefabs")]
-        public GameObject HealthPrefab;
+        public GameObject[] BuffBoxPrefabs;
 
         [Header("Spawn settings")]
         public float SpawnInterval = 30f;
@@ -66,20 +64,11 @@ namespace Assets.Scripts.Gameplay
                     {
                         y++;
                         Vector3 spawnPosition = new Vector3(x, y, z);
-                        Instantiate(HealthPrefab, spawnPosition, Quaternion.identity, buffBoxGO.transform);
+                        int coin = Random.Range(0, BuffBoxPrefabs.Length);
+                        Instantiate(BuffBoxPrefabs[coin], spawnPosition, Quaternion.identity, buffBoxGO.transform);
                     }
                 }
-                //int coin = Random.Range(0, 3);
-
-
-                //if (coin == 0)
-                //    Enemies.Add(Instantiate(MeleeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
-                //else if (coin == 1)
-                //    Enemies.Add(Instantiate(RangeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
-                //else
-                //    Enemies.Add(Instantiate(CartEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
             }
-            //m_LastTimeSpawn = Time.time;
         }
         void SpawnEnemies()
         {
@@ -106,14 +95,8 @@ namespace Assets.Scripts.Gameplay
                 y++;
 
                 Vector3 spawnPosition = new Vector3(x, y, z);
-                int coin = Random.Range(0, 3);
-
-                if (coin == 0)
-                    Enemies.Add(Instantiate(MeleeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
-                else if (coin == 1)
-                    Enemies.Add(Instantiate(RangeEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
-                else
-                    Enemies.Add(Instantiate(CartEnemyPrefab, spawnPosition, Quaternion.identity, enemiesGO.transform));
+                int coin = Random.Range(0, EnemyPrefabs.Length);
+                Enemies.Add(Instantiate(EnemyPrefabs[coin], spawnPosition, Quaternion.identity, enemiesGO.transform));
             }
             m_LastTimeSpawn = Time.time;
         }

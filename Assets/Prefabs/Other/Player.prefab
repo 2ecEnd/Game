@@ -278,7 +278,7 @@ MonoBehaviour:
   JumpForce: 9
   DashMaxCount: 2
   DashCount: 0
-  DashForce: 100
+  DashForce: 150
   DashReload: 2
   CameraHeightRatio: 0.9
   CapsuleHeightStanding: 1.8
@@ -301,7 +301,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a46009448e20e4dbd5925c2167eb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartWeaponPrefab: {fileID: 2583856138238376327, guid: 446e339520f732943adf5f024ea59cb4, type: 3}
+  Weapons:
+  - {fileID: 5043112237527216098, guid: eed4b5856853cd54ba369b27ca361fe4, type: 3}
+  - {fileID: 2583856138238376327, guid: 446e339520f732943adf5f024ea59cb4, type: 3}
+  - {fileID: 2583856138238376327, guid: 75dd50b1de53f8a4c97dca0b4b86eae9, type: 3}
   WeaponPos: {fileID: 9168700380704313049}
   RecoilSharpness: 50
   RecoilRestitutionSharpness: 10

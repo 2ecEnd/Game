@@ -116,7 +116,10 @@ namespace Assets.Scripts
 
         public void MagazineReloading()
         {
-            animator.SetTrigger("Reload");
+            if(animator != null)
+            {
+                animator.SetTrigger("Reload");
+            }
             CurrentAmmo = MagazineSize;
             Reload = true;
             m_LastTimeReloading = Time.time;
@@ -125,9 +128,11 @@ namespace Assets.Scripts
 
         public IEnumerator ManualReloading()
         {
-            animator.SetBool("IsReloading", true);
-            animator.SetTrigger("Reload");
-
+            if (animator != null)
+            {
+                animator.SetBool("IsReloading", true);
+                animator.SetTrigger("Reload");
+            }
             m_LastTimeReloading = Time.time;
             Reload = true;
             yield return new WaitForSeconds(0.334f);
@@ -139,7 +144,10 @@ namespace Assets.Scripts
                 yield return new WaitForSeconds(0.5f);
             }
 
-            animator.SetBool("IsReloading", false);
+            if (animator != null)
+            {
+                animator.SetBool("IsReloading", false);
+            }
             m_ShootAudioSource.PlayOneShot(ManualPumpSfx);
             yield return new WaitForSeconds(0.8f);
             Reload = false;
@@ -176,7 +184,10 @@ namespace Assets.Scripts
                 newProjectile.Shoot(this);
             }
 
-            animator.SetTrigger("Fire");
+            if (animator != null)
+            {
+                animator.SetTrigger("Fire");
+            }
             m_LastTimeShot = Time.time;
 
             if (ReloadingType == "Magazine")
