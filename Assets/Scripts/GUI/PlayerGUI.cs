@@ -14,7 +14,8 @@ public class PlayerGUI : MonoBehaviour
     public float HPArrowStep;
     private GameObject player;
     private PlayerCharacterController characterController;
-    private WeaponHandler weaponHandler;
+    private PlayerWeaponManager playerWeaponManager;
+    //private WeaponHandler weaponHandler;
     private Rect[] rects = new Rect[8];
     private int screenWidth;
     private int screenHeight;
@@ -23,7 +24,8 @@ public class PlayerGUI : MonoBehaviour
     {
         player = transform.parent.gameObject;
         characterController = transform.parent.GetComponent<PlayerCharacterController>();
-        weaponHandler = transform.parent.GetComponent<PlayerWeaponManager>().ActiveWeapon;
+        playerWeaponManager = transform.parent.GetComponent<PlayerWeaponManager>();
+        //weaponHandler = playerWeaponManager.ActiveWeapon;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -52,9 +54,9 @@ public class PlayerGUI : MonoBehaviour
             GUI.Box(rects[1], "смэртб");
             return;
         }
-        if (!weaponHandler.Reload)
+        if (!playerWeaponManager.ActiveWeapon.Reload)
         {
-            GUI.Box(rects[4], weaponHandler.CurrentAmmo.ToString());
+            GUI.Box(rects[4], playerWeaponManager.ActiveWeapon.CurrentAmmo.ToString());
         }
         else
         {

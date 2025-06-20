@@ -191,7 +191,7 @@ namespace Assets.Scripts.Player
 
         void DestroyOnFall()
         {
-            if (transform.position.y < arenaManager.getKillHeight() && !isDead)
+            if (transform.position.y < arenaManager.GetKillHeight() && !isDead)
                 Die();
         }
 
@@ -206,7 +206,7 @@ namespace Assets.Scripts.Player
             isDead = false;
             gui.Death = false;
 
-            int arenaCenter = arenaManager.getArenaSize() / 2;
+            int arenaCenter = arenaManager.GetArenaSize() / 2;
             float y = arenaManager.heightMap[arenaCenter - 1, arenaCenter - 1];
             y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter - 1]);
             y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter]);
@@ -224,9 +224,9 @@ namespace Assets.Scripts.Player
             }
             y += 0.1f;
             transform.position = new Vector3(
-                arenaManager.getArenaSize() * arenaManager.getChunkScale() / 2 - arenaManager.getChunkScale() / 2,
+                arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2,
                 y,
-                arenaManager.getArenaSize() * arenaManager.getChunkScale() / 2 - arenaManager.getChunkScale() / 2);
+                arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2);
             CharacterVelocity = new Vector3();
         }
     }
