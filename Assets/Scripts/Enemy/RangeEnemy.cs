@@ -16,9 +16,10 @@ public class RangeEnemy : EnemyBase, IDamagable
     float distanceToPlayer = 0;
     private Vector3 fromMuzzleToPlayer;
     private float arenaSize;
-    private float distanceToEdgeX;
-    private float distanceToEdgeZ;
+    //private float distanceToEdgeX;
+    //private float distanceToEdgeZ;
     Animator animator;
+    private float animatorRatio;
 
     void Start()
     {
@@ -42,10 +43,9 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void Update()
     {
-        distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
+        //distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
         //print(distanceToEdgeX);
         if (isDead) return;
-        if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
 
         fromBodyToPlayer = target.position - transform.position;
         fromBodyToPlayer = new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z);
@@ -54,22 +54,26 @@ public class RangeEnemy : EnemyBase, IDamagable
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
         weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1, target.position.z));
 
+        if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
+
         Vector3 targetVelocity = Vector3.zero;
         if (distanceToPlayer < 10)
         {
-            animator.SetBool("IsRunning", true);
-            animator.SetFloat("RunningSpeed", -1);
+            //animator.SetBool("IsRunning", true);
+            //animator.SetFloat("RunningSpeed", -1);
             targetVelocity = -fromBodyToPlayer;
+            animatorRatio = -1;
         }
         else if (distanceToPlayer > 20)
         {
-            animator.SetBool("IsRunning", true);
-            animator.SetFloat("RunningSpeed", 1);
+            //animator.SetBool("IsRunning", true);
+            //animator.SetFloat("RunningSpeed", 1);
             targetVelocity = fromBodyToPlayer;
+            animatorRatio = 1;
         }
         else
         {
-            animator.SetBool("IsRunning", false);
+            //animator.SetBool("IsRunning", false);
         }
 
         if(transform.position.x < 0)
@@ -101,11 +105,21 @@ public class RangeEnemy : EnemyBase, IDamagable
             }
         }
 
+        if (targetVelocity.magnitude > 0.1f)
+        {
+            animator.SetBool("IsRunning", true);
+            animator.SetFloat("RunningSpeed", targetVelocity.magnitude * animatorRatio);
+        }
+        else
+        {
+            animator.SetBool("IsRunning", false);
+        }
+
         float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
         if (characterController.isGrounded)
         {
             characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
-            verticalVelocity = -GravityForce * Time.deltaTime;
+            verticalVelocity = -GravityForce * 0.1f;
         }
         else
         {
@@ -154,7 +168,7 @@ public class RangeEnemy : EnemyBase, IDamagable
         characterController.enabled = false;
 
         if (needScored)
-            GlobalInspector.KilledRange++;
+            GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
 
         StartCoroutine(Disappeare());
     }

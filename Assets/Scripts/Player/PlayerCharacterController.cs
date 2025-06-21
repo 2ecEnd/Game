@@ -103,7 +103,7 @@ namespace Assets.Scripts.Player
             HandleCharacterMovement();
 
             if (Input.GetKeyDown(KeyCode.T))
-                needRevive = true;
+                PRevive();
         }
 
         void HandleCharacterMovement()
@@ -135,19 +135,19 @@ namespace Assets.Scripts.Player
             }
 
             float verticalVelocity = CharacterVelocity.y - GravityDownForce * Time.deltaTime;
-            if (IsGrounded)
+            if (controller.isGrounded)
             {
                 canSecondJump = true;
                 CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime); //направление движения с ограничением скорости
                 if (Input.GetKeyDown(KeyCode.Space)) //прыжок
                 {
                     verticalVelocity = JumpForce;
-                    IsGrounded = false;
+                    //IsGrounded = false;
                     AudioSource.PlayOneShot(JumpSfx);
                 }
                 else
                 {
-                    verticalVelocity = -GravityDownForce * Time.deltaTime;
+                    verticalVelocity = -GravityDownForce * 0.1f;
                 }
                 //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
                 //if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
@@ -174,7 +174,7 @@ namespace Assets.Scripts.Player
         public void ReceiveDamage(float damage)
         {
             Health -= damage;
-            if (Health <= 0)
+            if (Health <= 0 && !isDead)
             {
                 Die();
             }
@@ -200,6 +200,7 @@ namespace Assets.Scripts.Player
         }
         public void PRevive()
         {
+            GlobalInspector.PlayerRevive();
             needRevive = true;
         }
 
@@ -207,9 +208,7 @@ namespace Assets.Scripts.Player
         {
             if (!isDead)
                 Die();
-
             GlobalInspector.PlayerRevive();
-
             Health = MaxHealth;
             DashCount = DashMaxCount;
             playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;

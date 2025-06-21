@@ -50,7 +50,7 @@ namespace Assets.Scripts.Enemy
             if (characterController.isGrounded)
             {
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
-                verticalVelocity = -GravityForce * Time.deltaTime;
+                verticalVelocity = -GravityForce * 0.1f;
             }
             else
             {
@@ -92,7 +92,7 @@ namespace Assets.Scripts.Enemy
             characterController.enabled = false;
 
             if (needScored)
-                GlobalInspector.KilledMelee++;
+                GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
 
             StartCoroutine(Disappeare());
         }

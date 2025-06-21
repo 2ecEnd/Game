@@ -109,7 +109,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2.8
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 46
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -128,12 +128,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   AttackStartPoint: {fileID: 2746174648203492905}
-  Damage: 15
-  GravityForce: 20
-  MaxSpeedOnGround: 4
-  MovementSharpnessOnGround: 15
-  MaxSpeedInAir: 4
-  AccelerationSpeedInAir: 25
+  Damage: 20
+  AttackRate: 0.5
+  KillsStatistic: 0
+  GravityForce: 9
+  MaxSpeedOnGround: 5
+  MovementSharpnessOnGround: 5
+  MaxSpeedInAir: 5
+  AccelerationSpeedInAir: 3
   characterVelocity: {x: 0, y: 0, z: 0}
   DisappearanceRate: 5
   SinkSpeed: 1

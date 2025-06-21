@@ -58,6 +58,7 @@ public class PlayerGUI : MonoBehaviour
             GUI.DrawTexture(rects[1], DeathScreen);
             if (GUI.Button(rects[5], "Вставай заибал"))
             {
+                GlobalInspector.PlayerRevive();
                 player.GetComponent<PlayerCharacterController>().PRevive();
             }
             return;

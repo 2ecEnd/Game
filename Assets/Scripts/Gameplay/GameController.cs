@@ -5,10 +5,20 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.Gameplay
 {
+    [System.Serializable]
+    public class Enemy
+    {
+        public GameObject Perfab;
+        public int Random;
+        //public int Kills;
+        public int Score;
+    }
     public class GameController : MonoBehaviour
     {
         [Header("Enemy prefabs")]
-        public GameObject[] EnemyPrefabs;
+        public Enemy[] EnemyPrefabs;
+        //public GameObject[] EnemyPrefabs;
+        //public int[] EnemyRandom;
 
         [Header("BuffBox prefabs")]
         public GameObject[] BuffBoxPrefabs;
@@ -23,13 +33,24 @@ namespace Assets.Scripts.Gameplay
         private ArenaManager arenaManager;
         private GameObject enemiesGO;
         private GameObject buffBoxGO;
+        private int CoinLenth;
 
         void Start()
         {
+            GlobalInspector.EnemyStatistics = new EnemyStatistic[EnemyPrefabs.Length];
+            for (int i = 0; i < EnemyPrefabs.Length; i++)
+            {
+                GlobalInspector.EnemyStatistics[i] = new EnemyStatistic(EnemyPrefabs[i].Score);
+            }
             arenaManager = GetComponent<ArenaManager>();
             enemiesGO = new GameObject("Enemies");
             buffBoxGO = new GameObject("BuffBox");
             arenaManager.BuffBoxGO = buffBoxGO;
+            CoinLenth = 0;
+            for(int i = 0; i < EnemyPrefabs.Length; i++)
+            {
+                CoinLenth += EnemyPrefabs[i].Random;
+            }
         }
 
         void Update()
@@ -49,26 +70,13 @@ namespace Assets.Scripts.Gameplay
         void SpawnBuffBox()
         {
             float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
-            //while (Enemies.Count < MaxEnemies)
-            {
-                int y = 0;
-                while (y == 0)
-                {
-                    float x = Random.Range(0, arenaSize);
-                    int i = (int)((x + 2) / arenaManager.GetChunkScale());
-                    float z = Random.Range(0, arenaSize);
-                    int j = (int)((z + 2) / arenaManager.GetChunkScale());
-
-                    y = arenaManager.heightMap[i, j];
-                    if (y > 0)
-                    {
-                        y++;
-                        Vector3 spawnPosition = new Vector3(x, y, z);
-                        int coin = Random.Range(0, BuffBoxPrefabs.Length);
-                        Instantiate(BuffBoxPrefabs[coin], spawnPosition, Quaternion.identity, buffBoxGO.transform);
-                    }
-                }
-            }
+            float x = Random.Range(0, arenaSize);
+            int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
+            float z = Random.Range(0, arenaSize);
+            int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
+            Vector3 spawnPosition = new Vector3(x, arenaManager.heightMap[i, j] + 1, z);
+            int coin = Random.Range(0, BuffBoxPrefabs.Length);
+            Instantiate(BuffBoxPrefabs[coin], spawnPosition, Quaternion.identity, buffBoxGO.transform);
         }
         void SpawnEnemies()
         {
@@ -76,27 +84,23 @@ namespace Assets.Scripts.Gameplay
             while (Enemies.Count < MaxEnemies)
             {
                 float x = Random.Range(0, arenaSize);
-                int i = (int)((x + 2) / arenaManager.GetChunkScale());
+                int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
                 float z = Random.Range(0, arenaSize);
-                int j = (int)((z + 2) / arenaManager.GetChunkScale());
-
-                int y = arenaManager.heightMap[i, j];
-                if (y == 0)
+                int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
+                Vector3 spawnPosition = new Vector3(x, arenaManager.heightMap[i, j] + 1, z);
+                int coin = Random.Range(0, CoinLenth);
+                int a = 0;
+                for(int c  = 0; c < EnemyPrefabs.Length; c++)
                 {
-                    if (i != 0)
-                        y = Mathf.Max(y, arenaManager.heightMap[i - 1, j]);
-                    if (i != arenaManager.GetArenaSize() - 1)
-                        y = Mathf.Max(y, arenaManager.heightMap[i + 1, j]);
-                    if (j != 0)
-                        y = Mathf.Max(y, arenaManager.heightMap[i, j - 1]);
-                    if (j != arenaManager.GetArenaSize() - 1)
-                        y = Mathf.Max(y, arenaManager.heightMap[i, j + 1]);
+                    a += EnemyPrefabs[c].Random;
+                    if (coin < a)
+                    {
+                        GameObject newEnemy = Instantiate(EnemyPrefabs[c].Perfab, spawnPosition, Quaternion.identity, enemiesGO.transform);
+                        newEnemy.GetComponent<EnemyBase>().KillsStatistic = c;
+                        Enemies.Add(newEnemy);
+                        break;
+                    }
                 }
-                y++;
-
-                Vector3 spawnPosition = new Vector3(x, y, z);
-                int coin = Random.Range(0, EnemyPrefabs.Length);
-                Enemies.Add(Instantiate(EnemyPrefabs[coin], spawnPosition, Quaternion.identity, enemiesGO.transform));
             }
             m_LastTimeSpawn = Time.time;
         }

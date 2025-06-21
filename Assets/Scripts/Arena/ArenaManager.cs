@@ -1,12 +1,6 @@
 using Assets.Scripts.Gameplay;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -16,15 +10,6 @@ public class ArenaManager : MonoBehaviour
     public GameObject player;
     public GameObject chunk;
     public GameObject quad;
-    public GameObject stair_1;
-    public GameObject stair_05;
-    public GameObject stair_025;
-    public GameObject stair_1_concave;    // Вогнутая
-    public GameObject stair_05_concave;
-    public GameObject stair_025_concave;
-    public GameObject stair_1_convex;     // Выпуклая
-    public GameObject stair_05_convex;
-    public GameObject stair_025_convex;
 
     [Header("Arena Parameters")]
     public int[,] heightMap;
@@ -32,7 +17,6 @@ public class ArenaManager : MonoBehaviour
     public int[,] prevStairsMap;
     private List<List<int[,]>> arenaPresets;
     private GameObject[,] chunks;
-    private List<GameObject> stairs;
 
     [Header("BuffBox Parameters")]
     public GameObject BuffBoxGO;
@@ -42,24 +26,17 @@ public class ArenaManager : MonoBehaviour
     private int flag = 0;
     private const int arenaSize = 20;
     private const int chunkScale = 4;
-    private float chunkHeight;
     private const int killHeight = -20;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         arena = new GameObject("Arena");
-        arena.transform.position = new Vector3(0, 10, 0);
         CreatePresets();
 
         gameController = gameObject.GetComponent<GameController>();
 
-        chunkHeight = (chunk.transform.localScale.y / 2);   // Нацало координат чанка находится в его центре
-                                                            // Поэтому делим высоту пополам
-
         chunks = new GameObject[arenaSize, arenaSize];
-        stairs = new List<GameObject>();
         heightMap = arenaPresets[0][0];
         stairsMap = arenaPresets[0][1];
         prevStairsMap = new int[arenaSize, arenaSize];
@@ -72,7 +49,6 @@ public class ArenaManager : MonoBehaviour
             }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (flag != 0)
@@ -304,15 +280,6 @@ public class ArenaManager : MonoBehaviour
         chunks[x, z].GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
-    void RemoveStairs()
-    {
-        while (stairs.Count > 0)
-        {
-            Destroy(stairs[0]);
-            stairs.RemoveAt(0);
-        }
-    }
-
 
     void ChangeArena(int flag)
     {
@@ -331,7 +298,7 @@ public class ArenaManager : MonoBehaviour
 
         TransformArena();
     }
-
+    
     void ChooseFromPresets()
     {
         int choice = UnityEngine.Random.Range(0, arenaPresets.Count);
@@ -350,7 +317,7 @@ public class ArenaManager : MonoBehaviour
         int size = arenaSize / 2;
         int[] tmpHeightMap = new int[size];
 
-        tmpHeightMap[0] = 50;
+        tmpHeightMap[0] = 0;
         for (int i = 1; i < size; i++)
         {
             int height;
@@ -545,8 +512,6 @@ public class ArenaManager : MonoBehaviour
 
     void TransformArena()
     {
-        RemoveStairs();
-
         for (int i = 0; i < arenaSize; i++)
             for (int j = 0; j < arenaSize; j++)
             {
@@ -571,55 +536,26 @@ public class ArenaManager : MonoBehaviour
         // Change player's position
         {
             float player_x = player.transform.position.x;
-            int chunk_i = (int)(player_x / chunkScale);
+            int chunk_i = (int)((player_x + chunkScale / 2) / chunkScale);
             float player_z = player.transform.position.z;
-            int chunk_j = (int)(player_z / chunkScale);
+            int chunk_j = (int)((player_z + chunkScale / 2) / chunkScale);
 
-            if (chunk_i >= 0 && chunk_j >= 0 && chunk_i < arenaSize && chunk_j < arenaSize)
-            {
-                float y = heightMap[chunk_i, chunk_j];
-                if (y == 0)
-                {
-                    if (chunk_i >= 0)
-                        y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
-                    if (chunk_i < arenaSize)
-                        y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
-                    if (chunk_j >= 0)
-                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
-                    if (chunk_j < arenaSize)
-                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
-                }
-                y++;
-                player.transform.position = new Vector3(player_x, y, player_z);
-            }
+            if (player_x > -chunkScale / 2 && player_z > -chunkScale / 2 &&
+                player_x < arenaSize * chunkScale - chunkScale / 2 && player_z < arenaSize * chunkScale - chunkScale / 2)
+                player.transform.position = new Vector3(player_x, heightMap[chunk_i, chunk_j] + 2, player_z);
         }
 
         // Change emenies' position
         for (int i = 0; i < gameController.Enemies.Count; i++)
         {
             float x = gameController.Enemies[i].transform.position.x;
-            int chunk_i = (int)(x / chunkScale);
+            int chunk_i = (int)((x + chunkScale / 2) / chunkScale);
             float z = gameController.Enemies[i].transform.position.z;
-            int chunk_j = (int)(z / chunkScale);
+            int chunk_j = (int)((z + chunkScale / 2) / chunkScale);
 
-            if (chunk_i >= 0 && chunk_j >= 0 && chunk_i < arenaSize && chunk_j < arenaSize)
-            {
-                float y = heightMap[chunk_i, chunk_j];
-                if (y == 0)
-                {
-                    if (chunk_i >= 0)
-                        y = Mathf.Max(y, heightMap[chunk_i - 1, chunk_j]);
-                    if (chunk_i < arenaSize)
-                        y = Mathf.Max(y, heightMap[chunk_i + 1, chunk_j]);
-                    if (chunk_j >= 0)
-                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j - 1]);
-                    if (chunk_j < arenaSize)
-                        y = Mathf.Max(y, heightMap[chunk_i, chunk_j + 1]);
-                }
-                y++;
-
-                gameController.Enemies[i].transform.position = new Vector3(x, y, z);
-            }
+            if (x > -chunkScale / 2 && z > -chunkScale / 2 &&
+                x < arenaSize * chunkScale - chunkScale / 2 && z < arenaSize * chunkScale - chunkScale / 2)
+                gameController.Enemies[i].transform.position = new Vector3(x, heightMap[chunk_i, chunk_j] + 2, z);
         }
 
         //Destroy all BuffBoxes

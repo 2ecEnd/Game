@@ -77,7 +77,7 @@ namespace Assets.Scripts.Enemy
             if (characterController.isGrounded)
             {
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
-                verticalVelocity = -GravityForce * Time.deltaTime;
+                verticalVelocity = -GravityForce * 0.1f;
             }
             else
             {
@@ -115,7 +115,7 @@ namespace Assets.Scripts.Enemy
             Destroy(gameObject);
 
             if (needScored)
-                GlobalInspector.KilledCart++;
+                GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
         }
 
         protected override void DestroyOnFall()
