@@ -36,6 +36,9 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void FixedUpdate()
     {
+        if(!GlobalInspector.PlayerAlive) {
+            return;
+        }
         Attack();
 
         DestroyOnFall();
@@ -43,6 +46,17 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void Update()
     {
+        if (!GlobalInspector.PlayerAlive)
+        {
+            animator.speed = 0;
+            //animatorRatio = 0;
+            return;
+        }
+        else if (animator.speed == 0)
+        {
+            animator.speed = 1;
+            //animatorRatio = 1;
+        }
         //distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
         //print(distanceToEdgeX);
         if (isDead) return;
@@ -170,6 +184,7 @@ public class RangeEnemy : EnemyBase, IDamagable
         if (needScored)
             GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
 
+        gameController.Enemies.Remove(gameObject);
         StartCoroutine(Disappeare());
     }
 
@@ -194,7 +209,6 @@ public class RangeEnemy : EnemyBase, IDamagable
             yield return null;
         }
 
-        gameController.Enemies.Remove(gameObject);
         Destroy(gameObject);
     }
 

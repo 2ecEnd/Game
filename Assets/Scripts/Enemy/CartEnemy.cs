@@ -28,6 +28,10 @@ namespace Assets.Scripts.Enemy
 
         void FixedUpdate()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
@@ -43,6 +47,10 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             fromBodyToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             float angle;

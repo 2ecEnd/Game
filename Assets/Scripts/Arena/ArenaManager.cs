@@ -1,6 +1,12 @@
 using Assets.Scripts.Gameplay;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -10,6 +16,15 @@ public class ArenaManager : MonoBehaviour
     public GameObject player;
     public GameObject chunk;
     public GameObject quad;
+    //public GameObject stair_1;
+    //public GameObject stair_05;
+    //public GameObject stair_025;
+    //public GameObject stair_1_concave;    // Вогнутая
+    //public GameObject stair_05_concave;
+    //public GameObject stair_025_concave;
+    //public GameObject stair_1_convex;     // Выпуклая
+    //public GameObject stair_05_convex;
+    //public GameObject stair_025_convex;
 
     [Header("Arena Parameters")]
     public int[,] heightMap;
@@ -17,6 +32,7 @@ public class ArenaManager : MonoBehaviour
     public int[,] prevStairsMap;
     private List<List<int[,]>> arenaPresets;
     private GameObject[,] chunks;
+    private List<GameObject> stairs;
 
     [Header("BuffBox Parameters")]
     public GameObject BuffBoxGO;
@@ -26,9 +42,11 @@ public class ArenaManager : MonoBehaviour
     private int flag = 0;
     private const int arenaSize = 20;
     private const int chunkScale = 4;
+    private float chunkHeight;
     private const int killHeight = -20;
 
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         arena = new GameObject("Arena");
@@ -36,7 +54,11 @@ public class ArenaManager : MonoBehaviour
 
         gameController = gameObject.GetComponent<GameController>();
 
+        chunkHeight = (chunk.transform.localScale.y / 2);   // Нацало координат чанка находится в его центре
+                                                            // Поэтому делим высоту пополам
+
         chunks = new GameObject[arenaSize, arenaSize];
+        stairs = new List<GameObject>();
         heightMap = arenaPresets[0][0];
         stairsMap = arenaPresets[0][1];
         prevStairsMap = new int[arenaSize, arenaSize];
@@ -49,6 +71,7 @@ public class ArenaManager : MonoBehaviour
             }
     }
 
+    // Update is called once per frame
     void FixedUpdate()
     {
         if (flag != 0)
@@ -280,10 +303,19 @@ public class ArenaManager : MonoBehaviour
         chunks[x, z].GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
+    /*void RemoveStairs()
+    {
+        while (stairs.Count > 0)
+        {
+            Destroy(stairs[0]);
+            stairs.RemoveAt(0);
+        }
+    }*/
+
 
     void ChangeArena(int flag)
     {
-        float coin = UnityEngine.Random.value;
+        //float coin = UnityEngine.Random.value;
         if (flag == 1)
         {
             CreatePresets(); // TODO: need to fix
@@ -298,7 +330,7 @@ public class ArenaManager : MonoBehaviour
 
         TransformArena();
     }
-    
+
     void ChooseFromPresets()
     {
         int choice = UnityEngine.Random.Range(0, arenaPresets.Count);
@@ -512,6 +544,8 @@ public class ArenaManager : MonoBehaviour
 
     void TransformArena()
     {
+        //RemoveStairs();
+
         for (int i = 0; i < arenaSize; i++)
             for (int j = 0; j < arenaSize; j++)
             {

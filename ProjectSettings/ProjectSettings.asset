@@ -12,9 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: eVolve
-  productName: "\u0421\u0430\u043C\u044B\u0439 \u043B\u0443\u0447\u0448\u0438\u0439
-    \u0448\u0443\u0442\u0435\u0440"
+  companyName: "\u041D\u0435\u0412\u0430\u043B\u0432"
+  productName: "\u041B\u044F\u043C\u0431\u0434\u0430 1.5"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -141,7 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.1.1
+  bundleVersion: 0.2
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -293,7 +292,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: dd39cc6977d16b0459a80754ea91c186, type: 3}
+      m_Icon: {fileID: 2800000, guid: 38abac0238d636c4684e76aa9b3090f1, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

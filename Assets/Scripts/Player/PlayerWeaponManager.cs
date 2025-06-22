@@ -31,7 +31,12 @@ namespace Assets.Scripts.Player
         {
             if (!GlobalInspector.PlayerAlive)
             {
+                ActiveWeapon.gameObject.SetActive(false);
                 return;
+            }
+            else if (!ActiveWeapon.gameObject.activeSelf)
+            {
+                ActiveWeapon.gameObject.SetActive(true);
             }
             bool hasFired = ActiveWeapon.HandleShootInputs(Input.GetKeyDown(KeyCode.Mouse0), Input.GetKey(KeyCode.Mouse0));
             if (hasFired)
@@ -56,6 +61,10 @@ namespace Assets.Scripts.Player
 
         void LateUpdate()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             UpdateWeaponRecoil();
 
             WeaponPos.localPosition =

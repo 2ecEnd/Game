@@ -70,30 +70,55 @@ namespace Assets.Scripts.Player
         //float footstepDistanceCounter;
         bool isDead = false;
         bool needRevive = false;
+        private Vector3 cameraStartPos;
 
         void Start()
         {
+            GlobalInspector.PlayerCharacterController = this;
             controller = GetComponent<CharacterController>();
             gui = PlayerCamera.GetComponent<PlayerGUI>();
             arenaManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetComponent<ArenaManager>();
             playerWeaponManager = gameObject.GetComponent<PlayerWeaponManager>();
             DashCount = DashMaxCount;
+            cameraStartPos = PlayerCamera.transform.localPosition;
         }
 
         void FixedUpdate()
         {
-            DestroyOnFall();
-
-
+            if(isDead)
+            {
+                if (PlayerCamera.transform.localPosition.magnitude < 5)
+                {
+                    PlayerCamera.transform.localPosition -= Vector3.forward * Time.fixedDeltaTime;
+                }
+                PlayerCamera.transform.RotateAround(transform.position, transform.up, 20 * Time.fixedDeltaTime);
+            }
+            else
+            {
+                PlayerCamera.transform.localPosition = cameraStartPos;
+            }
             if (needRevive)
             {
                 Revive();
                 needRevive = false;
             }
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
+            DestroyOnFall();
         }
 
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                GlobalInspector.PlayerRevive();
+            }
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             bool wasGrounded = IsGrounded;
             IsGrounded = controller.isGrounded;
             if (IsGrounded && !wasGrounded)
@@ -101,9 +126,6 @@ namespace Assets.Scripts.Player
                 //AudioSource.PlayOneShot(LandSfx);
             }
             HandleCharacterMovement();
-
-            if (Input.GetKeyDown(KeyCode.T))
-                PRevive();
         }
 
         void HandleCharacterMovement()
@@ -176,7 +198,7 @@ namespace Assets.Scripts.Player
             Health -= damage;
             if (Health <= 0 && !isDead)
             {
-                Die();
+                GlobalInspector.PlayerDeath();
             }
             else if (Health > MaxHealth)
             {
@@ -186,34 +208,25 @@ namespace Assets.Scripts.Player
 
         public void Die(bool needScored = true)
         {
-            GlobalInspector.PlayerDeath();
             isDead = true;
-
-            if (needScored)
-                GlobalInspector.DeathCount++;
         }
 
         void DestroyOnFall()
         {
             if (transform.position.y < arenaManager.GetKillHeight() && !isDead)
-                Die();
+                GlobalInspector.PlayerDeath();
         }
         public void PRevive()
         {
-            GlobalInspector.PlayerRevive();
             needRevive = true;
         }
 
         void Revive()
         {
-            if (!isDead)
-                Die();
-            GlobalInspector.PlayerRevive();
             Health = MaxHealth;
             DashCount = DashMaxCount;
             playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;
             isDead = false;
-            gui.Death = false;
 
             int arenaCenter = arenaManager.GetArenaSize() / 2;
             float y = arenaManager.heightMap[arenaCenter - 1, arenaCenter - 1];

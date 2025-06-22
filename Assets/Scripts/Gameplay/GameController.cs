@@ -2,23 +2,34 @@ using UnityEngine;
 using System.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Assets.Scripts.Gameplay
 {
     [System.Serializable]
+    public class Wave
+    {
+        public int TotalEnemies;
+        public int MaxEnemies;
+        public int SpawnInterval;
+        public int[] EnemiesSpawnRate;
+    }
+    [System.Serializable]
     public class Enemy
     {
+        public string Name;
         public GameObject Perfab;
-        public int Random;
-        //public int Kills;
+        public int SpawnRate;
         public int Score;
     }
     public class GameController : MonoBehaviour
     {
+        [Header("Waves settings")]
+        public Wave[] Waves;
+        public float WaveInterval = 10f;
+
         [Header("Enemy prefabs")]
         public Enemy[] EnemyPrefabs;
-        //public GameObject[] EnemyPrefabs;
-        //public int[] EnemyRandom;
 
         [Header("BuffBox prefabs")]
         public GameObject[] BuffBoxPrefabs;
@@ -26,9 +37,12 @@ namespace Assets.Scripts.Gameplay
         [Header("Spawn settings")]
         public float SpawnInterval = 30f;
         public int MaxEnemies = 5;
+        public int TotalEnemies;
+        public int EnemiesSpawned;
+        public int WaveNumber;
 
         public List<GameObject> Enemies;
-        float m_LastTimeSpawn = Mathf.NegativeInfinity;
+        private float nextTimeSpawn = Mathf.NegativeInfinity;
 
         private ArenaManager arenaManager;
         private GameObject enemiesGO;
@@ -37,36 +51,72 @@ namespace Assets.Scripts.Gameplay
 
         void Start()
         {
+            GlobalInspector.GameController = this;
             GlobalInspector.EnemyStatistics = new EnemyStatistic[EnemyPrefabs.Length];
             for (int i = 0; i < EnemyPrefabs.Length; i++)
             {
-                GlobalInspector.EnemyStatistics[i] = new EnemyStatistic(EnemyPrefabs[i].Score);
+                GlobalInspector.EnemyStatistics[i] = new EnemyStatistic(EnemyPrefabs[i].Name, EnemyPrefabs[i].Score);
             }
             arenaManager = GetComponent<ArenaManager>();
             enemiesGO = new GameObject("Enemies");
             buffBoxGO = new GameObject("BuffBox");
             arenaManager.BuffBoxGO = buffBoxGO;
-            CoinLenth = 0;
-            for(int i = 0; i < EnemyPrefabs.Length; i++)
-            {
-                CoinLenth += EnemyPrefabs[i].Random;
-            }
+            WaveNumber = 0;
+            NewWave();
         }
 
         void Update()
         {
-            TrySpawn();
-        }
-
-        void TrySpawn()
-        {
-            if (m_LastTimeSpawn + SpawnInterval < Time.time)
+            if (!GlobalInspector.PlayerAlive || GlobalInspector.Win)
             {
-                SpawnEnemies();
-                SpawnBuffBox();
+                return;
+            }
+            if (EnemiesSpawned < TotalEnemies)
+            {
+                if (Enemies.Count < MaxEnemies && nextTimeSpawn < Time.time)
+                {
+                    GlobalInspector.Rest = false;
+                    SpawnEnemy();
+                    SpawnBuffBox();
+                    nextTimeSpawn = Time.time + SpawnInterval;
+                }
+            }
+            else if (Enemies.Count == 0)
+            {
+                if (WaveNumber + 1 < Waves.Length)
+                {
+                    WaveNumber++;
+                    NewWave();
+                }
+                else
+                {
+                    GlobalInspector.PlayerWin();
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
             }
         }
-
+        public void Restart()
+        {
+            WaveNumber = 0;
+            NewWave();
+        }
+        void NewWave()
+        {
+            EnemiesSpawned = 0;
+            CoinLenth = 0;
+            for (int i = 0; i < EnemyPrefabs.Length; i++)
+            {
+                EnemyPrefabs[i].SpawnRate = Waves[WaveNumber].EnemiesSpawnRate[i];
+                CoinLenth += EnemyPrefabs[i].SpawnRate;
+            }
+            SpawnInterval = Waves[WaveNumber].SpawnInterval;
+            MaxEnemies = Waves[WaveNumber].MaxEnemies;
+            TotalEnemies = Waves[WaveNumber].TotalEnemies;
+            nextTimeSpawn = Time.time + WaveInterval;
+            GlobalInspector.WaveNumber = WaveNumber;
+            GlobalInspector.Rest = true;
+        }
         void SpawnBuffBox()
         {
             float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
@@ -78,31 +128,28 @@ namespace Assets.Scripts.Gameplay
             int coin = Random.Range(0, BuffBoxPrefabs.Length);
             Instantiate(BuffBoxPrefabs[coin], spawnPosition, Quaternion.identity, buffBoxGO.transform);
         }
-        void SpawnEnemies()
+        void SpawnEnemy()
         {
             float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
-            while (Enemies.Count < MaxEnemies)
+            float x = Random.Range(0, arenaSize);
+            int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
+            float z = Random.Range(0, arenaSize);
+            int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
+            Vector3 spawnPosition = new Vector3(x, arenaManager.heightMap[i, j] + 1, z);
+            int coin = Random.Range(0, CoinLenth);
+            int a = 0;
+            for (int c = 0; c < EnemyPrefabs.Length; c++)
             {
-                float x = Random.Range(0, arenaSize);
-                int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-                float z = Random.Range(0, arenaSize);
-                int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-                Vector3 spawnPosition = new Vector3(x, arenaManager.heightMap[i, j] + 1, z);
-                int coin = Random.Range(0, CoinLenth);
-                int a = 0;
-                for(int c  = 0; c < EnemyPrefabs.Length; c++)
+                a += EnemyPrefabs[c].SpawnRate;
+                if (coin < a)
                 {
-                    a += EnemyPrefabs[c].Random;
-                    if (coin < a)
-                    {
-                        GameObject newEnemy = Instantiate(EnemyPrefabs[c].Perfab, spawnPosition, Quaternion.identity, enemiesGO.transform);
-                        newEnemy.GetComponent<EnemyBase>().KillsStatistic = c;
-                        Enemies.Add(newEnemy);
-                        break;
-                    }
+                    EnemiesSpawned++;
+                    GameObject newEnemy = Instantiate(EnemyPrefabs[c].Perfab, spawnPosition, Quaternion.identity, enemiesGO.transform);
+                    newEnemy.GetComponent<EnemyBase>().KillsStatistic = c;
+                    Enemies.Add(newEnemy);
+                    break;
                 }
             }
-            m_LastTimeSpawn = Time.time;
         }
     }
 }

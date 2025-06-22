@@ -10,7 +10,10 @@ public class HealthBox : BuffBox
 
     void FixedUpdate()
     {
-        Flex();
+        if (GlobalInspector.PlayerAlive)
+        {
+            Flex();
+        }
     }
 
     protected override void OnTriggerEnter(Collider collider)
