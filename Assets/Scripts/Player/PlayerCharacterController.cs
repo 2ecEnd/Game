@@ -229,25 +229,10 @@ namespace Assets.Scripts.Player
             isDead = false;
 
             int arenaCenter = arenaManager.GetArenaSize() / 2;
-            float y = arenaManager.heightMap[arenaCenter - 1, arenaCenter - 1];
-            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter - 1]);
-            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter]);
-            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter]);
-            if (y == 0)
-            {
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 2, arenaCenter - 1]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 2, arenaCenter]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter - 2]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter - 2]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter + 1, arenaCenter - 1]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter + 1, arenaCenter]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter + 1]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter + 1]);
-            }
-            y += 0.1f;
+
             transform.position = new Vector3(
                 arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2,
-                y,
+                arenaManager.HeightMap[arenaCenter, arenaCenter],
                 arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2);
             CharacterVelocity = new Vector3();
         }

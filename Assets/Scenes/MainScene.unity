@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -363,11 +363,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df99363abd5eb343878a8b7fed9e4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 9956604}
-  chunk: {fileID: 6255993869813837955, guid: eccb391a7a95e634986df16c25655075, type: 3}
-  quad: {fileID: 1692201033522189356, guid: 0d31ca3d722e6494387003e967834352, type: 3}
+  Player: {fileID: 9956604}
+  Quad: {fileID: 1692201033522189356, guid: 0d31ca3d722e6494387003e967834352, type: 3}
   BuffBoxGO: {fileID: 0}
-  ChangeSpeed: 1
+  DefaultChangeSpeed: 1
+  ChangeSpeedRatio: 0.01
 --- !u!114 &1032319112475742915
 MonoBehaviour:
   m_ObjectHideFlags: 0
