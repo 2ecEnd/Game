@@ -25,6 +25,10 @@ namespace Assets.Scripts.Enemy
 
         void FixedUpdate()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
@@ -40,6 +44,17 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                animator.speed = 0;
+                //animatorRatio = 0;
+                return;
+            }
+            else if (animator.speed == 0)
+            {
+                animator.speed = 1;
+                //animatorRatio = 1;
+            }
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
             fromBodyToPlayer = target.position - transform.position;
@@ -50,6 +65,7 @@ namespace Assets.Scripts.Enemy
             if (characterController.isGrounded)
             {
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+                verticalVelocity = -GravityForce * 0.1f;
             }
             else
             {
@@ -91,8 +107,9 @@ namespace Assets.Scripts.Enemy
             characterController.enabled = false;
 
             if (needScored)
-                GlobalInspector.KilledMelee++;
+                GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
 
+            gameController.Enemies.Remove(gameObject);
             StartCoroutine(Disappeare());
         }
 

@@ -28,6 +28,10 @@ namespace Assets.Scripts.Enemy
 
         void FixedUpdate()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
@@ -43,6 +47,10 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             fromBodyToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             float angle;
@@ -73,14 +81,17 @@ namespace Assets.Scripts.Enemy
             }
             transform.Rotate(0, Mathf.Clamp(angle, -MaxAngularSpeed, MaxAngularSpeed), 0);
             Vector3 targetVelocity = transform.forward * acceleration;
+            float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
             {
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+                verticalVelocity = -GravityForce * 0.1f;
             }
             else
             {
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
             }
+            characterVelocity = new Vector3(characterVelocity.x, verticalVelocity, characterVelocity.z);
             characterController.Move(characterVelocity * Time.deltaTime);
         }
 
@@ -112,7 +123,7 @@ namespace Assets.Scripts.Enemy
             Destroy(gameObject);
 
             if (needScored)
-                GlobalInspector.KilledCart++;
+                GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
         }
 
         protected override void DestroyOnFall()

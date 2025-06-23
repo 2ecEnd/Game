@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3660996450665540237, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -367,19 +367,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df99363abd5eb343878a8b7fed9e4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 9956604}
-  chunk: {fileID: 6255993869813837955, guid: eccb391a7a95e634986df16c25655075, type: 3}
-  quad: {fileID: 1692201033522189356, guid: 0d31ca3d722e6494387003e967834352, type: 3}
-  stair_1: {fileID: 3861264058774730328, guid: d31484264f0524f4495a883fdd97a820, type: 3}
-  stair_05: {fileID: 5322386632154448788, guid: 4b272e0a39c28ce41a8d1d9555cba34e, type: 3}
-  stair_025: {fileID: 7525081310911971700, guid: 3baa97b219155084a9c59fd791c6c7e4, type: 3}
-  stair_1_concave: {fileID: 1177373589376738042, guid: 3b19bf7701aeab4498183849ce7bf1b0, type: 3}
-  stair_05_concave: {fileID: 2655016201871266460, guid: fb40e27fac375234f886112ef849abb5, type: 3}
-  stair_025_concave: {fileID: 6172633746306778848, guid: f52bf95ed263f4c4c8f47d4a39850de3, type: 3}
-  stair_1_convex: {fileID: 649348895395940818, guid: 149de2dd9815f71499c57486cac62eac, type: 3}
-  stair_05_convex: {fileID: 6926286704259321333, guid: 9f750b7c7d6ad0843b95253cff77b347, type: 3}
-  stair_025_convex: {fileID: 6483758248818298217, guid: ac2d8eb522300b94aa0da8c6e1d57926, type: 3}
+  Player: {fileID: 9956604}
+  Quad: {fileID: 1692201033522189356, guid: 0d31ca3d722e6494387003e967834352, type: 3}
   BuffBoxGO: {fileID: 0}
+  DefaultChangeSpeed: 1
+  ChangeSpeedRatio: 0.01
 --- !u!114 &1032319112475742915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,12 +384,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dd7b1e24b49914ca2fc1e32eb964f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Waves:
+  - TotalEnemies: 10
+    MaxEnemies: 2
+    SpawnInterval: 1
+    EnemiesSpawnRate: 060000000100000001000000
+  - TotalEnemies: 10
+    MaxEnemies: 10
+    SpawnInterval: 1
+    EnemiesSpawnRate: 030000000200000001000000
+  WaveInterval: 10
   EnemyPrefabs:
-  - {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+  - Name: "\u0417\u043E\u043C\u0431\u0438"
+    Perfab: {fileID: 7484023987186905579, guid: bef7fd74933ecc546b3aee39ff9c2497, type: 3}
+    SpawnRate: 0
+    Score: 5
+  - Name: "\u0421\u043E\u043B\u0434\u0430\u0442"
+    Perfab: {fileID: 4732818557930091422, guid: 67557d3319d6b3b479ca4cf9f9269400, type: 3}
+    SpawnRate: 0
+    Score: 15
+  - Name: "\u0413\u043E\u043D\u043E\u043C"
+    Perfab: {fileID: 3474713142369456737, guid: 9291b129bf3fece4fbefe5bb15497a20, type: 3}
+    SpawnRate: 0
+    Score: 10
   BuffBoxPrefabs:
   - {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
-  SpawnInterval: 10
+  SpawnInterval: 0
   MaxEnemies: 0
+  TotalEnemies: 0
+  EnemiesSpawned: 0
+  WaveNumber: 0
   Enemies: []
 --- !u!1 &7045998957987457206
 GameObject:

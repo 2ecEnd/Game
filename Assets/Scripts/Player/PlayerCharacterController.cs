@@ -70,30 +70,55 @@ namespace Assets.Scripts.Player
         //float footstepDistanceCounter;
         bool isDead = false;
         bool needRevive = false;
+        private Vector3 cameraStartPos;
 
         void Start()
         {
+            GlobalInspector.PlayerCharacterController = this;
             controller = GetComponent<CharacterController>();
             gui = PlayerCamera.GetComponent<PlayerGUI>();
             arenaManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GetComponent<ArenaManager>();
             playerWeaponManager = gameObject.GetComponent<PlayerWeaponManager>();
             DashCount = DashMaxCount;
+            cameraStartPos = PlayerCamera.transform.localPosition;
         }
 
         void FixedUpdate()
         {
-            DestroyOnFall();
-
-
+            if(isDead)
+            {
+                if (PlayerCamera.transform.localPosition.magnitude < 5)
+                {
+                    PlayerCamera.transform.localPosition -= Vector3.forward * Time.fixedDeltaTime;
+                }
+                PlayerCamera.transform.RotateAround(transform.position, transform.up, 20 * Time.fixedDeltaTime);
+            }
+            else
+            {
+                PlayerCamera.transform.localPosition = cameraStartPos;
+            }
             if (needRevive)
             {
                 Revive();
                 needRevive = false;
             }
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
+            DestroyOnFall();
         }
 
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                GlobalInspector.PlayerRevive();
+            }
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             bool wasGrounded = IsGrounded;
             IsGrounded = controller.isGrounded;
             if (IsGrounded && !wasGrounded)
@@ -101,9 +126,6 @@ namespace Assets.Scripts.Player
                 //AudioSource.PlayOneShot(LandSfx);
             }
             HandleCharacterMovement();
-
-            if (Input.GetKeyDown(KeyCode.T))
-                needRevive = true;
         }
 
         void HandleCharacterMovement()
@@ -135,15 +157,19 @@ namespace Assets.Scripts.Player
             }
 
             float verticalVelocity = CharacterVelocity.y - GravityDownForce * Time.deltaTime;
-            if (IsGrounded)
+            if (controller.isGrounded)
             {
                 canSecondJump = true;
                 CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime); //направление движения с ограничением скорости
                 if (Input.GetKeyDown(KeyCode.Space)) //прыжок
                 {
                     verticalVelocity = JumpForce;
-                    IsGrounded = false;
+                    //IsGrounded = false;
                     AudioSource.PlayOneShot(JumpSfx);
+                }
+                else
+                {
+                    verticalVelocity = -GravityDownForce * 0.1f;
                 }
                 //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
                 //if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
@@ -170,9 +196,9 @@ namespace Assets.Scripts.Player
         public void ReceiveDamage(float damage)
         {
             Health -= damage;
-            if (Health <= 0)
+            if (Health <= 0 && !isDead)
             {
-                Die();
+                GlobalInspector.PlayerDeath();
             }
             else if (Health > MaxHealth)
             {
@@ -183,49 +209,30 @@ namespace Assets.Scripts.Player
         public void Die(bool needScored = true)
         {
             isDead = true;
-            gui.Death = true;
-
-            if (needScored)
-                GlobalInspector.DeathCount++;
         }
 
         void DestroyOnFall()
         {
             if (transform.position.y < arenaManager.GetKillHeight() && !isDead)
-                Die();
+                GlobalInspector.PlayerDeath();
+        }
+        public void PRevive()
+        {
+            needRevive = true;
         }
 
         void Revive()
         {
-            if (!isDead)
-                Die();
-
             Health = MaxHealth;
             DashCount = DashMaxCount;
             playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;
             isDead = false;
-            gui.Death = false;
 
             int arenaCenter = arenaManager.GetArenaSize() / 2;
-            float y = arenaManager.heightMap[arenaCenter - 1, arenaCenter - 1];
-            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter - 1]);
-            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter]);
-            y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter]);
-            if (y == 0)
-            {
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 2, arenaCenter - 1]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 2, arenaCenter]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter - 2]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter - 2]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter + 1, arenaCenter - 1]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter + 1, arenaCenter]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter - 1, arenaCenter + 1]);
-                y = Mathf.Max(y, arenaManager.heightMap[arenaCenter, arenaCenter + 1]);
-            }
-            y += 0.1f;
+
             transform.position = new Vector3(
                 arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2,
-                y,
+                arenaManager.HeightMap[arenaCenter, arenaCenter],
                 arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2);
             CharacterVelocity = new Vector3();
         }

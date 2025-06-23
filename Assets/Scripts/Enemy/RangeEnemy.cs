@@ -2,6 +2,7 @@ using Assets.Scripts.Gameplay;
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts;
+using Unity.Mathematics;
 
 public class RangeEnemy : EnemyBase, IDamagable
 {
@@ -14,7 +15,11 @@ public class RangeEnemy : EnemyBase, IDamagable
     float currentBurstCount = 0;
     float distanceToPlayer = 0;
     private Vector3 fromMuzzleToPlayer;
+    private float arenaSize;
+    //private float distanceToEdgeX;
+    //private float distanceToEdgeZ;
     Animator animator;
+    private float animatorRatio;
 
     void Start()
     {
@@ -26,10 +31,14 @@ public class RangeEnemy : EnemyBase, IDamagable
         animator = GetComponent<Animator>();
         isDead = false;
         weaponHandler.Owner = gameObject;
+        arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
     }
 
     void FixedUpdate()
     {
+        if(!GlobalInspector.PlayerAlive) {
+            return;
+        }
         Attack();
 
         DestroyOnFall();
@@ -37,28 +46,83 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void Update()
     {
+        if (!GlobalInspector.PlayerAlive)
+        {
+            animator.speed = 0;
+            //animatorRatio = 0;
+            return;
+        }
+        else if (animator.speed == 0)
+        {
+            animator.speed = 1;
+            //animatorRatio = 1;
+        }
+        //distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
+        //print(distanceToEdgeX);
         if (isDead) return;
 
         fromBodyToPlayer = target.position - transform.position;
-
+        fromBodyToPlayer = new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z);
         distanceToPlayer = fromBodyToPlayer.magnitude;
-
-        fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
+        fromBodyToPlayer = fromBodyToPlayer.normalized;
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
         weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1, target.position.z));
+
+        if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
 
         Vector3 targetVelocity = Vector3.zero;
         if (distanceToPlayer < 10)
         {
-            animator.SetBool("IsRunning", true);
-            animator.SetFloat("RunningSpeed", -1);
+            //animator.SetBool("IsRunning", true);
+            //animator.SetFloat("RunningSpeed", -1);
             targetVelocity = -fromBodyToPlayer;
+            animatorRatio = -1;
         }
         else if (distanceToPlayer > 20)
         {
-            animator.SetBool("IsRunning", true);
-            animator.SetFloat("RunningSpeed", 1);
+            //animator.SetBool("IsRunning", true);
+            //animator.SetFloat("RunningSpeed", 1);
             targetVelocity = fromBodyToPlayer;
+            animatorRatio = 1;
+        }
+        else
+        {
+            //animator.SetBool("IsRunning", false);
+        }
+
+        if(transform.position.x < 0)
+        {
+            if(targetVelocity.x < 0)
+            {
+                targetVelocity = new Vector3(0, 0, targetVelocity.z);
+            }
+        }
+        if (transform.position.x > arenaSize)
+        {
+            if (targetVelocity.x > 0)
+            {
+                targetVelocity = new Vector3(0, 0, targetVelocity.z);
+            }
+        }
+        if (transform.position.z < 0)
+        {
+            if (targetVelocity.z < 0)
+            {
+                targetVelocity = new Vector3(targetVelocity.x, 0, 0);
+            }
+        }
+        if (transform.position.z > arenaSize)
+        {
+            if (targetVelocity.z > 0)
+            {
+                targetVelocity = new Vector3(targetVelocity.x, 0, 0);
+            }
+        }
+
+        if (targetVelocity.magnitude > 0.1f)
+        {
+            animator.SetBool("IsRunning", true);
+            animator.SetFloat("RunningSpeed", targetVelocity.magnitude * animatorRatio);
         }
         else
         {
@@ -69,17 +133,14 @@ public class RangeEnemy : EnemyBase, IDamagable
         if (characterController.isGrounded)
         {
             characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+            verticalVelocity = -GravityForce * 0.1f;
         }
         else
         {
             characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
         }
-
-        if (!characterController.isGrounded) characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
-        
-        if (lastTimeAttacking + AttackAnimationDelay > Time.time) return;
-
         characterVelocity = new Vector3(characterVelocity.x, verticalVelocity, characterVelocity.z);
+
         characterController.Move(characterVelocity * Time.deltaTime);
     }
 
@@ -121,8 +182,9 @@ public class RangeEnemy : EnemyBase, IDamagable
         characterController.enabled = false;
 
         if (needScored)
-            GlobalInspector.KilledRange++;
+            GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
 
+        gameController.Enemies.Remove(gameObject);
         StartCoroutine(Disappeare());
     }
 
@@ -147,7 +209,6 @@ public class RangeEnemy : EnemyBase, IDamagable
             yield return null;
         }
 
-        gameController.Enemies.Remove(gameObject);
         Destroy(gameObject);
     }
 
