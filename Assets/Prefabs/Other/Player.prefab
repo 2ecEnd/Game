@@ -193,6 +193,7 @@ MonoBehaviour:
   Death: 0
   HPArrowStart: 0
   HPArrowStep: 0.9
+  flag: 0
 --- !u!1 &8725828170183608584
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,9 +308,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Weapons:
-  - {fileID: 5043112237527216098, guid: eed4b5856853cd54ba369b27ca361fe4, type: 3}
+  - {fileID: 2583856138238376327, guid: 878d0bf955b6b66428cbecf43ec4eef8, type: 3}
   - {fileID: 2583856138238376327, guid: 446e339520f732943adf5f024ea59cb4, type: 3}
   - {fileID: 2583856138238376327, guid: 75dd50b1de53f8a4c97dca0b4b86eae9, type: 3}
+  - {fileID: 2583856138238376327, guid: 122492cfe48d2fe4bb04a6df42f05bee, type: 3}
+  - {fileID: 2583856138238376327, guid: 27ebf45515e8e2845b2ae1b3ead8274a, type: 3}
   WeaponPos: {fileID: 9168700380704313049}
   RecoilSharpness: 50
   RecoilRestitutionSharpness: 10

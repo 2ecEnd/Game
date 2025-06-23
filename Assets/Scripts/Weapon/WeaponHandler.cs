@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 using System.Collections;
 
 namespace Assets.Scripts
@@ -9,6 +10,11 @@ namespace Assets.Scripts
         {
             Manual,
             Automatic,
+        }
+        public enum WeaponReloadingType
+        {
+            Manual,
+            Magazine,
         }
         [Header("Current Parameters")]
         public int CurrentAmmo;
@@ -25,7 +31,7 @@ namespace Assets.Scripts
         [Header("Ammo Parameters")]
         public int MagazineSize = 30;
         public float AmmoReloadRate;
-        public string ReloadingType = "Magazine";
+        public WeaponReloadingType ReloadingType;
 
         [Header("Recoil Parameters")]
         public float RecoilForce = 1f;
@@ -38,11 +44,18 @@ namespace Assets.Scripts
         public AudioClip MisfireSfx;
         public AudioClip ReloadingSfx;
         public AudioClip ManualPumpSfx;
+        [Header("Main AudioSource")] 
+        public AudioSource m_ShootAudioSource;
+
+        [Header("Reload AudioSource")] 
+        public AudioSource m_ReloadAudioSource;
+
+        [Header("VFX")]
+        public VisualEffect MuzzleFlashVFX;
 
         float m_LastTimeShot = Mathf.NegativeInfinity;
         float m_LastTimeReloading = Mathf.NegativeInfinity;
         Vector3 m_LastMuzzlePosition;
-        AudioSource m_ShootAudioSource;
         Animator animator;
         bool m_inputHeldCurrentFrame = false;
         bool m_inputWasHeld = false;
@@ -50,13 +63,16 @@ namespace Assets.Scripts
 
         void Start()
         {
-            m_ShootAudioSource = GetComponent<AudioSource>();
             animator = GetComponent<Animator>();
             CurrentAmmo = MagazineSize;
             Reload = false;
             m_LastMuzzlePosition = WeaponMuzzle.position;
 
             delayBetweenShots = 60f / FireRate;
+            if (MuzzleFlashVFX != null)
+            {
+                MuzzleFlashVFX.Stop();
+            }
         }
 
         void Update()
@@ -107,10 +123,15 @@ namespace Assets.Scripts
         {
             if (!Reload && m_LastTimeShot + delayBetweenShots < Time.time && CurrentAmmo < MagazineSize)
             {
-                if (ReloadingType == "Magazine")
-                    MagazineReloading();
-                else
-                    StartCoroutine(ManualReloading());
+                switch (ReloadingType)
+                {
+                    case WeaponReloadingType.Manual:
+                        StartCoroutine(ManualReloading());
+                        break;
+                    case WeaponReloadingType.Magazine:
+                        MagazineReloading();
+                        break;
+                }
             }
         }
 
@@ -123,7 +144,7 @@ namespace Assets.Scripts
             CurrentAmmo = MagazineSize;
             Reload = true;
             m_LastTimeReloading = Time.time;
-            m_ShootAudioSource.PlayOneShot(ReloadingSfx);
+            m_ReloadAudioSource.PlayOneShot(ReloadingSfx);
         }
 
         public IEnumerator ManualReloading()
@@ -186,14 +207,24 @@ namespace Assets.Scripts
 
             if (animator != null)
             {
+                animator.ResetTrigger("Fire");
                 animator.SetTrigger("Fire");
+            }
+            if (MuzzleFlashVFX != null)
+            {
+                MuzzleFlashVFX.Play();
             }
             m_LastTimeShot = Time.time;
 
-            if (ReloadingType == "Magazine")
-                m_ShootAudioSource.PlayOneShot(ShootSfx);
-            else
-                StartCoroutine(PlayShootSound());
+            switch (ReloadingType)
+                {
+                    case WeaponReloadingType.Manual:
+                        StartCoroutine(PlayShootSound());
+                        break;
+                    case WeaponReloadingType.Magazine:
+                        m_ShootAudioSource.PlayOneShot(ShootSfx);;
+                        break;
+                }
         }
 
         IEnumerator PlayShootSound()
