@@ -159,3 +159,4 @@ MonoBehaviour:
   FlexAcceleration: 0.1
   FlexRange: 0.5
   RotationSpeed: 1
+  HealSound: {fileID: 8300000, guid: 325ffbe5e1a31ae4eb71295919d3d8b0, type: 3}

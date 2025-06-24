@@ -21,6 +21,7 @@ public class HealthBox : BuffBox
         if (collider.tag == "Player")
         {
             collider.gameObject.GetComponent<PlayerCharacterController>().ReceiveDamage(-25);
+            collider.gameObject.GetComponent<PlayerCharacterController>().PlayHealSound();
             Destroy(gameObject);
         }
     }

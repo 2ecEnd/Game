@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -50,9 +51,11 @@ namespace Assets.Scripts.Player
         public float CrouchingSharpness = 10f;
 
         [Header("SFX")]
+        public AudioClip HealSound;
         public AudioClip FootstepSfx;
         public AudioClip JumpSfx;
         public AudioClip LandSfx;
+        public List<AudioClip> ReceiveDamageSfx;
         public float FootstepSfxFrequency = 1f;
         public float SprintingSfxFrequency = 1f;
 
@@ -85,7 +88,7 @@ namespace Assets.Scripts.Player
 
         void FixedUpdate()
         {
-            if(isDead)
+            if (isDead)
             {
                 if (PlayerCamera.transform.localPosition.magnitude < 5)
                 {
@@ -130,21 +133,21 @@ namespace Assets.Scripts.Player
 
         void HandleCharacterMovement()
         {
-            if (isDead) return; //мёртвые не двигаются)
+            if (isDead) return; //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 
-            transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self); //поворот игрока по оси Y
+            transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ Y
 
             cameraVerticalAngle -= Input.GetAxis("Mouse Y");
             cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
-            PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);//поворот камеры по оси X
+            PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ X
 
-            Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1)); //направление ускорения движения
+            Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1)); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime); //Дополнительное направление движения без ограничений скорости
-            if (Input.GetKeyDown(KeyCode.LeftShift) && DashCount > 0) //рывок
+            ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            if (Input.GetKeyDown(KeyCode.LeftShift) && DashCount > 0) //пїЅпїЅпїЅпїЅпїЅ
             {
                 ExtraVelocity += worldspaceMoveInput * DashForce;
-                if(DashCount == DashMaxCount)
+                if (DashCount == DashMaxCount)
                 {
                     DashReloadTime = Time.time + DashReload;
                 }
@@ -160,8 +163,8 @@ namespace Assets.Scripts.Player
             if (controller.isGrounded)
             {
                 canSecondJump = true;
-                CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime); //направление движения с ограничением скорости
-                if (Input.GetKeyDown(KeyCode.Space)) //прыжок
+                CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                if (Input.GetKeyDown(KeyCode.Space)) //пїЅпїЅпїЅпїЅпїЅпїЅ
                 {
                     verticalVelocity = JumpForce;
                     //IsGrounded = false;
@@ -181,8 +184,8 @@ namespace Assets.Scripts.Player
             }
             else
             {
-                CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime); //направление движения с ограничением скорости
-                if (Input.GetKeyDown(KeyCode.Space) && canSecondJump) //прыжок
+                CharacterVelocity = Vector3.Lerp(CharacterVelocity, worldspaceMoveInput * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                if (Input.GetKeyDown(KeyCode.Space) && canSecondJump) //пїЅпїЅпїЅпїЅпїЅпїЅ
                 {
                     verticalVelocity = JumpForce;
                     canSecondJump = false;
@@ -190,7 +193,7 @@ namespace Assets.Scripts.Player
                 }
             }
             CharacterVelocity = new Vector3(CharacterVelocity.x, verticalVelocity, CharacterVelocity.z);
-            controller.Move((CharacterVelocity + ExtraVelocity) * Time.deltaTime); //движение игрока
+            controller.Move((CharacterVelocity + ExtraVelocity) * Time.deltaTime); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         }
 
         public void ReceiveDamage(float damage)
@@ -204,6 +207,7 @@ namespace Assets.Scripts.Player
             {
                 Health = MaxHealth;
             }
+            AudioSource.PlayOneShot(ReceiveDamageSfx[Random.Range(0, ReceiveDamageSfx.Count)]);
         }
 
         public void Die(bool needScored = true)
@@ -235,6 +239,11 @@ namespace Assets.Scripts.Player
                 arenaManager.HeightMap[arenaCenter, arenaCenter],
                 arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2);
             CharacterVelocity = new Vector3();
+        }
+
+        public void PlayHealSound()
+        {
+            AudioSource.PlayOneShot(HealSound);
         }
     }
 }

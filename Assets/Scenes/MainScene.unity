@@ -388,7 +388,7 @@ MonoBehaviour:
   - TotalEnemies: 10
     MaxEnemies: 2
     SpawnInterval: 1
-    EnemiesSpawnRate: 060000000100000001000000
+    EnemiesSpawnRate: 0600000001000000010000000a000000
   - TotalEnemies: 10
     MaxEnemies: 10
     SpawnInterval: 1
@@ -405,6 +405,10 @@ MonoBehaviour:
     Score: 15
   - Name: "\u0413\u043E\u043D\u043E\u043C"
     Perfab: {fileID: 3474713142369456737, guid: 9291b129bf3fece4fbefe5bb15497a20, type: 3}
+    SpawnRate: 0
+    Score: 10
+  - Name: "\u0425\u0435\u0434\u043A\u0440\u0430\u0431"
+    Perfab: {fileID: 3474713142369456737, guid: 04026bc67312c714891ca41e274e4a8c, type: 3}
     SpawnRate: 0
     Score: 10
   BuffBoxPrefabs:

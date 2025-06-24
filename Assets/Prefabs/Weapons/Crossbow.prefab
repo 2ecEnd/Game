@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentAmmo: 0
   Reload: 0
-  FireRate: 15
+  FireRate: 30
   BulletSpreadAngle: 0
   BulletsPerShot: 1
   ShootType: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6774801006451134850, guid: d394e657c6e33ad429b626e0cb245ceb, type: 3}
   MagazineSize: 5
   AmmoReloadRate: 6
-  ReloadingType: 0
+  ReloadingType: 1
   RecoilForce: 0.1
   ShootSfx: {fileID: 8300000, guid: f838a749443941d44bfecc66d2fea337, type: 3}
   MisfireSfx: {fileID: 0}
@@ -98,6 +98,7 @@ MonoBehaviour:
   ManualPumpSfx: {fileID: 0}
   m_ShootAudioSource: {fileID: 2794871462444750418}
   m_ReloadAudioSource: {fileID: 4072730234655404612}
+  MuzzleFlashVFX: {fileID: 0}
 --- !u!95 &3248870576414451964
 Animator:
   serializedVersion: 7
@@ -134,7 +135,7 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 2
   Loop: 0
   Mute: 0
   Spatialize: 0
