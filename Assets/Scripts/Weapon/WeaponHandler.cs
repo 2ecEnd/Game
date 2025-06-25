@@ -20,6 +20,9 @@ namespace Assets.Scripts
         public int CurrentAmmo;
         public bool Reload;
 
+        [Header("Current Parameters")]
+        public float EquipingTime;
+
         [Header("Shoot Parameters")]
         public float FireRate = 750;
         public float BulletSpreadAngle;
@@ -56,12 +59,13 @@ namespace Assets.Scripts
         float m_LastTimeShot = Mathf.NegativeInfinity;
         float m_LastTimeReloading = Mathf.NegativeInfinity;
         Vector3 m_LastMuzzlePosition;
-        Animator animator;
+        public Animator animator;
         bool m_inputHeldCurrentFrame = false;
         bool m_inputWasHeld = false;
+        bool isEquiping = false;
         float delayBetweenShots;
 
-        void Start()
+        void Awake()
         {
             animator = GetComponent<Animator>();
             CurrentAmmo = MagazineSize;
@@ -95,6 +99,7 @@ namespace Assets.Scripts
 
         public bool HandleShootInputs(bool inputDown, bool inputHeld)
         {
+            if (isEquiping) return false;
             m_inputHeldCurrentFrame = inputHeld;
             switch (ShootType)
             {
@@ -121,7 +126,7 @@ namespace Assets.Scripts
 
         public void HandleReload()
         {
-            if (!Reload && m_LastTimeShot + delayBetweenShots < Time.time && CurrentAmmo < MagazineSize)
+            if (!isEquiping && !Reload && m_LastTimeShot + delayBetweenShots < Time.time && CurrentAmmo < MagazineSize)
             {
                 switch (ReloadingType)
                 {
@@ -232,6 +237,19 @@ namespace Assets.Scripts
             m_ShootAudioSource.PlayOneShot(ShootSfx);
             yield return new WaitForSeconds(0.334f);
             m_ShootAudioSource.PlayOneShot(ManualPumpSfx);
+        }
+
+        public IEnumerator Equip()
+        {
+            if (MuzzleFlashVFX != null)
+            {
+                MuzzleFlashVFX.Stop();
+            }
+
+            isEquiping = true;
+            animator.SetTrigger("Equip");
+            yield return new WaitForSeconds(EquipingTime);
+            isEquiping = false;
         }
 
         public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)

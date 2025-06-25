@@ -9,10 +9,17 @@ namespace Assets.Scripts.Enemy
     {
         public float JumpRate = 0.5f;
 
+        [Header("SFX")]
+        public AudioSource AudioSource;
+        public AudioClip JumpSfx;
+        public AudioClip DieSfx;
+        public AudioClip BiteSfx;
+
         bool isDead;
         float lastTimeAttacking = Mathf.NegativeInfinity;
         float lastTimeJumping = Mathf.NegativeInfinity;
         float distanceToPlayer = 0;
+        
         Animator animator;
 
         void Start()
@@ -83,6 +90,8 @@ namespace Assets.Scripts.Enemy
             {
                 animator.SetTrigger("Attack");
                 lastTimeJumping = Time.time;
+                AudioSource.PlayOneShot(JumpSfx);
+
                 characterVelocity = new Vector3(fromBodyToPlayer.x * 60, 8, fromBodyToPlayer.z * 60);
             }
             else
@@ -101,6 +110,7 @@ namespace Assets.Scripts.Enemy
             // if (collider.gameObject == target)
 
             lastTimeAttacking = Time.time;
+            AudioSource.PlayOneShot(BiteSfx);
 
             if (collider.gameObject.CompareTag("Player"))
             {
@@ -125,6 +135,7 @@ namespace Assets.Scripts.Enemy
             isDead = true;
             animator.SetTrigger("Die");
             characterController.enabled = false;
+            AudioSource.PlayOneShot(DieSfx);
 
             if (needScored)
                 GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;

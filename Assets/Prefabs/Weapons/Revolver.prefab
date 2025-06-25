@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4926610838133897864}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.182, y: 0.029, z: 0.528}
+  m_LocalPosition: {x: 0.143, y: 0.046, z: 0.528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -83,6 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentAmmo: 0
   Reload: 0
+  EquipingTime: 0.5
   FireRate: 150
   BulletSpreadAngle: 1
   BulletsPerShot: 1

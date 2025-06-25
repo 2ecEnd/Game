@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -18,13 +19,17 @@ namespace Assets.Scripts.Player
         Vector3 OriginalWeaponPos;
         Vector3 m_WeaponRecoilLocalPosition;
         Vector3 m_AccumulatedRecoil;
+        List<WeaponHandler> AddedWeapons;
         int curentGun;
         void Start()
         {
+            AddedWeapons = new List<WeaponHandler>();
             //m_InputHandler = GetComponent<PlayerInputHandler>();
             curentGun = 0;
-            AddWeapon(Weapons[curentGun]);
+            for (int i = 0; i < Weapons.Length; i++)
+                AddWeapon(Weapons[i]);
             OriginalWeaponPos = WeaponPos.localPosition;
+            SelectWeapon(curentGun);
         }
 
         void Update()
@@ -50,12 +55,17 @@ namespace Assets.Scripts.Player
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                curentGun++;
-                if(curentGun == Weapons.Length)
+                if (ActiveWeapon.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") ||
+                    ActiveWeapon.animator.GetCurrentAnimatorStateInfo(0).IsName("Equip"))
                 {
-                    curentGun = 0;
+                    curentGun++;
+                    if (curentGun == Weapons.Length)
+                    {
+                        curentGun = 0;
+                    }
+                    //AddWeapon(Weapons[curentGun]);
+                    SelectWeapon(curentGun);
                 }
-                AddWeapon(Weapons[curentGun]);
             }
         }
 
@@ -89,10 +99,10 @@ namespace Assets.Scripts.Player
 
         void AddWeapon(WeaponHandler weaponPrefab)
         {
-            if(ActiveWeapon != null)
-            {
-                Destroy(ActiveWeapon.gameObject);
-            }
+            // if (ActiveWeapon != null)
+            // {
+            //     Destroy(ActiveWeapon.gameObject);
+            // }
 
             WeaponHandler weaponInstance = Instantiate(weaponPrefab, WeaponPos);
 
@@ -101,7 +111,19 @@ namespace Assets.Scripts.Player
 
             weaponInstance.Owner = gameObject;
 
-            ActiveWeapon = weaponInstance;
+            //ActiveWeapon = weaponInstance;
+            AddedWeapons.Add(weaponInstance);
+            weaponInstance.gameObject.SetActive(false);
+        }
+
+        void SelectWeapon(int index)
+        {
+            if (ActiveWeapon != null)
+                ActiveWeapon.gameObject.SetActive(false);
+            
+            AddedWeapons[index].gameObject.SetActive(true);
+            AddedWeapons[index].StartCoroutine(AddedWeapons[index].Equip());
+            ActiveWeapon = AddedWeapons[index];
         }
     }
 

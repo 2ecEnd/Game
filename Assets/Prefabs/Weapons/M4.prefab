@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentAmmo: 0
   Reload: 0
+  EquipingTime: 0.5
   FireRate: 700
   BulletSpreadAngle: 1
   BulletsPerShot: 1

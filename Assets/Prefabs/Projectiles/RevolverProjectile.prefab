@@ -56,6 +56,8 @@ MonoBehaviour:
   HittableLayers:
     serializedVersion: 2
     m_Bits: 1
+  BloodVFX: {fileID: 962587985890931805, guid: 324cd55d23932f34c95fb1e2f6f43929, type: 3}
+  FloorImpactVFX: {fileID: 1559954417584684980, guid: d2c65ee52897133419b35409152f79fc, type: 3}
   GravityDownAcceleration: 0
 --- !u!1 &1468645724466034528
 GameObject:
