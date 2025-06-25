@@ -65,6 +65,8 @@ Transform:
   m_Children:
   - {fileID: 2746174648203492905}
   - {fileID: 1894193641904549612}
+  - {fileID: 7315642919566222726}
+  - {fileID: 8313087683864550305}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4347901394176816095
@@ -142,6 +144,8 @@ MonoBehaviour:
   RangeAttackDistance: 15
   RangeAttackCooldown: 10
   RangeAttackDamage: 50
+  weaponHandler: {fileID: 6027168973426954575}
+  PlasmaEffect: {fileID: 6584417801118966202}
 --- !u!1001 &2144626471056656647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,4 +223,156 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 72b5408df3e5a0d449a15acd327873fa, type: 3}
   m_PrefabInstance: {fileID: 2144626471056656647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2455208540752624832
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3311972328655667695}
+    m_Modifications:
+    - target: {fileID: 4634800062377314302, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_Name
+      value: VortigauntGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.843
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: Owner
+      value: 
+      objectReference: {fileID: 7484023987186905579}
+    - target: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: BulletsPerShot
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+      propertyPath: BulletSpreadAngle
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+--- !u!114 &6027168973426954575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+  m_PrefabInstance: {fileID: 2455208540752624832}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2925f08e958557242ab94a0d9c1d30fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &7315642919566222726 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5157964426762524998, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
+  m_PrefabInstance: {fileID: 2455208540752624832}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4071154964059159955
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3311972328655667695}
+    m_Modifications:
+    - target: {fileID: 1110094583928561119, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_Name
+      value: VortigauntPlasma
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.843
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+--- !u!2083052967 &6584417801118966202 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 7142472356481735721, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+  m_PrefabInstance: {fileID: 4071154964059159955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8313087683864550305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5413785156596770354, guid: 42170a18d2c2c2f4bb5e53637696da34, type: 3}
+  m_PrefabInstance: {fileID: 4071154964059159955}
   m_PrefabAsset: {fileID: 0}

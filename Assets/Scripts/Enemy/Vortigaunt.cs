@@ -2,6 +2,7 @@ using Assets.Scripts.Gameplay;
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Player;
+using UnityEngine.VFX;
 
 namespace Assets.Scripts.Enemy
 {
@@ -11,6 +12,8 @@ namespace Assets.Scripts.Enemy
         public float RangeAttackDistance;
         public float RangeAttackCooldown;
         public float RangeAttackDamage;
+        public WeaponHandler weaponHandler;
+        public VisualEffect PlasmaEffect;
 
         bool isDead;
         float lastTimeAttacking = Mathf.NegativeInfinity;
@@ -29,6 +32,7 @@ namespace Assets.Scripts.Enemy
             target = GameObject.FindGameObjectWithTag("Player").transform;
             animator = GetComponent<Animator>();
             isDead = false;
+            PlasmaEffect.Stop();
         }
 
         void FixedUpdate()
@@ -46,7 +50,6 @@ namespace Assets.Scripts.Enemy
             {
                 if (currentAttackMode == "melee") Attack(hit.collider);
             }
-
             DestroyOnFall();
         }
 
@@ -71,7 +74,10 @@ namespace Assets.Scripts.Enemy
             fromBodyToPlayer = target.position - transform.position;
             distanceToPlayer = fromBodyToPlayer.magnitude;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
-            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
+            if(currentAttackMode == "range") transform.LookAt(new Vector3(target.position.x, transform.position.y + 0.5f, target.position.z));
+            else transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
 
             Vector3 targetVelocity = Vector3.zero;
@@ -129,7 +135,13 @@ namespace Assets.Scripts.Enemy
             animator.SetTrigger("RangeAttack");
             isAttacking = true;
             lastTimeRangeAttacking = Time.time;
-            yield return new WaitForSeconds(1.7f);
+            PlasmaEffect.Play();
+
+            yield return new WaitForSeconds(1.2f);
+            weaponHandler.HandleShootInputs(true, true);
+            yield return new WaitForSeconds(0.5f);
+
+            PlasmaEffect.Stop();
             currentAttackMode = "melee";
             isAttacking = false;
         }

@@ -39,7 +39,8 @@ namespace Assets.Scripts
         [Header("Recoil Parameters")]
         public float RecoilForce = 1f;
 
-        public GameObject Owner { get; set; }
+        [Header("Main")]
+        public GameObject Owner;
         public Vector3 MuzzleWorldVelocity { get; private set; }
 
         [Header("Audio")] 
