@@ -124,9 +124,13 @@ namespace Assets.Scripts.Gameplay
             int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
             float z = Random.Range(0, arenaSize);
             int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-            Vector3 spawnPosition = new Vector3(x, arenaManager.HeightMap[i, j] + 1, z);
+            Vector3 spawnPosition = new Vector3(x, arenaManager.HeightMap[i, j], z);
             int coin = Random.Range(0, BuffBoxPrefabs.Length);
-            Instantiate(BuffBoxPrefabs[coin], spawnPosition, Quaternion.identity, buffBoxGO.transform);
+
+            float randomYRotation = Random.Range(0f, 360f);
+            Quaternion randomRotation = Quaternion.Euler(0f, randomYRotation, 0f);
+
+            Instantiate(BuffBoxPrefabs[coin], spawnPosition, randomRotation, buffBoxGO.transform);
         }
         void SpawnEnemy()
         {

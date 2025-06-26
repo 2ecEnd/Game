@@ -2,6 +2,7 @@ using Assets.Scripts.Gameplay;
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Player;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Enemy
 {

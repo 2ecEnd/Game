@@ -3,11 +3,23 @@ using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Player;
 using UnityEngine.VFX;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Enemy
 {
     public class Vortigaunt : EnemyBase, IDamagable
     {
+        [Header("SFX")]
+        public AudioSource AudioSource;
+        public List<AudioClip> FootstepsSfx;
+        public List<AudioClip> AttacksSfx;
+        public List<AudioClip> IdlesSfx;
+        public List<AudioClip> DieSfx;
+        public AudioClip RangeAttackChargeSfx;
+        public AudioClip RangeAttackShootSfx;
+        public float FootstepSfxFrequency = 1f;
+        public float IdleSfxFrequency = 10f;
+
         [Header("Range Attack")]
         public float RangeAttackDistance;
         public float RangeAttackCooldown;
@@ -18,6 +30,8 @@ namespace Assets.Scripts.Enemy
         bool isDead;
         float lastTimeAttacking = Mathf.NegativeInfinity;
         float lastTimeRangeAttacking = Mathf.NegativeInfinity;
+        float lastTimePlayingIdle = Mathf.NegativeInfinity;
+        float footstepDistanceCounter;
         float distanceToPlayer = 0;
         string currentAttackMode = "melee";
         bool isAttacking = false;
@@ -42,9 +56,10 @@ namespace Assets.Scripts.Enemy
                 return;
             }
             RaycastHit hit;
+            fromBodyToPlayer = new Vector3(target.position.x, target.position.y+1f, target.position.z) - transform.position;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
-                direction: transform.forward,
+                direction: fromBodyToPlayer,
                 hitInfo: out hit,
                 maxDistance: 1f))
             {
@@ -55,28 +70,35 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
+            if (lastTimePlayingIdle + IdleSfxFrequency + Random.Range(0, 5) < Time.time)
+            {
+                AudioSource.PlayOneShot(IdlesSfx[Random.Range(0, IdlesSfx.Count)]);
+                lastTimePlayingIdle = Time.time;
+            }
+
             if (lastTimeRangeAttacking + RangeAttackCooldown + Random.Range(0, 2) < Time.time)
                 currentAttackMode = "range";
 
             if (!GlobalInspector.PlayerAlive)
-                {
-                    animator.speed = 0;
-                    //animatorRatio = 0;
-                    return;
-                }
-                else if (animator.speed == 0)
-                {
-                    animator.speed = 1;
-                    //animatorRatio = 1;
-                }
+            {
+                animator.speed = 0;
+                AudioSource.volume = 0;
+                //animatorRatio = 0;
+                return;
+            }
+            else if (animator.speed == 0)
+            {
+                animator.speed = 1;
+                AudioSource.volume = 1;
+                //animatorRatio = 1;
+            }
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
             fromBodyToPlayer = target.position - transform.position;
             distanceToPlayer = fromBodyToPlayer.magnitude;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
 
-            if(currentAttackMode == "range") transform.LookAt(new Vector3(target.position.x, transform.position.y + 0.5f, target.position.z));
-            else transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
 
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
 
@@ -106,6 +128,13 @@ namespace Assets.Scripts.Enemy
             {
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
                 verticalVelocity = -GravityForce * 0.1f;
+
+                if (footstepDistanceCounter >= 1f / FootstepSfxFrequency)
+                {
+                   footstepDistanceCounter = 0f;
+                   AudioSource.PlayOneShot(FootstepsSfx[Random.Range(0, FootstepsSfx.Count)]);
+                }
+                footstepDistanceCounter += characterVelocity.magnitude * Time.deltaTime;
             }
             else
             {
@@ -123,6 +152,7 @@ namespace Assets.Scripts.Enemy
             {
                 animator.SetTrigger("MeleeAttack");
                 lastTimeAttacking = Time.time;
+                AudioSource.PlayOneShot(AttacksSfx[Random.Range(0, AttacksSfx.Count)]);
 
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
@@ -136,9 +166,10 @@ namespace Assets.Scripts.Enemy
             isAttacking = true;
             lastTimeRangeAttacking = Time.time;
             PlasmaEffect.Play();
-
+            AudioSource.PlayOneShot(RangeAttackChargeSfx);
             yield return new WaitForSeconds(1.2f);
             weaponHandler.HandleShootInputs(true, true);
+            AudioSource.PlayOneShot(RangeAttackShootSfx);
             yield return new WaitForSeconds(0.5f);
 
             PlasmaEffect.Stop();
@@ -164,7 +195,8 @@ namespace Assets.Scripts.Enemy
 
             if (needScored)
                 GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
-
+            
+            AudioSource.PlayOneShot(DieSfx[Random.Range(0, DieSfx.Count)]);
             gameController.Enemies.Remove(gameObject);
             StartCoroutine(Disappeare());
         }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1997141983129808395}
   - component: {fileID: 1168352431361059433}
   m_Layer: 0
-  m_Name: VortigauntProjectilePlasma
+  m_Name: PlasmaVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

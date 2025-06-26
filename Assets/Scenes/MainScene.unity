@@ -127,6 +127,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1815073771671128211, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: Health
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815073771671128211, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: MaxHealth
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 2356142903320451562, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: StartWeaponPrefab
       value: 
@@ -174,6 +182,26 @@ PrefabInstance:
     - target: {fileID: 8725828170183608584, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168700380704313049, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999966
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168700380704313049, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168700380704313049, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0026179885
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168700380704313049, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168700380704313049, guid: 65034268eabe0ac46ba03964ad1a1c1c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -388,7 +416,7 @@ MonoBehaviour:
   - TotalEnemies: 10
     MaxEnemies: 1
     SpawnInterval: 1
-    EnemiesSpawnRate: 0000000000000000000000000000000001000000
+    EnemiesSpawnRate: 0000000001000000000000000000000000000000
   - TotalEnemies: 10
     MaxEnemies: 10
     SpawnInterval: 1
@@ -416,7 +444,7 @@ MonoBehaviour:
     SpawnRate: 0
     Score: 10
   BuffBoxPrefabs:
-  - {fileID: 8006287671449561701, guid: eeab686f2141cb84c8ded72c87f22e51, type: 3}
+  - {fileID: 8006287671449561701, guid: b8d6d2d42bd6f68419e02c245a9ce17b, type: 3}
   SpawnInterval: 0
   MaxEnemies: 0
   TotalEnemies: 0

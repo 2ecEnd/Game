@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2942572580151919378}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 4347901394176816095}
   - component: {fileID: 2810905690941747497}
   - component: {fileID: 1324815087349034557}
+  - component: {fileID: 7058389724601999338}
   m_Layer: 0
   m_Name: Vortigaunt
   m_TagString: Untagged
@@ -131,7 +132,7 @@ MonoBehaviour:
   Health: 150
   AttackStartPoint: {fileID: 2746174648203492905}
   Damage: 1
-  AttackRate: 1.1
+  AttackRate: 1.5
   KillsStatistic: 20
   GravityForce: 9
   MaxSpeedOnGround: 10
@@ -141,11 +142,128 @@ MonoBehaviour:
   characterVelocity: {x: 0, y: 0, z: 0}
   DisappearanceRate: 5
   SinkSpeed: 1
+  AudioSource: {fileID: 7058389724601999338}
+  FootstepsSfx:
+  - {fileID: 8300000, guid: e4d4774df64c94848b1bf650a931faa5, type: 3}
+  - {fileID: 8300000, guid: 61bfd3da9d5ac434f83ed6a24c699002, type: 3}
+  - {fileID: 8300000, guid: 9ffb2416411aa0f47a6e46871fd0da04, type: 3}
+  AttacksSfx:
+  - {fileID: 8300000, guid: 04beaae7d39fa32458ff8b97081856a8, type: 3}
+  - {fileID: 8300000, guid: 91679c1c1ec06c644a6119d91abfc1db, type: 3}
+  IdlesSfx:
+  - {fileID: 8300000, guid: 6d1c0c8f1508f8344a967c651c128972, type: 3}
+  - {fileID: 8300000, guid: 6a156fa6a38ddb649ad27fbebaa7c963, type: 3}
+  - {fileID: 8300000, guid: 345f7ca2dd6a3264daa94f6ee0a2dba3, type: 3}
+  - {fileID: 8300000, guid: 6cb55419d12bcb048980b035d057ec04, type: 3}
+  DieSfx:
+  - {fileID: 8300000, guid: cf0098ae74961f345be21fde2e20cb82, type: 3}
+  - {fileID: 8300000, guid: 9852396fbc2702344a834b3027c80d0f, type: 3}
+  RangeAttackChargeSfx: {fileID: 8300000, guid: 5cb5acd128362fe4aad079215386c052, type: 3}
+  RangeAttackShootSfx: {fileID: 8300000, guid: 23f5554eb4eab2c4684afd61c607decb, type: 3}
+  FootstepSfxFrequency: 0.25
+  IdleSfxFrequency: 10
   RangeAttackDistance: 15
   RangeAttackCooldown: 10
   RangeAttackDamage: 50
   weaponHandler: {fileID: 6027168973426954575}
   PlasmaEffect: {fileID: 6584417801118966202}
+--- !u!82 &7058389724601999338
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7484023987186905579}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &2144626471056656647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -282,11 +400,11 @@ PrefabInstance:
       objectReference: {fileID: 7484023987186905579}
     - target: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
       propertyPath: BulletsPerShot
-      value: 12
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
       propertyPath: BulletSpreadAngle
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

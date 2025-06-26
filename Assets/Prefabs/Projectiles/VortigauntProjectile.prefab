@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 8548068917242991358}
   - {fileID: 4914833264983124469}
-  - {fileID: 4530387512874807070}
+  - {fileID: 6565636474964415015}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6774801006451134850
@@ -50,8 +50,8 @@ MonoBehaviour:
   Tip: {fileID: 4914833264983124469}
   Tail: {fileID: 8548068917242991358}
   Radius: 0.01
-  Speed: 25
-  Damage: 5
+  Speed: 35
+  Damage: 60
   MaxLifeTime: 5
   HittableLayers:
     serializedVersion: 2
@@ -121,7 +121,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9130604052153503856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5358738398449451027
+--- !u!1001 &3430872964299357482
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -131,7 +131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8066925370944269481, guid: 1ebbdcb8a576bb7468a6dd894bd6e557, type: 3}
       propertyPath: m_Name
-      value: VortigauntProjectilePlasma
+      value: PlasmaVFX
       objectReference: {fileID: 0}
     - target: {fileID: 8395056459135053581, guid: 1ebbdcb8a576bb7468a6dd894bd6e557, type: 3}
       propertyPath: m_LocalPosition.x
@@ -178,8 +178,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ebbdcb8a576bb7468a6dd894bd6e557, type: 3}
---- !u!4 &4530387512874807070 stripped
+--- !u!4 &6565636474964415015 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8395056459135053581, guid: 1ebbdcb8a576bb7468a6dd894bd6e557, type: 3}
-  m_PrefabInstance: {fileID: 5358738398449451027}
+  m_PrefabInstance: {fileID: 3430872964299357482}
   m_PrefabAsset: {fileID: 0}

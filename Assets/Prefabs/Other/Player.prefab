@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2296786445185255113}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.0026179885, z: 0, w: 0.9999966}
   m_LocalPosition: {x: 0.2, y: -0.179, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1981890961598782554}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.3, z: 0}
 --- !u!1 &3340476516166089689
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +379,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
-  m_Radius: 0.35
+  m_Radius: 0.5
   m_SlopeLimit: 46
   m_StepOffset: 0.3
   m_SkinWidth: 0.1
@@ -427,8 +427,8 @@ MonoBehaviour:
   ReceiveDamageSfx:
   - {fileID: 8300000, guid: 52b9bbdc362e88e4f858fbe92504297b, type: 3}
   - {fileID: 8300000, guid: 69dd57ac100e01e458126ac5b7566be3, type: 3}
+  ReceiveBigDamageSfx: {fileID: 8300000, guid: a5a0a57871794fe4e8217d11dcdf76fa, type: 3}
   FootstepSfxFrequency: 0.2
-  SprintingSfxFrequency: 0.3
 --- !u!114 &2356142903320451562
 MonoBehaviour:
   m_ObjectHideFlags: 0

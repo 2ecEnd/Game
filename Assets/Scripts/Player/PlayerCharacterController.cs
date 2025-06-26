@@ -56,8 +56,9 @@ namespace Assets.Scripts.Player
         public AudioClip JumpSfx;
         public AudioClip LandSfx;
         public List<AudioClip> ReceiveDamageSfx;
+        public AudioClip ReceiveBigDamageSfx;
         public float FootstepSfxFrequency = 1f;
-        public float SprintingSfxFrequency = 1f;
+        //public float SprintingSfxFrequency = 1f;
 
 
         public Vector3 CharacterVelocity { get; set; }
@@ -70,7 +71,7 @@ namespace Assets.Scripts.Player
         private PlayerWeaponManager playerWeaponManager;
         private ArenaManager arenaManager;
         float cameraVerticalAngle = 0f;
-        //float footstepDistanceCounter;
+        float footstepDistanceCounter;
         bool isDead = false;
         bool needRevive = false;
         private Vector3 cameraStartPos;
@@ -175,12 +176,12 @@ namespace Assets.Scripts.Player
                     verticalVelocity = -GravityDownForce * 0.1f;
                 }
                 //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
-                //if (footstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
-                //{
-                //    footstepDistanceCounter = 0f;
-                //    AudioSource.PlayOneShot(FootstepSfx);
-                //}
-                //footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
+                if (footstepDistanceCounter >= 1f / FootstepSfxFrequency)
+                {
+                   footstepDistanceCounter = 0f;
+                   AudioSource.PlayOneShot(FootstepSfx);
+                }
+                footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
             }
             else
             {
@@ -207,7 +208,10 @@ namespace Assets.Scripts.Player
             {
                 Health = MaxHealth;
             }
-            AudioSource.PlayOneShot(ReceiveDamageSfx[Random.Range(0, ReceiveDamageSfx.Count)]);
+            if (damage > 0 && damage < 50)
+                AudioSource.PlayOneShot(ReceiveDamageSfx[Random.Range(0, ReceiveDamageSfx.Count)]);
+            else if (damage >= 50)
+                AudioSource.PlayOneShot(ReceiveBigDamageSfx);
         }
 
         public void Die(bool needScored = true)

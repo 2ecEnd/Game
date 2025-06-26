@@ -3,9 +3,19 @@ using UnityEngine;
 using System.Collections;
 using Assets.Scripts;
 using Unity.Mathematics;
+using System.Collections.Generic;
 
 public class RangeEnemy : EnemyBase, IDamagable
 {
+    [Header("SFX")]
+    public AudioSource AudioSource;
+    public AudioSource BreatheSource;
+    public List<AudioClip> FootstepsSfx;
+    public List<AudioClip> IdlesSfx;
+    public List<AudioClip> DieSfx;
+    public float FootstepSfxFrequency = 1f;
+    public float IdleSfxFrequency = 10f;
+    
     public float NumberOfShotsPerBurst = 5;
     public WeaponHandler weaponHandler;
     public float AttackAnimationDelay = 1f;
@@ -20,6 +30,8 @@ public class RangeEnemy : EnemyBase, IDamagable
     //private float distanceToEdgeZ;
     Animator animator;
     private float animatorRatio;
+    float lastTimePlayingIdle = Mathf.NegativeInfinity;
+    float footstepDistanceCounter;
 
     void Start()
     {
@@ -46,15 +58,25 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void Update()
     {
+        if (lastTimePlayingIdle + IdleSfxFrequency + UnityEngine.Random.Range(0, 5) < Time.time)
+        {
+            AudioSource.PlayOneShot(IdlesSfx[UnityEngine.Random.Range(0, IdlesSfx.Count)]);
+            lastTimePlayingIdle = Time.time;
+        }
+        
         if (!GlobalInspector.PlayerAlive)
         {
             animator.speed = 0;
+            AudioSource.volume = 0;
+            BreatheSource.volume = 0;
             //animatorRatio = 0;
             return;
         }
         else if (animator.speed == 0)
         {
             animator.speed = 1;
+            AudioSource.volume = 1;
+            BreatheSource.volume = 1;
             //animatorRatio = 1;
         }
         //distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
@@ -134,6 +156,13 @@ public class RangeEnemy : EnemyBase, IDamagable
         {
             characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
             verticalVelocity = -GravityForce * 0.1f;
+
+            if (footstepDistanceCounter >= 1f / FootstepSfxFrequency && targetVelocity.magnitude > 0.1f)
+            {
+                footstepDistanceCounter = 0f;
+                AudioSource.PlayOneShot(FootstepsSfx[UnityEngine.Random.Range(0, FootstepsSfx.Count)]);
+            }
+            footstepDistanceCounter += characterVelocity.magnitude * Time.deltaTime;
         }
         else
         {
@@ -183,7 +212,7 @@ public class RangeEnemy : EnemyBase, IDamagable
 
         if (needScored)
             GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
-
+        AudioSource.PlayOneShot(DieSfx[UnityEngine.Random.Range(0, DieSfx.Count)]);
         gameController.Enemies.Remove(gameObject);
         StartCoroutine(Disappeare());
     }
