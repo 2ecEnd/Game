@@ -1,4 +1,3 @@
-using Assets.Scripts.Gameplay;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,80 +5,41 @@ public class ArenaManager : MonoBehaviour
 {
     [Header("Objects")]
     GameObject Arena;
-    GameController GameController;
     public GameObject Player;
     public GameObject Quad;
-    public Material QuadMaterial;
 
     [Header("Arena Parameters")]
     public int[,] HeightMap;
     public int[,] StairsMap;
+    public Material ArenaMaterial;
     List<List<int[,]>> ArenaPresets;
-    GameObject[,] Chunks;
-    Vector3[,][] NewVerticesPositions;
+    Vector3[] NewVerticesPositions;
 
     [Header("BuffBox Parameters")]
     public GameObject BuffBoxGO;
 
     [Header("Other Parameters")]
-    public float DefaultChangeSpeed = 1;
-    public float ChangeSpeedRatio = 0.01f;
+    public float DefaultChangeSpeed;
+    public float ChangeSpeedRatio;
     float ChangeSpeed;
     short flag = 0;
     const int ArenaSize = 20;
-    const int ChunkScale = 4;
+    const float ChunkScale = 4f;
     const int KillHeight = -20;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Arena = new GameObject("Arena");
+        CreateArena();
         CreatePresets();
 
-        GameController = gameObject.GetComponent<GameController>();
-        NewVerticesPositions = new Vector3[ArenaSize, ArenaSize][];
-
-        Chunks = new GameObject[ArenaSize, ArenaSize];
         HeightMap = (int[,])ArenaPresets[0][0].Clone();
         StairsMap = (int[,])ArenaPresets[0][1].Clone();
-        for (int i = 0; i < Chunks.GetLength(0); i++)
-            for (int j = 0; j < Chunks.GetLength(1); j++)
-            {
-                Vector3 position = new Vector3(ChunkScale * i, HeightMap[i, j], ChunkScale * j);
-                GameObject tile = Instantiate(Quad, position, Quaternion.Euler(90, 0, 0), Arena.transform);
 
-                Material instanceMat = new Material(QuadMaterial);
-                int rotation = Random.Range(0, 4) * 90; 
-                Vector2 offset = Vector2.zero;
-
-                switch (rotation) {
-                    case 90:
-                        offset = new Vector2(1, 0);
-                        break;
-                    case 180:
-                        offset = new Vector2(1, 1);
-                        break;
-                    case 270:
-                        offset = new Vector2(0, 1);
-                        break;
-                }
-
-                instanceMat.mainTextureOffset = offset;
-                instanceMat.mainTextureScale = new Vector2(rotation % 180 == 0 ? 1 : -1, 1);
-                tile.GetComponent<Renderer>().material = instanceMat;
-
-                Chunks[i, j] = tile;
-                Chunks[i, j].transform.localScale = new Vector3(ChunkScale, ChunkScale, 1);
-
-
-                NewVerticesPositions[i, j] = new Vector3[4];
-            }
-
+        NewVerticesPositions = new Vector3[(ArenaSize + 1) * (ArenaSize + 1)];
         ChangeSpeed = DefaultChangeSpeed;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         switch (flag)
@@ -91,7 +51,7 @@ public class ArenaManager : MonoBehaviour
             case 3:
                 if (SmoothTransformToFlat())
                 {
-                    RotateQuads();
+                    RotateTriangles();
                     CalculateVerticesPositions();
                     ChangeSpeed = DefaultChangeSpeed;
                     flag = 4;
@@ -102,6 +62,41 @@ public class ArenaManager : MonoBehaviour
                 {
                     ChangeSpeed = DefaultChangeSpeed;
                     flag = 0;
+
+                    print("-=-=-=-=-=-=-=-=-=-КАРТА ВЫСОТ-=-=-=-=-=-=-=-=-=-=-=-");
+                    for (int i = 0; i < ArenaSize; i++)
+                    {
+                        string str = "";
+                        for (int j = 0; j < ArenaSize; j++)
+                        {
+                            str += HeightMap[i, j] + " ";
+                        }
+                        print(str);
+                    }
+
+                    print("-=-=-=-=-=-=-=-=-=-КАРТА ЛЕСТНИЦ-=-=-=-=-=-=-=-=-=-=-=-");
+                    for (int i = 0; i < ArenaSize; i++)
+                    {
+                        string str = "";
+                        for (int j = 0; j < ArenaSize; j++)
+                        {
+                            str += StairsMap[i, j] + " ";
+                        }
+                        print(str);
+                    }
+
+                    for (int i = 0; i <= ArenaSize; i++)
+                    {
+                        for (int j = 0; j <= ArenaSize; j++)
+                        {
+                            string str = "";
+                            for (int h = 0; h < 3; h++)
+                                str += NewVerticesPositions[j + i * (ArenaSize + 1)][h].ToString() + " ";
+
+
+                            print("[" + i.ToString() + ", " + j.ToString() + "] - " + str);
+                        }
+                    }
                 }
                 break;
 
@@ -120,20 +115,56 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
-    public int GetArenaSize()
+    void CreateArena()
     {
-        return ArenaSize;
-    }
-    public int GetChunkScale()
-    {
-        return ChunkScale;
-    }
-    public int GetKillHeight()
-    {
-        return KillHeight;
-    }
+        Arena = new GameObject("Arena");
+        Arena.AddComponent<MeshCollider>();
+        Arena.AddComponent<MeshFilter>();
+        Arena.AddComponent<MeshRenderer>();
 
+        Mesh arenaMesh = new Mesh();
 
+        Vector3[] vertices = new Vector3[(ArenaSize + 1) * (ArenaSize + 1)];
+        Vector2[] uv = new Vector2[(ArenaSize + 1) * (ArenaSize + 1)];
+        int[] triangles = new int[ArenaSize * ArenaSize * 6];
+
+        for (int i = 0; i <= ArenaSize; i++)
+            for (int j = 0; j <= ArenaSize; j++)
+            {
+                int idx = j + i * (ArenaSize + 1);
+                vertices[idx] = new Vector3(i * ChunkScale, 0, j * ChunkScale);
+
+                float randomOffsetX = Random.Range(-0.2f, 0.3f);
+                float randomOffsetY = Random.Range(-0.2f, 0.3f);
+                uv[idx] = new Vector2(
+                    (i + randomOffsetX) * (1 / ChunkScale),
+                    (j + randomOffsetY) * (1 / ChunkScale));
+            }
+
+        for (int ti = 0, vi = 0, i = 0; i < ArenaSize; i++, vi++)
+            for (int j = 0; j < ArenaSize; j++, vi++)
+            {
+                triangles[ti++] = vi;
+                triangles[ti++] = vi + ArenaSize + 2;
+                triangles[ti++] = vi + ArenaSize + 1;
+
+                triangles[ti++] = vi;
+                triangles[ti++] = vi + 1;
+                triangles[ti++] = vi + ArenaSize + 2;
+            }
+
+        arenaMesh.vertices = vertices;
+        arenaMesh.uv = uv;
+        arenaMesh.triangles = triangles;
+
+        arenaMesh.RecalculateBounds();
+        arenaMesh.RecalculateNormals();
+
+        Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
+        Arena.GetComponent<MeshFilter>().mesh = arenaMesh;
+        Arena.GetComponent<MeshRenderer>().material = ArenaMaterial;
+        Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
+    }
     void CreatePresets()
     {
         ArenaPresets = new List<List<int[,]>>();
@@ -232,18 +263,13 @@ public class ArenaManager : MonoBehaviour
         for (int i = 1; i < size; i++)
         {
             int height;
-            int coin = UnityEngine.Random.Range(0, 2);
-            if (coin == 0)
+            if (UnityEngine.Random.Range(0, 3) == 0)
                 height = 0;
             else
             {
-                int isNegative = UnityEngine.Random.Range(0, 2);
                 height = UnityEngine.Random.Range(0, 4);
 
-                if (height == 3)
-                    height = 4;
-
-                if (isNegative == 1)
+                if (UnityEngine.Random.Range(0, 2) == 1)
                     height = -height;
             }
 
@@ -268,26 +294,26 @@ public class ArenaManager : MonoBehaviour
 
     void GenerateStairsMap()
     {
-        // 0 - �������� ���
-        // 1 - �������� �����
-        // 2 - �������� ������
-        // 3 - �������� ����
-        // 4 - �������� �����
-        // 5 - �������� ������-�����
-        // 6 - �������� ������-����
-        // 7 - �������� �����-����
-        // 8 - �������� �����-�����
-        // 9 - �������� ������-�����
-        // 10 - �������� ������-����
-        // 11 - �������� �����-����
-        // 12 - �������� �����-�����
+        // 0 - лестницы нет
+        // 1 - лестница вверх
+        // 2 - лестница вправо
+        // 3 - лестница вниз
+        // 4 - лестница влево
+        // 5 - выпуклая вправо-вверх
+        // 6 - выпуклая вправо-вниз
+        // 7 - выпуклая влево-вниз
+        // 8 - выпуклая влево-вверх
+        // 9 - вогнутая вправо-вверх
+        // 10 - вогнутая вправо-вниз
+        // 11 - вогнутая влево-вниз
+        // 12 - вогнутая влево-вверх
 
         int up, right, down, left;
         int up_right, down_right, down_left, up_left;
         int current;
 
-        // -=-=-=-=-����������� ������� ������� �� ������� ���������-=-=-=-=-
-        // �������� ������ �� �����
+        // -=-=-=-=-Расстановка угловых лестниц на главной диагонали-=-=-=-=-
+        // Расстановка по краям арены
         if (HeightMap[1, 1] > HeightMap[0, 0])
         {
             StairsMap[0, 0] = 6;
@@ -298,7 +324,7 @@ public class ArenaManager : MonoBehaviour
             StairsMap[0, 0] = 0;
             StairsMap[ArenaSize - 1, ArenaSize - 1] = 0;
         }
-        // ����������
+        // Остальные
         for (int i = 1; i < ArenaSize / 2; i++)
         {
             up_left = HeightMap[i - 1, i - 1];
@@ -322,8 +348,8 @@ public class ArenaManager : MonoBehaviour
             }
         }
 
-        // -=-=-=-=-����������� ������� ������� �� �������� ���������-=-=-=-=-
-        // �������� ������ �� �����
+        // -=-=-=-=-Расстановка угловых лестниц на побочной диагонали-=-=-=-=-
+        // Расстановка по краям арены
         if (HeightMap[1, ArenaSize - 2] > HeightMap[0, ArenaSize - 1])
         {
             StairsMap[0, ArenaSize - 1] = 7;
@@ -334,7 +360,7 @@ public class ArenaManager : MonoBehaviour
             StairsMap[0, ArenaSize - 1] = 0;
             StairsMap[ArenaSize - 1, 0] = 0;
         }
-        // ����������
+        // Остальные
         for (int i = 1; i < ArenaSize / 2; i++)
         {
             up_right = HeightMap[i - 1, ArenaSize - i];
@@ -358,8 +384,8 @@ public class ArenaManager : MonoBehaviour
             }
         }
 
-        // -=-=-=-=-����������� ����������� �������-=-=-=-=-
-        // �������� ������ �� �����
+        // -=-=-=-=-Расстановка фронтальных лестниц-=-=-=-=-
+        // Расстановка по краям арены
         if (HeightMap[1, 2] > HeightMap[0, 2])
         {
             for (int i = 1; i < ArenaSize - 1; i++)
@@ -380,7 +406,7 @@ public class ArenaManager : MonoBehaviour
                 StairsMap[i, ArenaSize - 1] = 0;
             }
         }
-        // ����������
+        // Остальные
         for (int i = 1; i < ArenaSize - 1; i++)
         {
             for (int j = 1; j < ArenaSize - 1; j++)
@@ -420,194 +446,217 @@ public class ArenaManager : MonoBehaviour
 
     bool SmoothTransformToFlat()
     {
+        Mesh arenaMesh = Arena.GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = arenaMesh.vertices;
+
         bool isFullTransformedToFlat = true;
 
         for (int i = 0; i < ArenaSize; i++)
-        {
             for (int j = 0; j < ArenaSize; j++)
             {
-                Mesh mesh = Chunks[i, j].GetComponent<MeshFilter>().mesh;
-                Vector3[] vertices = mesh.vertices;
+                int vertex_idx = j + i * (ArenaSize + 1);
+                Vector3 position = new Vector3(
+                    vertices[vertex_idx].x,
+                    ArenaPresets[0][0][i, j],
+                    vertices[vertex_idx].z);
 
-                for (int v = 0; v < vertices.Length; v++)
-                {
-                    Vector3 position = new Vector3(
-                        vertices[v].x,
-                        vertices[v].y,
-                        ArenaPresets[0][0][i, j]);
-                    vertices[v] = Vector3.Lerp(vertices[v], position, ChangeSpeed * Time.deltaTime);
+                vertices[vertex_idx] = Vector3.Lerp(vertices[vertex_idx], position, ChangeSpeed * Time.deltaTime);
 
-                    if (Mathf.Abs(vertices[v].z - position.z) > 0.01)
-                        isFullTransformedToFlat = false;
-                }
-
-                mesh.vertices = vertices;
-                mesh.RecalculateBounds();
-                Chunks[i, j].GetComponent<MeshCollider>().sharedMesh = mesh;
+                if (Mathf.Abs(vertices[vertex_idx].y - position.y) > 0.01)
+                    isFullTransformedToFlat = false;
             }
-        }
+
+        arenaMesh.vertices = vertices;
+        arenaMesh.RecalculateBounds();
+        Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
 
         ChangeSpeed += ChangeSpeedRatio;
         return isFullTransformedToFlat;
     }
 
-    void RotateQuads()
+    void RotateTriangles()
     {
-        for (int i = 0; i < ArenaSize; i++)
-            for (int j = 0; j < ArenaSize; j++)
+        int[] triangles = new int[ArenaSize * ArenaSize * 6];
+
+        for (int ti = 0, vi = 0, i = 0; i < ArenaSize; i++, vi++)
+            for (int j = 0; j < ArenaSize; j++, vi++)
+            {
                 if (StairsMap[i, j] > 4 && StairsMap[i, j] % 2 == 1)
-                    Chunks[i, j].transform.rotation = Quaternion.Euler(90, 0, 270);
+                {
+                    triangles[ti++] = vi;
+                    triangles[ti++] = vi + 1;
+                    triangles[ti++] = vi + ArenaSize + 1;
+
+                    triangles[ti++] = vi + 1;
+                    triangles[ti++] = vi + ArenaSize + 2;
+                    triangles[ti++] = vi + ArenaSize + 1;
+                }
                 else
-                    Chunks[i, j].transform.rotation = Quaternion.Euler(90, 0, 0);
+                {
+                    triangles[ti++] = vi;
+                    triangles[ti++] = vi + ArenaSize + 2;
+                    triangles[ti++] = vi + ArenaSize + 1;
+
+                    triangles[ti++] = vi;
+                    triangles[ti++] = vi + 1;
+                    triangles[ti++] = vi + ArenaSize + 2;
+                }
+            }
+
+        Arena.GetComponent<MeshFilter>().mesh.triangles = triangles;
+        Arena.GetComponent<MeshFilter>().mesh.RecalculateBounds();
+        Arena.GetComponent<MeshFilter>().mesh.RecalculateNormals();
     }
 
     void CalculateVerticesPositions()
     {
-        for (int i = 0; i < ArenaSize; i++)
-            for (int j = 0; j < ArenaSize; j++)
-                NewVerticesPositions[i, j] = Chunks[i, j].GetComponent<MeshFilter>().mesh.vertices;
+        NewVerticesPositions = Arena.GetComponent<MeshFilter>().mesh.vertices;
 
         for (int i = 0; i < ArenaSize; i++)
-        {
             for (int j = 0; j < ArenaSize; j++)
             {
-                // Rotated (5, 7, 9, 11)
-                // 0 - top_right
-                // 1 - top_left
-                // 2 - bottom_right
-                // 3 - bottom_left
-                // Normal (other)
-                // 0 - top_left
-                // 1 - bottom_left
-                // 2 - top_right
-                // 3 - bottom_right
+                // 0 - лестницы нет
+                // 1 - лестница вверх
+                // 2 - лестница вправо
+                // 3 - лестница вниз
+                // 4 - лестница влево
+                // 5 - выпуклая вправо-вверх
+                // 6 - выпуклая вправо-вниз
+                // 7 - выпуклая влево-вниз
+                // 8 - выпуклая влево-вверх
+                // 9 - вогнутая вправо-вверх
+                // 10 - вогнутая вправо-вниз
+                // 11 - вогнутая влево-вниз
+                // 12 - вогнутая влево-вверх
 
-                // 0 - �������� ���
-                // 1 - �������� �����
-                // 2 - �������� ������
-                // 3 - �������� ����
-                // 4 - �������� �����
-                // 5 - �������� ������-�����
-                // 6 - �������� ������-����
-                // 7 - �������� �����-����
-                // 8 - �������� �����-�����
-                // 9 - �������� ������-�����
-                // 10 - �������� ������-����
-                // 11 - �������� �����-����
-                // 12 - �������� �����-�����
+                int vertex_idx = j + i * (ArenaSize + 1);
 
-                switch(StairsMap[i, j])
+                int top_left = vertex_idx;
+                int top_right = vertex_idx + 1;
+                int bottom_left = vertex_idx + ArenaSize + 1;
+                int bottom_right = vertex_idx + ArenaSize + 2;
+
+                switch (StairsMap[i, j])
                 {
                     case 1:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i - 1, j];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i - 1, j];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                     case 2:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i, j + 1];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i, j + 1];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j + 1];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j + 1];
                         break;
                     case 3:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i + 1, j];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i + 1, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j];
                         break;
                     case 4:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i, j - 1];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i, j - 1];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j - 1];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j - 1];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                     case 5:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i - 1, j + 1];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j + 1];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                     case 6:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j + 1];
                         break;
                     case 7:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                     case 8:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                     case 9:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i - 1, j + 1];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i - 1, j + 1];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i - 1, j + 1];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j + 1];
+                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j + 1];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i - 1, j + 1];
                         break;
                     case 10:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i + 1, j + 1];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i + 1, j + 1];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j + 1];
                         break;
                     case 11:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i, j];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i + 1, j - 1];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i + 1, j - 1];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[top_left].y        = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j - 1];
                         break;
                     case 12:
-                        NewVerticesPositions[i, j][0].z = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[i, j][1].z = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[i, j][2].z = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[i, j][3].z = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                     default:
                         for (int v = 0; v < 4; v++)
-                            NewVerticesPositions[i, j][v].z = HeightMap[i, j];
+                            NewVerticesPositions[vertex_idx + v].y = HeightMap[i, j];
                         break;
                 }
-
-                for (int v = 0; v < 4; v++)
-                    NewVerticesPositions[i, j][v].z = -NewVerticesPositions[i, j][v].z;
             }
-        }
+
     }
 
     bool SmoothTransformToTarget()
     {
+        Mesh arenaMesh = Arena.GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = arenaMesh.vertices;
+
         bool isFullTransformedToTarget = true;
 
         for (int i = 0; i < ArenaSize; i++)
-        {
             for (int j = 0; j < ArenaSize; j++)
             {
-                Mesh mesh = Chunks[i, j].GetComponent<MeshFilter>().mesh;
-                Vector3[] vertices = mesh.vertices;
+                int vertex_idx = j + i * (ArenaSize + 1);
 
-                for (int v = 0; v < vertices.Length; v++)
-                {
-                    vertices[v] = Vector3.Lerp(vertices[v], NewVerticesPositions[i, j][v], ChangeSpeed * Time.deltaTime);
+                vertices[vertex_idx] = Vector3.Lerp(vertices[vertex_idx], NewVerticesPositions[vertex_idx], ChangeSpeed * Time.deltaTime);
 
-                    if (Mathf.Abs(vertices[v].z - NewVerticesPositions[i, j][v].z) > 0.01)
-                        isFullTransformedToTarget = false;
-                }
-
-                mesh.vertices = vertices;
-                mesh.RecalculateBounds();
-                Chunks[i, j].GetComponent<MeshCollider>().sharedMesh = mesh;
+                if (Mathf.Abs(vertices[vertex_idx].y - NewVerticesPositions[vertex_idx].y) > 0.01)
+                    isFullTransformedToTarget = false;
             }
-        }
+
+
+        arenaMesh.vertices = vertices;
+        arenaMesh.RecalculateBounds();
+        Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
 
         ChangeSpeed += ChangeSpeedRatio;
         return isFullTransformedToTarget;
+    }
+
+
+    public int GetArenaSize()
+    {
+        return ArenaSize;
+    }
+    public float GetChunkScale()
+    {
+        return ChunkScale;
+    }
+    public int GetKillHeight()
+    {
+        return KillHeight;
     }
 }
