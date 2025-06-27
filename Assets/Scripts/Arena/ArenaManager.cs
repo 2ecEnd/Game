@@ -63,7 +63,7 @@ public class ArenaManager : MonoBehaviour
                     ChangeSpeed = DefaultChangeSpeed;
                     flag = 0;
 
-                    print("-=-=-=-=-=-=-=-=-=-КАРТА ВЫСОТ-=-=-=-=-=-=-=-=-=-=-=-");
+                    /*print("-=-=-=-=-=-=-=-=-=-КАРТА ВЫСОТ-=-=-=-=-=-=-=-=-=-=-=-");
                     for (int i = 0; i < ArenaSize; i++)
                     {
                         string str = "";
@@ -96,7 +96,7 @@ public class ArenaManager : MonoBehaviour
 
                             print("[" + i.ToString() + ", " + j.ToString() + "] - " + str);
                         }
-                    }
+                    }*/
                 }
                 break;
 
@@ -451,13 +451,13 @@ public class ArenaManager : MonoBehaviour
 
         bool isFullTransformedToFlat = true;
 
-        for (int i = 0; i < ArenaSize; i++)
-            for (int j = 0; j < ArenaSize; j++)
+        for (int i = 0; i <= ArenaSize; i++)
+            for (int j = 0; j <= ArenaSize; j++)
             {
                 int vertex_idx = j + i * (ArenaSize + 1);
                 Vector3 position = new Vector3(
                     vertices[vertex_idx].x,
-                    ArenaPresets[0][0][i, j],
+                    0,
                     vertices[vertex_idx].z);
 
                 vertices[vertex_idx] = Vector3.Lerp(vertices[vertex_idx], position, ChangeSpeed * Time.deltaTime);
@@ -611,8 +611,10 @@ public class ArenaManager : MonoBehaviour
                         NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                     default:
-                        for (int v = 0; v < 4; v++)
-                            NewVerticesPositions[vertex_idx + v].y = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
                         break;
                 }
             }
@@ -626,8 +628,8 @@ public class ArenaManager : MonoBehaviour
 
         bool isFullTransformedToTarget = true;
 
-        for (int i = 0; i < ArenaSize; i++)
-            for (int j = 0; j < ArenaSize; j++)
+        for (int i = 0; i <= ArenaSize; i++)
+            for (int j = 0; j <= ArenaSize; j++)
             {
                 int vertex_idx = j + i * (ArenaSize + 1);
 
