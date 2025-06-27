@@ -377,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 9956604}
   Quad: {fileID: 1692201033522189356, guid: 0d31ca3d722e6494387003e967834352, type: 3}
-  ArenaMaterial: {fileID: 2100000, guid: c57c58950a4f7864f9fec7c624b22aa9, type: 2}
+  ArenaMaterial: {fileID: 2100000, guid: 3cc3173238eabf94a97fd38557756bf0, type: 2}
   BuffBoxGO: {fileID: 0}
   DefaultChangeSpeed: 0.6
   ChangeSpeedRatio: 0.02
