@@ -539,82 +539,82 @@ public class ArenaManager : MonoBehaviour
                 switch (StairsMap[i, j])
                 {
                     case 1:
-                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i - 1, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i - 1, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j];
                         break;
                     case 2:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j + 1];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j + 1];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j + 1];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j + 1];
                         break;
                     case 3:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i + 1, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i + 1, j];
                         break;
                     case 4:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j - 1];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j - 1];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j - 1];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j - 1];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j];
                         break;
                     case 5:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j + 1];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i - 1, j + 1];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j];
                         break;
                     case 6:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i + 1, j + 1];
                         break;
                     case 7:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j - 1];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j];
                         break;
                     case 8:
-                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j];
                         break;
                     case 9:
-                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j + 1];
-                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j + 1];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i - 1, j + 1];
+                        NewVerticesPositions[top_left].y = HeightMap[i - 1, j + 1];
+                        NewVerticesPositions[top_right].y = HeightMap[i - 1, j + 1];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i - 1, j + 1];
                         break;
                     case 10:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i + 1, j + 1];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j + 1];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i + 1, j + 1];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i + 1, j + 1];
                         break;
                     case 11:
-                        NewVerticesPositions[top_left].y        = HeightMap[i + 1, j - 1];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i + 1, j - 1];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[top_left].y = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i + 1, j - 1];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i + 1, j - 1];
                         break;
                     case 12:
-                        NewVerticesPositions[top_left].y        = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[top_right].y       = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i - 1, j - 1];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[top_right].y = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i - 1, j - 1];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j];
                         break;
                     default:
-                        NewVerticesPositions[top_left].y        = HeightMap[i, j];
-                        NewVerticesPositions[top_right].y       = HeightMap[i, j];
-                        NewVerticesPositions[bottom_left].y     = HeightMap[i, j];
-                        NewVerticesPositions[bottom_right].y    = HeightMap[i, j];
+                        NewVerticesPositions[top_left].y = HeightMap[i, j];
+                        NewVerticesPositions[top_right].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_left].y = HeightMap[i, j];
+                        NewVerticesPositions[bottom_right].y = HeightMap[i, j];
                         break;
                 }
             }
@@ -660,5 +660,23 @@ public class ArenaManager : MonoBehaviour
     public int GetKillHeight()
     {
         return KillHeight;
+    }
+
+    public Vector3 GetRandomPoint()
+    {
+        float arenaSize = (GetArenaSize() - 1) * GetChunkScale();
+        float x = Random.Range(0, arenaSize);
+        float z = Random.Range(0, arenaSize);
+        Vector3 spawnPosition = new Vector3(x, 100, z);
+
+        RaycastHit ray;
+        Physics.Raycast(
+            origin: spawnPosition,
+            direction: new Vector3(0, -1, 0),
+            hitInfo: out ray,
+            maxDistance: 150f
+        );
+
+        return ray.point;
     }
 }

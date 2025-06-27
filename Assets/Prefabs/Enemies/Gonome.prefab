@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2080475480611489999}
   - component: {fileID: 3223873443276140702}
   - component: {fileID: 8459167212382579226}
-  - component: {fileID: 8867353264927642135}
+  - component: {fileID: 630484612431337913}
   - component: {fileID: 7980524309953362210}
   - component: {fileID: 844995768132715460}
   m_Layer: 0
@@ -85,7 +85,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8867353264927642135
+--- !u!114 &630484612431337913
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3474713142369456737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c2e4243654cf814da63f97fe10bbc1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 803b5b4a21ff4bf449b7ee5f4bcdf4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 300
@@ -103,7 +103,7 @@ MonoBehaviour:
   AttackRate: 1.5
   KillsStatistic: 0
   GravityForce: 9
-  MaxSpeedOnGround: 18
+  MaxSpeedOnGround: 17
   MovementSharpnessOnGround: 20
   MaxSpeedInAir: 18
   AccelerationSpeedInAir: 3

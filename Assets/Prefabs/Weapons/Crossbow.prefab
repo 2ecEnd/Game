@@ -93,6 +93,7 @@ MonoBehaviour:
   AmmoReloadRate: 6
   ReloadingType: 1
   RecoilForce: 0.1
+  Owner: {fileID: 0}
   ShootSfx: {fileID: 8300000, guid: f838a749443941d44bfecc66d2fea337, type: 3}
   MisfireSfx: {fileID: 0}
   ReloadingSfx: {fileID: 8300000, guid: 55f86cac37a605246a1fd39b836d34d8, type: 3}
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_ShootAudioSource: {fileID: 2794871462444750418}
   m_ReloadAudioSource: {fileID: 4072730234655404612}
   MuzzleFlashVFX: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!95 &3248870576414451964
 Animator:
   serializedVersion: 7
@@ -380,6 +382,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1637353169280556193, guid: 3bfcd3a41ea40504a88f9ed1ce6cf164, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3bfcd3a41ea40504a88f9ed1ce6cf164, type: 3}
       propertyPath: m_Name
       value: Crossbow
@@ -388,6 +394,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 0f4cd6a33b03ffc4080c49e4315166d2, type: 2}
+    - target: {fileID: 8470576535259550666, guid: 3bfcd3a41ea40504a88f9ed1ce6cf164, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 3bfcd3a41ea40504a88f9ed1ce6cf164, type: 3}
     m_RemovedGameObjects: []

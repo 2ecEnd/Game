@@ -126,12 +126,7 @@ namespace Assets.Scripts.Gameplay
 
         void SpawnBuffBox()
         {
-            float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
-            float x = Random.Range(0, arenaSize);
-            int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-            float z = Random.Range(0, arenaSize);
-            int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-            Vector3 spawnPosition = new Vector3(x, arenaManager.HeightMap[i, j], z);
+            Vector3 spawnPosition = arenaManager.GetRandomPoint();
             int coin = Random.Range(0, BuffBoxPrefabs.Length);
 
             float randomYRotation = Random.Range(0f, 360f);
@@ -142,12 +137,14 @@ namespace Assets.Scripts.Gameplay
 
         void SpawnEnemy()
         {
-            float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
-            float x = Random.Range(0, arenaSize);
-            int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-            float z = Random.Range(0, arenaSize);
-            int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-            Vector3 spawnPosition = new Vector3(x, arenaManager.HeightMap[i, j] + 2, z);
+            // float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
+            // float x = Random.Range(0, arenaSize);
+            // int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
+            // float z = Random.Range(0, arenaSize);
+            // int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
+            // Vector3 spawnPosition = new Vector3(x, arenaManager.HeightMap[i, j] + 2, z);
+            Vector3 randomPoint = arenaManager.GetRandomPoint();
+            Vector3 spawnPosition = new Vector3(randomPoint.x, randomPoint.y + 2, randomPoint.z);
             int coin = Random.Range(0, CoinLenth);
             int a = 0;
             for (int c = 0; c < EnemyPrefabs.Length; c++)

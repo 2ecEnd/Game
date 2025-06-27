@@ -89,7 +89,7 @@ namespace Assets.Scripts
         {
             if (collider.TryGetComponent(out IDamagable entity))
             {
-                entity.ReceiveDamage(Damage);
+                entity.ReceiveDamage(Damage * Random.Range(0.9f, 1.1f));
                 SpawnVFX(true, point);
             }
             else
