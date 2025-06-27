@@ -145,7 +145,7 @@ public class ArenaManager : MonoBehaviour
         Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
         Arena.GetComponent<MeshFilter>().mesh = arenaMesh;
         Arena.GetComponent<MeshRenderer>().material = ArenaMaterial;
-        Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
+        //Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
     }
     void CreatePresets()
     {
@@ -931,5 +931,23 @@ public class ArenaManager : MonoBehaviour
     public int GetKillHeight()
     {
         return KillHeight;
+    }
+    
+    public Vector3 GetRandomPoint()
+    {
+        float arenaSize = (GetArenaSize() - 1) * GetChunkScale();
+        float x = Random.Range(0, arenaSize);
+        float z = Random.Range(0, arenaSize);
+        Vector3 spawnPosition = new Vector3(x, 100, z);
+
+        RaycastHit ray;
+        Physics.Raycast(
+            origin: spawnPosition,
+            direction: new Vector3(0, -1, 0),
+            hitInfo: out ray,
+            maxDistance: 150f
+        );
+
+        return ray.point;
     }
 }

@@ -208,6 +208,7 @@ MonoBehaviour:
   AmmoReloadRate: 2.1
   ReloadingType: 1
   RecoilForce: 0.05
+  Owner: {fileID: 0}
   ShootSfx: {fileID: 8300000, guid: d3c969d5fee2b0c46a878cfaebfd13f6, type: 3}
   MisfireSfx: {fileID: 8300000, guid: f1d38f19fdf72c740848e53266fdcd6c, type: 3}
   ReloadingSfx: {fileID: 8300000, guid: 398bb973285550b42a46cb1a54f5626d, type: 3}
@@ -215,6 +216,7 @@ MonoBehaviour:
   m_ShootAudioSource: {fileID: 2794871462444750418}
   m_ReloadAudioSource: {fileID: -7927680349260836964}
   MuzzleFlashVFX: {fileID: 7788601013401818695}
+  animator: {fileID: 0}
 --- !u!95 &3248870576414451964
 Animator:
   serializedVersion: 7
@@ -494,6 +496,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 20dc3c17fa9353f48b531eb705114e1e, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4078421194442177544, guid: 20dc3c17fa9353f48b531eb705114e1e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 20dc3c17fa9353f48b531eb705114e1e, type: 3}
       propertyPath: m_Name

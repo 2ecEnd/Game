@@ -6,6 +6,7 @@ namespace Assets.Scripts.Player
     public class PlayerWeaponManager : MonoBehaviour
     {
         [Header("General")]
+        public Camera PlayerCamera;
         public WeaponHandler[] Weapons;
         public Transform WeaponPos;
 
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Player
         Vector3 m_AccumulatedRecoil;
         List<WeaponHandler> AddedWeapons;
         int curentGun;
+        Vector3 cameraInitialPosition;
         void Start()
         {
             AddedWeapons = new List<WeaponHandler>();
@@ -30,6 +32,7 @@ namespace Assets.Scripts.Player
                 AddWeapon(Weapons[i]);
             OriginalWeaponPos = WeaponPos.localPosition;
             SelectWeapon(curentGun);
+            cameraInitialPosition = PlayerCamera.transform.localPosition;
         }
 
         void Update()

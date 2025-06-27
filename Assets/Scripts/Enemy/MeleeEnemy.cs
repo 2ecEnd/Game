@@ -17,13 +17,21 @@ namespace Assets.Scripts.Enemy
         public List<AudioClip> DieSfx;
         public float FootstepSfxFrequency = 1f;
         public float IdleSfxFrequency = 10f;
-        
+
+        [Header("Wandering")]
+        public float WanderStartDistance;
+        public float WanderRate;
 
         bool isDead;
+        bool isWandering;
         float lastTimeAttacking = Mathf.NegativeInfinity;
         float lastTimePlayingIdle = Mathf.NegativeInfinity;
+        float lastTimeWandering = Mathf.NegativeInfinity;
         float footstepDistanceCounter;
+        float randomSpeedCoeff;
+        GameObject Player;
         Animator animator;
+        Vector3 targetPosition;
 
         void Start()
         {
@@ -31,9 +39,12 @@ namespace Assets.Scripts.Enemy
             arenaManager = gameController.GetComponent<ArenaManager>();
             characterController = gameObject.GetComponent<CharacterController>();
 
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            Player = GameObject.FindGameObjectWithTag("Player");
+            target = Player.transform;
             animator = GetComponent<Animator>();
             isDead = false;
+            randomSpeedCoeff = Random.Range(0.9f, 1.1f);
+            animator.SetFloat("SpeedCoef", randomSpeedCoeff);
         }
 
         void FixedUpdate()
@@ -57,6 +68,15 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
+            targetPosition = target.position;
+            fromBodyToPlayer = target.position - transform.position;
+            // if (fromBodyToPlayer.magnitude > WanderStartDistance)
+            // {
+            //     Wander();
+            // }
+            // else
+            //     targetPosition = target.position;
+
             if (lastTimePlayingIdle + IdleSfxFrequency + Random.Range(0, 5) < Time.time)
             {
                 AudioSource.PlayOneShot(IdlesSfx[Random.Range(0, IdlesSfx.Count)]);
@@ -82,20 +102,19 @@ namespace Assets.Scripts.Enemy
             }
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
-            fromBodyToPlayer = target.position - transform.position;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
-            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
             Vector3 targetVelocity = fromBodyToPlayer;
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
             {
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround * randomSpeedCoeff, MovementSharpnessOnGround * Time.deltaTime);
                 verticalVelocity = -GravityForce * 0.1f;
 
                 if (footstepDistanceCounter >= 1f / FootstepSfxFrequency)
                 {
-                   footstepDistanceCounter = 0f;
-                   AudioSource.PlayOneShot(FootstepsSfx[Random.Range(0, FootstepsSfx.Count)]);
+                    footstepDistanceCounter = 0f;
+                    AudioSource.PlayOneShot(FootstepsSfx[Random.Range(0, FootstepsSfx.Count)]);
                 }
                 footstepDistanceCounter += characterVelocity.magnitude * Time.deltaTime;
             }
@@ -145,21 +164,12 @@ namespace Assets.Scripts.Enemy
             gameController.Enemies.Remove(gameObject);
             AudioSource.PlayOneShot(DieSfx[Random.Range(0, DieSfx.Count)]);
             if (BreatheSource != null)
-                    BreatheSource.volume = 0;
+                BreatheSource.volume = 0;
             StartCoroutine(Disappeare());
         }
 
         IEnumerator Disappeare()
         {
-            // yield return new WaitForSeconds(0.1f);
-            // float fallTimer = 0f;
-            // while (fallTimer < 0.25)
-            // {
-            //     transform.Translate(Vector3.down * 5 * Time.deltaTime);
-            //     fallTimer += Time.deltaTime;
-            //     yield return null;
-            // }
-
             yield return new WaitForSeconds(2f);
 
             float sinkTimer = 0f;
@@ -178,6 +188,17 @@ namespace Assets.Scripts.Enemy
         {
             if (transform.position.y < arenaManager.GetKillHeight())
                 Die(false);
+        }
+
+        void Wander()
+        {
+            if (lastTimeWandering + WanderRate + Random.Range(0, 5) < Time.time)
+            {
+                if (Random.Range(0, 2) == 0)
+                    targetPosition = arenaManager.GetRandomPoint();
+
+                lastTimeWandering = Time.time;
+            }
         }
     }
 }
