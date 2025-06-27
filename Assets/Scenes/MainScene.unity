@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: fba2ecd7f1b12584eb43aba3c152c705, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 6cb5fef923d4c93429cf0df4e3dec075, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 9956604}
   Quad: {fileID: 1692201033522189356, guid: 0d31ca3d722e6494387003e967834352, type: 3}
-  QuadMaterial: {fileID: 2100000, guid: 33af307239e43324da670aa148366cd6, type: 2}
+  QuadMaterial: {fileID: 2100000, guid: ac482d52cf845a14fa24c802e29ce977, type: 2}
   BuffBoxGO: {fileID: 0}
   DefaultChangeSpeed: 1
   ChangeSpeedRatio: 0.01
@@ -806,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4393681324215338281, guid: 2a8a9a767503bb34a8e0db0dab644978, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 74
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 4393681324215338281, guid: 2a8a9a767503bb34a8e0db0dab644978, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1199,7 +1199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4393681324215338281, guid: 2a8a9a767503bb34a8e0db0dab644978, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 74
+      value: 148
       objectReference: {fileID: 0}
     - target: {fileID: 4393681324215338281, guid: 2a8a9a767503bb34a8e0db0dab644978, type: 3}
       propertyPath: m_LocalPosition.z
