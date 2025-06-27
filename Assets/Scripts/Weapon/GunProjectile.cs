@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Player;
 using Unity.VisualScripting;
+using UnityEngine.VFX;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts
 {
@@ -17,7 +19,11 @@ namespace Assets.Scripts
         public float MaxLifeTime = 5f;
         public LayerMask HittableLayers;
 
-        [Header("Audio")] 
+        [Header("ImpactEffects")]
+        public VisualEffect BloodVFX;
+        public VisualEffect FloorImpactVFX;
+
+        [Header("Audio")]
         ProjectileBase m_ProjectileBase;
 
         private Vector3 m_Velocity;
@@ -49,7 +55,8 @@ namespace Assets.Scripts
                 }
             }
 
-            transform.position += m_Velocity * Time.fixedDeltaTime;
+            //transform.position += m_ProjectileBase.InheritedMuzzleVelocity * Time.fixedDeltaTime;
+            transform.position += (m_ProjectileBase.InheritedMuzzleVelocity + m_Velocity) * Time.fixedDeltaTime;
 
             transform.forward = m_Velocity.normalized;
 
@@ -63,8 +70,8 @@ namespace Assets.Scripts
         {
             m_Velocity = transform.forward * Speed;
             m_IgnoredColliders = new List<Collider>();
-            //transform.position += m_ProjectileBase.InheritedMuzzleVelocity * Time.fixedDeltaTime;
 
+            m_IgnoredColliders.AddRange(Owner.GetComponents<Collider>());
             m_IgnoredColliders.AddRange(Owner.GetComponentsInChildren<Collider>());
 
         }
@@ -77,13 +84,27 @@ namespace Assets.Scripts
             }
             return true;
         }
-        
+
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
             if (collider.TryGetComponent(out IDamagable entity))
+            {
                 entity.ReceiveDamage(Damage);
+                SpawnVFX(true, point);
+            }
+            else
+                SpawnVFX(false, point);
 
             Destroy(this.gameObject);
+        }
+        
+        void SpawnVFX(bool colliderIsCreature, Vector3 position)
+        {
+            if ((colliderIsCreature && BloodVFX == null) || (!colliderIsCreature && FloorImpactVFX == null)) return;
+
+            VisualEffect newVFX = Instantiate(colliderIsCreature? BloodVFX : FloorImpactVFX, position - transform.forward, Quaternion.identity);
+            
+            Destroy(newVFX.gameObject, 3.0f);
         }
     }
 }

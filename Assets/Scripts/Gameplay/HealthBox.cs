@@ -10,7 +10,10 @@ public class HealthBox : BuffBox
 
     void FixedUpdate()
     {
-        Flex();
+        if (GlobalInspector.PlayerAlive)
+        {
+            Flex();
+        }
     }
 
     protected override void OnTriggerEnter(Collider collider)
@@ -18,6 +21,7 @@ public class HealthBox : BuffBox
         if (collider.tag == "Player")
         {
             collider.gameObject.GetComponent<PlayerCharacterController>().ReceiveDamage(-25);
+            collider.gameObject.GetComponent<PlayerCharacterController>().PlayHealSound();
             Destroy(gameObject);
         }
     }

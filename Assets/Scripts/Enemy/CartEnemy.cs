@@ -28,6 +28,10 @@ namespace Assets.Scripts.Enemy
 
         void FixedUpdate()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
@@ -43,7 +47,10 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
-            //directionToPlayer = target.position - transform.position;
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             fromBodyToPlayer = transform.worldToLocalMatrix.MultiplyPoint(target.position);
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             float angle;
@@ -73,21 +80,18 @@ namespace Assets.Scripts.Enemy
                 }
             }
             transform.Rotate(0, Mathf.Clamp(angle, -MaxAngularSpeed, MaxAngularSpeed), 0);
-            //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            Vector3 targetVelocity = transform.forward * acceleration;
+            float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
             {
-                Vector3 targetVelocity = transform.forward * acceleration * MaxSpeedOnGround;
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+                verticalVelocity = -GravityForce * 0.1f;
             }
             else
             {
-                characterVelocity += transform.forward * acceleration * AccelerationSpeedInAir * Time.deltaTime;
-                float verticalVelocity = characterVelocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
-                characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
             }
+            characterVelocity = new Vector3(characterVelocity.x, verticalVelocity, characterVelocity.z);
             characterController.Move(characterVelocity * Time.deltaTime);
         }
 
@@ -98,7 +102,9 @@ namespace Assets.Scripts.Enemy
             {
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
+                Vector3 directionToPlayer = (target.position - transform.position);
+                directionToPlayer = new Vector3(directionToPlayer.x, 0, directionToPlayer.z).normalized;
+                player.ExtraVelocity += new Vector3(directionToPlayer.x * 300, 20, directionToPlayer.z * 300); // Knockback
             }
         }
 
@@ -111,16 +117,19 @@ namespace Assets.Scripts.Enemy
                 Die();
         }
 
-        public override void Die()
+        public override void Die(bool needScored = true)
         {
             gameController.Enemies.Remove(gameObject);
             Destroy(gameObject);
+
+            if (needScored)
+                GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
         }
 
         protected override void DestroyOnFall()
         {
-            if (transform.position.y < arenaManager.getKillHeight())
-                Die();
+            if (transform.position.y < arenaManager.GetKillHeight())
+                Die(false);
         }
 
         //IEnumerator ChangeColor()

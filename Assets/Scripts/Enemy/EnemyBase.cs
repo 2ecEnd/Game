@@ -9,6 +9,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     public Transform AttackStartPoint;
     public float Damage;
     public float AttackRate = 0.5f;
+    public int KillsStatistic = 0;
 
     [Header("Movement")]
     public float GravityForce;
@@ -33,7 +34,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     public abstract void ReceiveDamage(float damage);
 
-    public abstract void Die();
+    public abstract void Die(bool needScored = true);
 
     protected abstract void DestroyOnFall();
 

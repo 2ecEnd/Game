@@ -2,14 +2,27 @@ using Assets.Scripts.Gameplay;
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Player;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Enemy
 {
     public class MeleeEnemy : EnemyBase, IDamagable
     {
+        [Header("SFX")]
+        public AudioSource AudioSource;
+        public AudioSource BreatheSource;
+        public List<AudioClip> FootstepsSfx;
+        public List<AudioClip> AttacksSfx;
+        public List<AudioClip> IdlesSfx;
+        public List<AudioClip> DieSfx;
+        public float FootstepSfxFrequency = 1f;
+        public float IdleSfxFrequency = 10f;
+        
 
         bool isDead;
         float lastTimeAttacking = Mathf.NegativeInfinity;
+        float lastTimePlayingIdle = Mathf.NegativeInfinity;
+        float footstepDistanceCounter;
         Animator animator;
 
         void Start()
@@ -25,6 +38,10 @@ namespace Assets.Scripts.Enemy
 
         void FixedUpdate()
         {
+            if (!GlobalInspector.PlayerAlive)
+            {
+                return;
+            }
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
@@ -40,25 +57,53 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
+            if (lastTimePlayingIdle + IdleSfxFrequency + Random.Range(0, 5) < Time.time)
+            {
+                AudioSource.PlayOneShot(IdlesSfx[Random.Range(0, IdlesSfx.Count)]);
+                lastTimePlayingIdle = Time.time;
+            }
+
+            if (!GlobalInspector.PlayerAlive)
+            {
+                animator.speed = 0;
+                AudioSource.volume = 0;
+                if (BreatheSource != null)
+                    BreatheSource.volume = 0;
+                //animatorRatio = 0;
+                return;
+            }
+            else if (animator.speed == 0)
+            {
+                animator.speed = 1;
+                AudioSource.volume = 1;
+                if (BreatheSource != null)
+                    BreatheSource.volume = 1;
+                //animatorRatio = 1;
+            }
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
             fromBodyToPlayer = target.position - transform.position;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
             transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            Vector3 targetVelocity = fromBodyToPlayer;
+            float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
             {
-                Vector3 targetVelocity = fromBodyToPlayer * MaxSpeedOnGround;
-                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, MovementSharpnessOnGround * Time.deltaTime);
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedOnGround, MovementSharpnessOnGround * Time.deltaTime);
+                verticalVelocity = -GravityForce * 0.1f;
+
+                if (footstepDistanceCounter >= 1f / FootstepSfxFrequency)
+                {
+                   footstepDistanceCounter = 0f;
+                   AudioSource.PlayOneShot(FootstepsSfx[Random.Range(0, FootstepsSfx.Count)]);
+                }
+                footstepDistanceCounter += characterVelocity.magnitude * Time.deltaTime;
             }
             else
             {
-                characterVelocity += fromBodyToPlayer * AccelerationSpeedInAir * Time.deltaTime;
-                float verticalVelocity = characterVelocity.y;
-                Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, MaxSpeedInAir);
-                characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                characterVelocity += Vector3.down * GravityForce * Time.deltaTime;
+                characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
             }
+            characterVelocity = new Vector3(characterVelocity.x, verticalVelocity, characterVelocity.z);
             characterController.Move(characterVelocity * Time.deltaTime);
         }
 
@@ -70,10 +115,11 @@ namespace Assets.Scripts.Enemy
             {
                 animator.SetTrigger("Attack");
                 lastTimeAttacking = Time.time;
+                AudioSource.PlayOneShot(AttacksSfx[Random.Range(0, AttacksSfx.Count)]);
 
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.CharacterVelocity = new Vector3(fromBodyToPlayer.x * 1000, 5, fromBodyToPlayer.z * 1000); // Knockback
+                player.ExtraVelocity = new Vector3(fromBodyToPlayer.x * 100, 20, fromBodyToPlayer.z * 100); // Knockback
             }
         }
 
@@ -87,12 +133,19 @@ namespace Assets.Scripts.Enemy
                 Die();
         }
 
-        public override void Die()
+        public override void Die(bool needScored = true)
         {
             isDead = true;
             animator.SetTrigger("Die");
             characterController.enabled = false;
 
+            if (needScored)
+                GlobalInspector.EnemyStatistics[KillsStatistic].Kills++;
+
+            gameController.Enemies.Remove(gameObject);
+            AudioSource.PlayOneShot(DieSfx[Random.Range(0, DieSfx.Count)]);
+            if (BreatheSource != null)
+                    BreatheSource.volume = 0;
             StartCoroutine(Disappeare());
         }
 
@@ -123,8 +176,8 @@ namespace Assets.Scripts.Enemy
 
         protected override void DestroyOnFall()
         {
-            if (transform.position.y < arenaManager.getKillHeight())
-                Die();
+            if (transform.position.y < arenaManager.GetKillHeight())
+                Die(false);
         }
     }
 }
