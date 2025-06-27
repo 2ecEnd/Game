@@ -99,6 +99,7 @@ namespace Assets.Scripts.Enemy
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
 
             transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1f, target.position.z));
 
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
 
@@ -168,9 +169,13 @@ namespace Assets.Scripts.Enemy
             PlasmaEffect.Play();
             AudioSource.PlayOneShot(RangeAttackChargeSfx);
             yield return new WaitForSeconds(1.2f);
-            weaponHandler.HandleShootInputs(true, true);
-            AudioSource.PlayOneShot(RangeAttackShootSfx);
-            yield return new WaitForSeconds(0.5f);
+
+            if (!isDead)
+            {
+                weaponHandler.HandleShootInputs(true, true);
+                AudioSource.PlayOneShot(RangeAttackShootSfx);
+                yield return new WaitForSeconds(0.5f);
+            }
 
             PlasmaEffect.Stop();
             currentAttackMode = "melee";

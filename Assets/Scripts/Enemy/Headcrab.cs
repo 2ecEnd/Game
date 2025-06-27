@@ -40,16 +40,16 @@ namespace Assets.Scripts.Enemy
             {
                 return;
             }
+            fromBodyToPlayer = target.position - transform.position;
             RaycastHit hit;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
-                direction: transform.forward,
+                direction: fromBodyToPlayer,
                 hitInfo: out hit,
-                maxDistance: 0.5f))
+                maxDistance: 0.3f))
             {
                 Attack(hit.collider);
             }
-
             DestroyOnFall();
         }
 
@@ -66,7 +66,7 @@ namespace Assets.Scripts.Enemy
                 animator.speed = 1;
                 //animatorRatio = 1;
             }
-            if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
+            if (isDead) return;
 
             fromBodyToPlayer = target.position - transform.position;
             distanceToPlayer = fromBodyToPlayer.magnitude;
@@ -93,7 +93,7 @@ namespace Assets.Scripts.Enemy
                 lastTimeJumping = Time.time;
                 AudioSource.PlayOneShot(JumpSfx);
 
-                characterVelocity = new Vector3(fromBodyToPlayer.x * 60, 8, fromBodyToPlayer.z * 60);
+                characterVelocity = new Vector3(fromBodyToPlayer.x * 60, fromBodyToPlayer.y + 8, fromBodyToPlayer.z * 60);
             }
             else
             {
@@ -110,11 +110,12 @@ namespace Assets.Scripts.Enemy
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
             // if (collider.gameObject == target)
 
-            lastTimeAttacking = Time.time;
-            AudioSource.PlayOneShot(BiteSfx);
+            Debug.Log(collider);
 
             if (collider.gameObject.CompareTag("Player"))
             {
+                AudioSource.PlayOneShot(BiteSfx);
+                lastTimeAttacking = Time.time;
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
                 player.ExtraVelocity = new Vector3(fromBodyToPlayer.x * 10, 20, fromBodyToPlayer.z * 10); // Knockback

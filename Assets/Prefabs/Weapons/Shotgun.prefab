@@ -94,6 +94,7 @@ MonoBehaviour:
   AmmoReloadRate: 6
   ReloadingType: 0
   RecoilForce: 0.15
+  Owner: {fileID: 0}
   ShootSfx: {fileID: 8300000, guid: b434c0ec4f072214c9471cea82e721fd, type: 3}
   MisfireSfx: {fileID: 8300000, guid: f1d38f19fdf72c740848e53266fdcd6c, type: 3}
   ReloadingSfx: {fileID: 8300000, guid: 039e87eee72907c458f9ca42aabf115a, type: 3}
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_ShootAudioSource: {fileID: 2794871462444750418}
   m_ReloadAudioSource: {fileID: 6552988430256695473}
   MuzzleFlashVFX: {fileID: 5261482694511266471}
+  animator: {fileID: 0}
 --- !u!95 &3248870576414451964
 Animator:
   serializedVersion: 7

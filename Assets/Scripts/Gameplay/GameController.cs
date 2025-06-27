@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 using System.Xml.Serialization;
 
 namespace Assets.Scripts.Gameplay
@@ -35,11 +36,13 @@ namespace Assets.Scripts.Gameplay
         public GameObject[] BuffBoxPrefabs;
 
         [Header("Spawn settings")]
+        public int HealthSpawnRate;
         public float SpawnInterval = 30f;
         public int MaxEnemies = 5;
         public int TotalEnemies;
         public int EnemiesSpawned;
         public int WaveNumber;
+        public VisualEffect PortalEffect;
 
         public List<GameObject> Enemies;
         private float nextTimeSpawn = Mathf.NegativeInfinity;
@@ -77,7 +80,10 @@ namespace Assets.Scripts.Gameplay
                 {
                     GlobalInspector.Rest = false;
                     SpawnEnemy();
-                    SpawnBuffBox();
+
+                    if (Random.Range(0, 100) < HealthSpawnRate)
+                        SpawnBuffBox();
+
                     nextTimeSpawn = Time.time + SpawnInterval;
                 }
             }
@@ -117,6 +123,7 @@ namespace Assets.Scripts.Gameplay
             GlobalInspector.WaveNumber = WaveNumber;
             GlobalInspector.Rest = true;
         }
+
         void SpawnBuffBox()
         {
             float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
@@ -132,6 +139,7 @@ namespace Assets.Scripts.Gameplay
 
             Instantiate(BuffBoxPrefabs[coin], spawnPosition, randomRotation, buffBoxGO.transform);
         }
+
         void SpawnEnemy()
         {
             float arenaSize = (arenaManager.GetArenaSize() - 1) * arenaManager.GetChunkScale();
@@ -139,7 +147,7 @@ namespace Assets.Scripts.Gameplay
             int i = (int)((x + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
             float z = Random.Range(0, arenaSize);
             int j = (int)((z + arenaManager.GetChunkScale() / 2) / arenaManager.GetChunkScale());
-            Vector3 spawnPosition = new Vector3(x, arenaManager.HeightMap[i, j] + 1, z);
+            Vector3 spawnPosition = new Vector3(x, arenaManager.HeightMap[i, j] + 2, z);
             int coin = Random.Range(0, CoinLenth);
             int a = 0;
             for (int c = 0; c < EnemyPrefabs.Length; c++)
@@ -149,11 +157,26 @@ namespace Assets.Scripts.Gameplay
                 {
                     EnemiesSpawned++;
                     GameObject newEnemy = Instantiate(EnemyPrefabs[c].Perfab, spawnPosition, Quaternion.identity, enemiesGO.transform);
+                    newEnemy.SetActive(false);
                     newEnemy.GetComponent<EnemyBase>().KillsStatistic = c;
                     Enemies.Add(newEnemy);
+                    
+                    StartCoroutine(SpawnVFX(spawnPosition, newEnemy));
                     break;
                 }
             }
+        }
+
+        IEnumerator SpawnVFX(Vector3 spawnPosition, GameObject enemy)
+        {
+            VisualEffect newVFX = Instantiate(PortalEffect, spawnPosition, Quaternion.identity);
+            newVFX.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            Destroy(newVFX.gameObject, 5.0f);
+
+            yield return new WaitForSeconds(1f);
+            enemy.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            newVFX.Stop();
         }
     }
 }

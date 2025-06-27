@@ -99,7 +99,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 1000
+  far clip plane: 3000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -379,7 +379,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_SlopeLimit: 46
   m_StepOffset: 0.3
   m_SkinWidth: 0.1
@@ -402,6 +402,8 @@ MonoBehaviour:
   GravityDownForce: 20
   MaxHealth: 100
   Health: 100
+  tiltAmount: 1.5
+  tiltSpeed: 8
   MaxSpeedOnGround: 20
   MovementSharpnessOnGround: 30
   MaxSpeedCrouchedRatio: 0.5
@@ -441,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a46009448e20e4dbd5925c2167eb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCamera: {fileID: 5548720710495874460}
   Weapons:
   - {fileID: 2583856138238376327, guid: 878d0bf955b6b66428cbecf43ec4eef8, type: 3}
   - {fileID: 2583856138238376327, guid: 446e339520f732943adf5f024ea59cb4, type: 3}
@@ -451,6 +454,8 @@ MonoBehaviour:
   RecoilSharpness: 50
   RecoilRestitutionSharpness: 10
   MaxRecoilDistance: 0.3
+  ShakeStrength: 0.025
+  ShakeRecovery: 0.0001
   ActiveWeapon: {fileID: 0}
 --- !u!82 &2462623062026594534
 AudioSource:

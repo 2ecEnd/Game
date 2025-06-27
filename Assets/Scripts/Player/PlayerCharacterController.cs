@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Player
 {
@@ -9,13 +10,14 @@ namespace Assets.Scripts.Player
     {
         [Header("References")]
         public Camera PlayerCamera;
-
         public AudioSource AudioSource;
 
         [Header("General")]
         public float GravityDownForce = 20f;
         public float MaxHealth = 100f;
         public float Health = 100f;
+        public float tiltAmount = 5f;
+        public float tiltSpeed = 2f;
 
         [Header("Movement")]
         public float MaxSpeedOnGround = 10f;
@@ -140,9 +142,10 @@ namespace Assets.Scripts.Player
 
             cameraVerticalAngle -= Input.GetAxis("Mouse Y");
             cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
-            PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);//������� ������ �� ��� X
+            PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, PlayerCamera.transform.localEulerAngles.z);//������� ������ �� ��� X
 
-            Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1)); //����������� ��������� ��������
+            Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(inputVector, 1)); //����������� ��������� ��������
 
             ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime); //�������������� ����������� �������� ��� ����������� ��������
             if (Input.GetKeyDown(KeyCode.LeftShift) && DashCount > 0) //�����
@@ -161,6 +164,14 @@ namespace Assets.Scripts.Player
             }
 
             float verticalVelocity = CharacterVelocity.y - GravityDownForce * Time.deltaTime;
+            
+            PlayerCamera.transform.localRotation  = Quaternion.Lerp
+            (
+                PlayerCamera.transform.localRotation ,
+                Quaternion.Euler(PlayerCamera.transform.localEulerAngles.x, 0, -tiltAmount * inputVector.x),
+                tiltSpeed * Time.deltaTime
+            );
+            
             if (controller.isGrounded)
             {
                 canSecondJump = true;
@@ -178,8 +189,8 @@ namespace Assets.Scripts.Player
                 //float chosenFootstepSfxFrequency = (isSprinting ? SprintingSfxFrequency : FootstepSfxFrequency);
                 if (footstepDistanceCounter >= 1f / FootstepSfxFrequency)
                 {
-                   footstepDistanceCounter = 0f;
-                   AudioSource.PlayOneShot(FootstepSfx);
+                    footstepDistanceCounter = 0f;
+                    AudioSource.PlayOneShot(FootstepSfx);
                 }
                 footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
             }
