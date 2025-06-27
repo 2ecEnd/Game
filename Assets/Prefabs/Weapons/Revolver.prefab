@@ -94,6 +94,7 @@ MonoBehaviour:
   AmmoReloadRate: 3
   ReloadingType: 1
   RecoilForce: 0.7
+  Owner: {fileID: 0}
   ShootSfx: {fileID: 8300000, guid: 9a05f2d19accb3448ac4e8e8455054a6, type: 3}
   MisfireSfx: {fileID: 8300000, guid: f1d38f19fdf72c740848e53266fdcd6c, type: 3}
   ReloadingSfx: {fileID: 8300000, guid: d22734a8e8f8d7048a71140defc903f4, type: 3}
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_ShootAudioSource: {fileID: 2794871462444750418}
   m_ReloadAudioSource: {fileID: 7684051230493915425}
   MuzzleFlashVFX: {fileID: 912583160841128872}
+  animator: {fileID: 0}
 --- !u!95 &3248870576414451964
 Animator:
   serializedVersion: 7
@@ -495,9 +497,33 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6566820343498895148, guid: f62886b97fe8f6c45ab015d6e2be5ed6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 74809913125966271, guid: f62886b97fe8f6c45ab015d6e2be5ed6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f62886b97fe8f6c45ab015d6e2be5ed6, type: 3}
       propertyPath: m_Name
       value: Revolver
+      objectReference: {fileID: 0}
+    - target: {fileID: 942129296443338698, guid: f62886b97fe8f6c45ab015d6e2be5ed6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460110222049043122, guid: f62886b97fe8f6c45ab015d6e2be5ed6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6722778602844760847, guid: f62886b97fe8f6c45ab015d6e2be5ed6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723386437033599575, guid: f62886b97fe8f6c45ab015d6e2be5ed6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
