@@ -43,17 +43,17 @@ public class PlayerGUI : MonoBehaviour
 
         screenWidth = Screen.width;
         screenHeight = Screen.height;
-        rects[0] = new Rect(screenWidth * 0.5f - screenHeight * 0.02f, screenHeight * 0.5f - screenHeight * 0.02f, screenHeight * 0.04f, screenHeight * 0.04f); //перекрестие
-        rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight); //экран смерти
-        rects[2] = new Rect(0, screenHeight - screenWidth * 0.125f, screenWidth * 0.125f, screenWidth * 0.125f); //хп и количество патронов
-        rects[3] = new Rect(screenWidth * -0.125f, screenHeight - screenWidth * 0.125f, screenWidth * 0.125f, screenWidth * 0.125f); //стрелка хп
-        rects[4] = new Rect(screenWidth * 0.005f, screenHeight - screenWidth * 0.0425f, screenWidth * 0.05f, screenWidth * 0.0375f); //количество патронов
-        rects[5] = new Rect(screenWidth * 0.5f - screenWidth * 0.24f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //кнопка возрождения
-        rects[6] = new Rect(screenWidth * 0.5f + screenWidth * 0.08f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //кнопка глобальной статистики
-        rects[7] = new Rect(screenWidth * 0.925f, screenHeight * 0.925f, screenWidth * 0.075f, screenHeight * 0.075f); //результат
-        rects[8] = new Rect(screenWidth * 0.25f, screenHeight * 0.25f, screenWidth * 0.5f, screenHeight * 0.5f); //окно глобальной статистики
-        rects[9] = new Rect(0, 0, screenWidth, screenHeight); //победа
-        rects[10] = new Rect(screenWidth * 0.425f, screenHeight * 0.1f, screenWidth * 0.15f, screenHeight * 0.1f); //Номер новой волны
+        rects[0] = new Rect(screenWidth * 0.5f - screenHeight * 0.02f, screenHeight * 0.5f - screenHeight * 0.02f, screenHeight * 0.04f, screenHeight * 0.04f); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight); //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[2] = new Rect(0, screenHeight - screenWidth * 0.125f, screenWidth * 0.125f, screenWidth * 0.125f); //пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[3] = new Rect(screenWidth * -0.125f, screenHeight - screenWidth * 0.125f, screenWidth * 0.125f, screenWidth * 0.125f); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
+        rects[4] = new Rect(screenWidth * 0.005f, screenHeight - screenWidth * 0.0425f, screenWidth * 0.05f, screenWidth * 0.0375f); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[5] = new Rect(screenWidth * 0.5f - screenWidth * 0.24f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[6] = new Rect(screenWidth * 0.5f + screenWidth * 0.08f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[7] = new Rect(screenWidth * 0.925f, screenHeight * 0.925f, screenWidth * 0.075f, screenHeight * 0.075f); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[8] = new Rect(screenWidth * 0.25f, screenHeight * 0.25f, screenWidth * 0.5f, screenHeight * 0.5f); //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[9] = new Rect(0, 0, screenWidth, screenHeight); //пїЅпїЅпїЅпїЅпїЅпїЅ
+        rects[10] = new Rect(screenWidth * 0.425f, screenHeight * 0.1f, screenWidth * 0.2f, screenHeight * 0.1f); //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     }
     private void Update()
     {
@@ -86,12 +86,12 @@ public class PlayerGUI : MonoBehaviour
         {
             case 0:
                 GUI.Box(rects[8], "");
-                if (GUI.Button(rects[10], "Выйти в главное меню"))
+                if (GUI.Button(rects[10], "пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ"))
                 {
                     SceneManager.LoadScene(0);
                 }
                 break;
-            case 1: //игра
+            case 1: //пїЅпїЅпїЅпїЅ
                 if (!playerWeaponManager.ActiveWeapon.Reload)
                 {
                     GUI.Box(rects[4], playerWeaponManager.ActiveWeapon.CurrentAmmo.ToString());
@@ -117,7 +117,7 @@ public class PlayerGUI : MonoBehaviour
                 }
                 if (GlobalInspector.Rest)
                 {
-                    GUI.Box(rects[10], "Волна " + (GlobalInspector.WaveNumber + 1).ToString());
+                    GUI.Box(rects[10], "пїЅпїЅпїЅпїЅпїЅ " + (GlobalInspector.WaveNumber + 1).ToString());
                 }
                 GUI.Box(rects[7], GlobalInspector.GetScore().ToString());
                 GUI.DrawTexture(rects[2], HP_Menu);
@@ -128,14 +128,14 @@ public class PlayerGUI : MonoBehaviour
                 GUIUtility.RotateAroundPivot(HPArrowStart + arrow_rotation, new Vector2(0, screenHeight));
                 GUI.DrawTexture(rects[3], Arrow);
                 break;
-            case 2: //меню статистики
+            case 2: //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 GUI.Box(rects[8], GlobalInspector.Statistics());
-                if (GUI.Button(rects[6], "Назад"))
+                if (GUI.Button(rects[6], "пїЅпїЅпїЅпїЅпїЅ"))
                 {
                     flag = oldFlag;
                 }
                 break;
-            case 3: //меню смерти
+            case 3: //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                 GUI.DrawTexture(rects[1], DeathScreen);
                 if (rects[1].y < 0)
                 {
@@ -144,25 +144,25 @@ public class PlayerGUI : MonoBehaviour
                 else
                 {
                     rects[1].y = 0;
-                    if (GUI.Button(rects[5], "Вставай заибал"))
+                    if (GUI.Button(rects[5], "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ"))
                     {
-                        rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight); //обновление экрана смерти
+                        rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         GlobalInspector.PlayerRevive();
                     }
-                    if (GUI.Button(rects[6], "Статистика"))
+                    if (GUI.Button(rects[6], "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"))
                     {
                         flag = 2;
                         oldFlag = 3;
                     }
                 }
                 break;
-            case 4: //меню победы
-                GUI.Box(rects[9], "ЮЮЮЮху пабеда ебатб");
-                if (GUI.Button(rects[5], "Начать заново"))
+            case 4: //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+                GUI.Box(rects[9], "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
+                if (GUI.Button(rects[5], "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ"))
                 {
                     GlobalInspector.Restart();
                 }
-                if (GUI.Button(rects[6], "Статистика"))
+                if (GUI.Button(rects[6], "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"))
                 {
                     flag = 2;
                     oldFlag = 4;
