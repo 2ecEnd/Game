@@ -3,6 +3,7 @@ using Assets.Scripts.Player;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class PlayerGUI : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class PlayerGUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        flag = 0;
+        flag = 1;
 
         screenWidth = Screen.width;
         screenHeight = Screen.height;
@@ -56,6 +57,22 @@ public class PlayerGUI : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (flag != 0)
+            {
+                oldFlag = flag;
+                flag = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                flag = oldFlag;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
     }
 
     private void OnGUI()
@@ -67,7 +84,14 @@ public class PlayerGUI : MonoBehaviour
         GUI.depth = 0;
         switch (flag)
         {
-            case 0: //игра
+            case 0:
+                GUI.Box(rects[8], "");
+                if (GUI.Button(rects[10], "Выйти в главное меню"))
+                {
+                    SceneManager.LoadScene(0);
+                }
+                break;
+            case 1: //игра
                 if (!playerWeaponManager.ActiveWeapon.Reload)
                 {
                     GUI.Box(rects[4], playerWeaponManager.ActiveWeapon.CurrentAmmo.ToString());
@@ -104,14 +128,14 @@ public class PlayerGUI : MonoBehaviour
                 GUIUtility.RotateAroundPivot(HPArrowStart + arrow_rotation, new Vector2(0, screenHeight));
                 GUI.DrawTexture(rects[3], Arrow);
                 break;
-            case 1: //меню статистики
+            case 2: //меню статистики
                 GUI.Box(rects[8], GlobalInspector.Statistics());
                 if (GUI.Button(rects[6], "Назад"))
                 {
                     flag = oldFlag;
                 }
                 break;
-            case 2: //меню смерти
+            case 3: //меню смерти
                 GUI.DrawTexture(rects[1], DeathScreen);
                 if (rects[1].y < 0)
                 {
@@ -127,12 +151,12 @@ public class PlayerGUI : MonoBehaviour
                     }
                     if (GUI.Button(rects[6], "Статистика"))
                     {
-                        flag = 1;
-                        oldFlag = 2;
+                        flag = 2;
+                        oldFlag = 3;
                     }
                 }
                 break;
-            case 3: //меню победы
+            case 4: //меню победы
                 GUI.Box(rects[9], "ЮЮЮЮху пабеда ебатб");
                 if (GUI.Button(rects[5], "Начать заново"))
                 {
@@ -140,8 +164,8 @@ public class PlayerGUI : MonoBehaviour
                 }
                 if (GUI.Button(rects[6], "Статистика"))
                 {
-                    flag = 1;
-                    oldFlag = 3;
+                    flag = 2;
+                    oldFlag = 4;
                 }
                 break;
             default:

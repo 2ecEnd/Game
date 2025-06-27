@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2080475480611489999}
   - component: {fileID: 3223873443276140702}
   - component: {fileID: 8459167212382579226}
-  - component: {fileID: 630484612431337913}
+  - component: {fileID: 8867353264927642135}
   - component: {fileID: 7980524309953362210}
   - component: {fileID: 844995768132715460}
   m_Layer: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   AttackRate: 1.5
   KillsStatistic: 0
   GravityForce: 9
-  MaxSpeedOnGround: 17
+  MaxSpeedOnGround: 18
   MovementSharpnessOnGround: 20
   MaxSpeedInAir: 18
   AccelerationSpeedInAir: 3

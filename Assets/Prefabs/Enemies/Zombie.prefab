@@ -141,7 +141,6 @@ MonoBehaviour:
   DisappearanceRate: 5
   SinkSpeed: 1
   AudioSource: {fileID: 8370000155403369105}
-  BreatheSource: {fileID: 0}
   FootstepsSfx:
   - {fileID: 8300000, guid: e4d4774df64c94848b1bf650a931faa5, type: 3}
   - {fileID: 8300000, guid: 61bfd3da9d5ac434f83ed6a24c699002, type: 3}
@@ -159,8 +158,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fde787022d8c22642b2892fbd86c1ad8, type: 3}
   FootstepSfxFrequency: 0.55
   IdleSfxFrequency: 10
-  WanderStartDistance: 25
-  WanderRate: 10
 --- !u!82 &8370000155403369105
 AudioSource:
   m_ObjectHideFlags: 0

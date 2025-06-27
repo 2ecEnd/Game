@@ -134,8 +134,8 @@ public class ArenaManager : MonoBehaviour
                 int idx = j + i * (ArenaSize + 1);
                 vertices[idx] = new Vector3(i * ChunkScale, 0, j * ChunkScale);
 
-                float randomOffsetX = Random.Range(-0.2f, 0.3f);
-                float randomOffsetY = Random.Range(-0.2f, 0.3f);
+                float randomOffsetX = 0;//Random.Range(-0.2f, 0.3f);
+                float randomOffsetY = 0;//Random.Range(-0.2f, 0.3f);
                 uv[idx] = new Vector2(
                     (i + randomOffsetX) * (1 / ChunkScale),
                     (j + randomOffsetY) * (1 / ChunkScale));
@@ -163,7 +163,7 @@ public class ArenaManager : MonoBehaviour
         Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
         Arena.GetComponent<MeshFilter>().mesh = arenaMesh;
         Arena.GetComponent<MeshRenderer>().material = ArenaMaterial;
-        Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
+        //Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
     }
     void CreatePresets()
     {
@@ -661,7 +661,7 @@ public class ArenaManager : MonoBehaviour
     {
         return KillHeight;
     }
-
+    
     public Vector3 GetRandomPoint()
     {
         float arenaSize = (GetArenaSize() - 1) * GetChunkScale();

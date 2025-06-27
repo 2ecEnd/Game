@@ -60,7 +60,7 @@ public static class GlobalInspector
         //Time.timeScale = 0;
         PlayerCharacterController.Die();
         PlayerAlive = false;
-        PlayerGUI.flag = 2;
+        PlayerGUI.flag = 3;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         if (needScored)
@@ -73,7 +73,7 @@ public static class GlobalInspector
         //Time.timeScale = 1;
         PlayerCharacterController.PRevive();
         PlayerAlive = true;
-        PlayerGUI.flag = 0;
+        PlayerGUI.flag = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -81,7 +81,7 @@ public static class GlobalInspector
     {
         //Time.timeScale = 0;
         Win = true;
-        PlayerGUI.flag = 3;
+        PlayerGUI.flag = 4;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

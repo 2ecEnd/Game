@@ -1232,23 +1232,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waves:
+  - TotalEnemies: 10
+    MaxEnemies: 2
+    SpawnInterval: 1
+    EnemiesSpawnRate: 0600000001000000010000000100000001000000
   - TotalEnemies: 20
-    MaxEnemies: 1
+    MaxEnemies: 10
     SpawnInterval: 1
-    EnemiesSpawnRate: 1400000000000000000000000000000000000000
-  - TotalEnemies: 30
-    MaxEnemies: 15
-    SpawnInterval: 1
-    EnemiesSpawnRate: 0200000002000000010000000100000002000000
-  - TotalEnemies: 40
-    MaxEnemies: 15
-    SpawnInterval: 1
-    EnemiesSpawnRate: 0200000002000000020000000100000002000000
-  - TotalEnemies: 50
-    MaxEnemies: 20
-    SpawnInterval: 1
-    EnemiesSpawnRate: 0100000003000000020000000100000003000000
-  WaveInterval: 10
+    EnemiesSpawnRate: 0300000002000000010000000100000002000000
+  - TotalEnemies: 100
+    MaxEnemies: 25
+    SpawnInterval: 0.1
+    EnemiesSpawnRate: 0100000002000000010000000100000001000000
+  WaveInterval: 5
   EnemyPrefabs:
   - Name: "\u0417\u043E\u043C\u0431\u0438"
     Perfab: {fileID: 7484023987186905579, guid: bef7fd74933ecc546b3aee39ff9c2497, type: 3}
