@@ -50,7 +50,8 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     void FixedUpdate()
     {
-        if(!GlobalInspector.PlayerAlive) {
+        if (!GlobalInspector.PlayerAlive)
+        {
             return;
         }
         Attack();
@@ -65,7 +66,7 @@ public class RangeEnemy : EnemyBase, IDamagable
             AudioSource.PlayOneShot(IdlesSfx[UnityEngine.Random.Range(0, IdlesSfx.Count)]);
             lastTimePlayingIdle = Time.time;
         }
-        
+
         if (!GlobalInspector.PlayerAlive)
         {
             animator.speed = 0;
@@ -107,33 +108,10 @@ public class RangeEnemy : EnemyBase, IDamagable
                 targetVelocity = fromBodyToPlayer;
                 animatorRatio = 1;
             }
-        }
-        if (transform.position.x > arenaSize)
-        {
-            if (targetVelocity.x > 0)
+            else
             {
                 //animator.SetBool("IsRunning", false);
             }
-        }
-        if (transform.position.z < 0)
-        {
-            if (targetVelocity.z < 0)
-            {
-                targetVelocity = new Vector3(targetVelocity.x, 0, 0);
-            }
-        }
-        if (transform.position.z > arenaSize)
-        {
-            if (targetVelocity.z > 0)
-            {
-                targetVelocity = new Vector3(targetVelocity.x, 0, 0);
-            }
-        }
-
-        if (targetVelocity.magnitude > 0.1f)
-        {
-            animator.SetBool("IsRunning", true);
-            animator.SetFloat("RunningSpeed", targetVelocity.magnitude * animatorRatio);
         }
         else
         {
@@ -154,7 +132,7 @@ public class RangeEnemy : EnemyBase, IDamagable
         }
         if (transform.position.x < 2)
         {
-            if(targetVelocity.x < 0)
+            if (targetVelocity.x < 0)
             {
                 targetVelocity = new Vector3(0, 0, targetVelocity.z);
             }

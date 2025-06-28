@@ -184,11 +184,13 @@ namespace Assets.Scripts
         {
             if (Reload) return false;
 
-            if (CurrentAmmo >= 1
-                && m_LastTimeShot + delayBetweenShots < Time.time)
+            if ((CurrentAmmo >= 1 && m_LastTimeShot + delayBetweenShots < Time.time) || GlobalInspector.CheatAmmo)
             {
                 HandleShoot();
-                CurrentAmmo -= 1;
+                if (!GlobalInspector.CheatAmmo)
+                {
+                    CurrentAmmo -= 1;
+                }
                 if (CurrentAmmo == 0) m_inputHeldCurrentFrame = false;
 
                 return true;

@@ -110,8 +110,6 @@ namespace Assets.Scripts.Enemy
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
             // if (collider.gameObject == target)
 
-            Debug.Log(collider);
-
             if (collider.gameObject.CompareTag("Player"))
             {
                 AudioSource.PlayOneShot(BiteSfx);

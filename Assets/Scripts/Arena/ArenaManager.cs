@@ -21,7 +21,7 @@ public class ArenaManager : MonoBehaviour
     public float DefaultChangeSpeed;
     public float ChangeSpeedRatio;
     float ChangeSpeed;
-    short flag = 0;
+    public short flag = 0;
     const int ArenaSize = 20;
     const int VerticesSize = ArenaSize + 1;
     const float ChunkScale = 4f;
@@ -34,6 +34,7 @@ public class ArenaManager : MonoBehaviour
 
     void Start()
     {
+        GlobalInspector.ArenaManager = this;
         CreateArena();
         CreatePresets();
 
@@ -68,7 +69,7 @@ public class ArenaManager : MonoBehaviour
 
                     for (int i = 0; i < NewVerticesPositions.Count; i++)
                     {
-                        print(i.ToString() + " - " + NewVerticesPositions[i].y.ToString());
+                        //print(i.ToString() + " - " + NewVerticesPositions[i].y.ToString());
                     }
                 }
                 break;

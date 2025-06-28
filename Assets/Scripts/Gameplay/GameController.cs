@@ -160,8 +160,16 @@ namespace Assets.Scripts.Gameplay
             WaveNumber = 0;
             NewWave();
         }
-        void NewWave()
+        public void NewWave()
         {
+            if(WaveNumber < 0)
+            {
+                TotalEnemies = 10000;
+                MaxEnemies = -1;
+                GlobalInspector.WaveNumber = WaveNumber;
+                GlobalInspector.Rest = true;
+                return;
+            }
             EnemiesSpawned = 0;
             CoinLenth = 0;
             for (int i = 0; i < EnemyPrefabs.Length; i++)
@@ -175,6 +183,7 @@ namespace Assets.Scripts.Gameplay
             nextTimeSpawn = Time.time + WaveInterval;
             GlobalInspector.WaveNumber = WaveNumber;
             GlobalInspector.Rest = true;
+            arenaManager.flag = 2;
         }
 
         void SpawnBuffBox()

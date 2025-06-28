@@ -117,10 +117,6 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                GlobalInspector.PlayerRevive();
-            }
             if (!GlobalInspector.PlayerAlive)
             {
                 return;
