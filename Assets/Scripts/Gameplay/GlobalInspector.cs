@@ -17,6 +17,7 @@ public class EnemyStatistic
 }
 public static class GlobalInspector
 {
+    public static bool CheatAmmo = false;
     public static bool Win = false;
     public static int WaveNumber = 0;
     public static bool Rest = false;
@@ -30,6 +31,7 @@ public static class GlobalInspector
     public static PlayerGUI PlayerGUI;
     public static GameController GameController;
     public static PlayerCharacterController PlayerCharacterController;
+    public static ArenaManager ArenaManager;
     public static int GetScore()
     {
         int score = 0;

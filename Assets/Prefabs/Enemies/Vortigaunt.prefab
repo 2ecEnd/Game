@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 150
   AttackStartPoint: {fileID: 2746174648203492905}
-  Damage: 1
+  Damage: 20
   AttackRate: 1.5
   KillsStatistic: 20
   GravityForce: 9
