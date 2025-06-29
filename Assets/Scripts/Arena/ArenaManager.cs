@@ -146,7 +146,7 @@ public class ArenaManager : MonoBehaviour
         Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
         Arena.GetComponent<MeshFilter>().mesh = arenaMesh;
         Arena.GetComponent<MeshRenderer>().material = ArenaMaterial;
-        //Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
+        Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
     }
     void CreatePresets()
     {
@@ -161,29 +161,61 @@ public class ArenaManager : MonoBehaviour
                 flatArenaStairsMap[i, j] = 0;
             }
 
-        int[,] pillarsHeightMap = new int[ArenaSize, ArenaSize]
+        int[,] cornersHeightMap = new int[ArenaSize, ArenaSize]
         {
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
 
-            { 0, 0, 0, 0,   2, 2, 2, 2,   0, 0, 0, 0,   2, 2, 2, 2,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   2, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 2,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   2, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 2,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   2, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 2,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 4, 4, 4,   0, 0, 0, 0,   4, 4, 4, 4,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 4,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 4,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 4,   0, 0, 0, 0},
 
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
 
-            { 0, 0, 0, 0,   2, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 2,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   2, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 2,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   2, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 2,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   2, 2, 2, 2,   0, 0, 0, 0,   2, 2, 2, 2,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 4,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 4,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 4,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   4, 4, 4, 4,   0, 0, 0, 0,   4, 4, 4, 4,   0, 0, 0, 0},
 
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+        };
+        int[,] cornersStairsMap = new int[ArenaSize, ArenaSize];
+        for (int i = 0; i < ArenaSize; i++)
+            for (int j = 0; j < ArenaSize; j++)
+                cornersStairsMap[i, j] = 0;
+
+        int[,] pillarsHeightMap = new int[ArenaSize, ArenaSize]
+        {
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 20,   20, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 20,   20, 0, 0, 0},
+
+            { 0, 0, 0, 20,   20, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 20,   20, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 20, 20, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 20, 20, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 0, 0, 0, 20,   20, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 20,   20, 0, 0, 0},
+
+            { 0, 0, 0, 20,   20, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 20,   20, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
             { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
@@ -191,43 +223,11 @@ public class ArenaManager : MonoBehaviour
         int[,] pillarsStairsMap = new int[ArenaSize, ArenaSize];
         for (int i = 0; i < ArenaSize; i++)
             for (int j = 0; j < ArenaSize; j++)
-                pillarsStairsMap[i, j] = 0;
-
-        int[,] pillarHeightMap = new int[ArenaSize, ArenaSize]
-        {
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 4, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-        };
-        int[,] pillarStairsMap = new int[ArenaSize, ArenaSize];
-        for (int i = 0; i < ArenaSize; i++)
-            for (int j = 0; j < ArenaSize; j++)
-                pillarsStairsMap[i, j] = 0;
+                cornersStairsMap[i, j] = 0;
 
         ArenaPresets.Add(new List<int[,]> { flatArenaHeightMap, flatArenaStairsMap });
+        ArenaPresets.Add(new List<int[,]> { cornersHeightMap, cornersStairsMap });
         ArenaPresets.Add(new List<int[,]> { pillarsHeightMap, pillarsStairsMap });
-        //ArenaPresets.Add(new List<int[,]> { pillarHeightMap, pillarStairsMap });
     }
 
 
@@ -628,10 +628,37 @@ public class ArenaManager : MonoBehaviour
                         bottom_right.y  = HeightMap[i, j];
                         break;
                     default:
-                        top_left.y      = HeightMap[i, j];
-                        top_right.y     = HeightMap[i, j];
-                        bottom_left.y   = HeightMap[i, j];
-                        bottom_right.y  = HeightMap[i, j];
+                        top_left.y = HeightMap[i, j];
+                        if (i > 0)
+                            top_left.y = Mathf.Max(top_left.y, HeightMap[i - 1, j]);
+                        if (j > 0)
+                            top_left.y = Mathf.Max(top_left.y, HeightMap[i, j - 1]);
+                        if (i > 0 && j > 0)
+                            top_left.y = Mathf.Max(top_left.y, HeightMap[i - 1, j - 1]);
+
+                        top_right.y = HeightMap[i, j];
+                        if (i > 0)
+                            top_right.y = Mathf.Max(top_right.y, HeightMap[i - 1, j]);
+                        if (j < ArenaSize - 1)
+                            top_right.y = Mathf.Max(top_right.y, HeightMap[i, j + 1]);
+                        if (i > 0 && j < ArenaSize - 1)
+                            top_right.y = Mathf.Max(top_right.y, HeightMap[i - 1, j + 1]);
+
+                        bottom_left.y = HeightMap[i, j];
+                        if (i < ArenaSize - 1)
+                            bottom_left.y = Mathf.Max(bottom_left.y, HeightMap[i + 1, j]);
+                        if (j > 0)
+                            bottom_left.y = Mathf.Max(bottom_left.y, HeightMap[i, j - 1]);
+                        if (i < ArenaSize - 1 && j > 0)
+                            bottom_left.y = Mathf.Max(bottom_left.y, HeightMap[i + 1, j - 1]);
+
+                        bottom_right.y = HeightMap[i, j];
+                        if (i < ArenaSize - 1)
+                            bottom_right.y = Mathf.Max(bottom_right.y, HeightMap[i + 1, j]);
+                        if (j < ArenaSize - 1)
+                            bottom_right.y = Mathf.Max(bottom_right.y, HeightMap[i, j + 1]);
+                        if (i < ArenaSize - 1 && j < ArenaSize - 1)
+                            bottom_right.y = Mathf.Max(bottom_right.y, HeightMap[i + 1, j + 1]);
                         break;
                 }
 
@@ -661,237 +688,239 @@ public class ArenaManager : MonoBehaviour
 
         if (i > 0 && HeightMap[i - 1, j] > HeightMap[i, j])
         {
-            int top_tile_top_left       = top_left - VerticesSize;
-            int top_tile_top_right      = top_tile_top_left + 1;
-            int top_tile_bottom_left    = top_tile_top_left + VerticesSize;
-            int top_tile_bottom_right   = top_tile_top_left + VerticesSize + 1;
-
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[top_tile_bottom_left].x,
+            // Creating new points
+            // Setting their start position
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[top_left].x,
                 0,
-                CurrentVerticesPositions[top_tile_bottom_left].z)
+                CurrentVerticesPositions[top_left].z)
             );
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[top_tile_bottom_right].x,
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[top_right].x,
                 0,
-                CurrentVerticesPositions[top_tile_bottom_right].z)
+                CurrentVerticesPositions[top_right].z)
             );
-
+            // Setting their target position
             NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[top_tile_bottom_left].x,
-                HeightMap[i - 1, j],
-                CurrentVerticesPositions[top_tile_bottom_left].z)
-            );
-            NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[top_tile_bottom_right].x,
-                HeightMap[i - 1, j],
-                CurrentVerticesPositions[top_tile_bottom_right].z)
-            );
-
-            NewVerticesPositions[top_left] = new Vector3(
                 CurrentVerticesPositions[top_left].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[top_left].z
+                CurrentVerticesPositions[top_left].z)
             );
-            NewVerticesPositions[top_right] = new Vector3(
+            NewVerticesPositions.Add(new Vector3(
                 CurrentVerticesPositions[top_right].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[top_right].z
+                CurrentVerticesPositions[top_right].z)
             );
+            // Getting their indecies
+            int new_top_left_idx = CurrentVerticesPositions.Count - 2;
+            int new_top_right_idx = CurrentVerticesPositions.Count - 1;
 
-            int top_tile_bottom_left_new_idx = CurrentVerticesPositions.Count - 2;
-            int top_tile_bottom_right_new_idx = CurrentVerticesPositions.Count - 1;
-
-            CurrentTriangles.Add(top_tile_bottom_left_new_idx);
-            CurrentTriangles.Add(top_right);
+            // Creating wall's triangles
             CurrentTriangles.Add(top_left);
+            CurrentTriangles.Add(new_top_right_idx);
+            CurrentTriangles.Add(new_top_left_idx);
 
-            CurrentTriangles.Add(top_tile_bottom_left_new_idx);
-            CurrentTriangles.Add(top_tile_bottom_right_new_idx);
+            CurrentTriangles.Add(top_left);
             CurrentTriangles.Add(top_right);
+            CurrentTriangles.Add(new_top_right_idx);
 
+            // Changing triangles of the lower tile
+            CurrentTriangles[((top_left - i) * 6)] = new_top_left_idx;
 
-           /* CurrentTriangles[((top_tile_top_left - i + 1) * 6)] = (CurrentTriangles[((top_tile_top_left - i + 1) * 6)] >= VerticesSize * VerticesSize) ?
-                CurrentTriangles[((top_tile_top_left - i + 1) * 6)] : top_tile_top_left;*/
-            CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 1] = top_tile_bottom_right_new_idx; //
-            CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 2] = top_tile_bottom_left_new_idx; //
+            CurrentTriangles[((top_left - i) * 6) + 3] = new_top_left_idx;
+            CurrentTriangles[((top_left - i) * 6) + 4] = new_top_right_idx;
 
-            /*CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 3] = (CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 3] >= VerticesSize * VerticesSize) ?
-                CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 3] : top_tile_top_left;
-            CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 4] = (CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 4] >= VerticesSize * VerticesSize) ?
-                CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 4] : top_tile_top_right;*/
-            CurrentTriangles[((top_tile_top_left - i + 1) * 6) + 5] = top_tile_bottom_right_new_idx; //
+            // Changing triangles of neighboring tiles
+            if (j > 0 && HeightMap[i, j - 1] == HeightMap[i, j])
+            {
+                int left_tile_top_left = top_left - 1;
+                CurrentTriangles[((left_tile_top_left - i) * 6) + 4] = new_top_left_idx;
+            }
+            if (j < ArenaSize - 1 && HeightMap[i, j + 1] == HeightMap[i, j])
+            {
+                int right_tile_top_left = top_left + 1;
+                CurrentTriangles[((right_tile_top_left - i) * 6)] = new_top_right_idx;
+                CurrentTriangles[((right_tile_top_left - i) * 6) + 3] = new_top_right_idx;
+            }
         }
         if (i < ArenaSize - 1 && HeightMap[i + 1, j] > HeightMap[i, j])
         {
-            int bottom_tile_top_left        = top_left + VerticesSize;
-            int bottom_tile_top_right       = bottom_tile_top_left + 1;
-            int bottom_tile_bottom_left     = bottom_tile_top_left + VerticesSize;
-            int bottom_tile_bottom_right    = bottom_tile_top_left + VerticesSize + 1;
-
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[bottom_tile_top_left].x,
+            // Creating new points
+            // Setting their start position
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[bottom_left].x,
                 0,
-                CurrentVerticesPositions[bottom_tile_top_left].z)
+                CurrentVerticesPositions[bottom_left].z)
             );
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[bottom_tile_top_right].x,
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[bottom_right].x,
                 0,
-                CurrentVerticesPositions[bottom_tile_top_right].z)
+                CurrentVerticesPositions[bottom_right].z)
             );
-
+            // Setting their target position
             NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[bottom_tile_top_left].x,
-                HeightMap[i + 1, j],
-                CurrentVerticesPositions[bottom_tile_top_left].z)
-            );
-            NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[bottom_tile_top_right].x,
-                HeightMap[i + 1, j],
-                CurrentVerticesPositions[bottom_tile_top_right].z)
-            );
-
-            NewVerticesPositions[bottom_left] = new Vector3(
                 CurrentVerticesPositions[bottom_left].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[bottom_left].z
+                CurrentVerticesPositions[bottom_left].z)
             );
-            NewVerticesPositions[bottom_right] = new Vector3(
+            NewVerticesPositions.Add(new Vector3(
                 CurrentVerticesPositions[bottom_right].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[bottom_right].z
+                CurrentVerticesPositions[bottom_right].z)
             );
+            // Getting their indecies
+            int new_bottom_left_idx = CurrentVerticesPositions.Count - 2;
+            int new_bottom_right_idx = CurrentVerticesPositions.Count - 1;
 
-            int bottom_tile_top_left_new_idx = CurrentVerticesPositions.Count - 2;
-            int bottom_tile_top_right_new_idx = CurrentVerticesPositions.Count - 1;
-
-            CurrentTriangles.Add(bottom_left);
-            CurrentTriangles.Add(bottom_tile_top_right_new_idx);
-            CurrentTriangles.Add(bottom_tile_top_left_new_idx);
-
-            CurrentTriangles.Add(bottom_left);
+            // Creating wall's triangles
             CurrentTriangles.Add(bottom_right);
-            CurrentTriangles.Add(bottom_tile_top_right_new_idx);
+            CurrentTriangles.Add(new_bottom_left_idx);
+            CurrentTriangles.Add(new_bottom_right_idx);
 
+            CurrentTriangles.Add(bottom_right);
+            CurrentTriangles.Add(bottom_left);
+            CurrentTriangles.Add(new_bottom_left_idx);
 
-            CurrentTriangles[((bottom_tile_top_left - i - 1) * 6)] = bottom_tile_top_left_new_idx;
+            // Changing triangles of the lower tile
+            CurrentTriangles[((top_left - i) * 6) + 1] = new_bottom_right_idx;
+            CurrentTriangles[((top_left - i) * 6) + 2] = new_bottom_left_idx;
 
-            CurrentTriangles[((bottom_tile_top_left - i - 1) * 6) + 3] = bottom_tile_top_left_new_idx;
-            CurrentTriangles[((bottom_tile_top_left - i - 1) * 6) + 4] = bottom_tile_top_right_new_idx;
+            CurrentTriangles[((top_left - i) * 6) + 5] = new_bottom_right_idx;
+
+            // Changing triangles of neighboring tiles
+            if (j > 0 && HeightMap[i, j - 1] == HeightMap[i, j])
+            {
+                int left_tile_top_left = top_left - 1;
+                CurrentTriangles[((left_tile_top_left - i) * 6) + 1] = new_bottom_left_idx;
+                CurrentTriangles[((left_tile_top_left - i) * 6) + 5] = new_bottom_left_idx;
+            }
+            if (j < ArenaSize - 1 && HeightMap[i, j + 1] == HeightMap[i, j])
+            {
+                int right_tile_top_left = top_left + 1;
+                CurrentTriangles[((right_tile_top_left - i) * 6) + 2] = new_bottom_right_idx;
+            }
         }
         if (j > 0 && HeightMap[i, j - 1] > HeightMap[i, j])
         {
-            int left_tile_top_left      = top_left - 1;
-            int left_tile_top_right     = left_tile_top_left + 1;
-            int left_tile_bottom_left   = left_tile_top_left + VerticesSize;
-            int left_tile_bottom_right  = left_tile_top_left + VerticesSize + 1;
-
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[left_tile_top_right].x,
+            // Creating new points
+            // Setting their start position
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[top_left].x,
                 0,
-                CurrentVerticesPositions[left_tile_top_right].z)
+                CurrentVerticesPositions[top_left].z)
             );
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[left_tile_bottom_right].x,
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[bottom_left].x,
                 0,
-                CurrentVerticesPositions[left_tile_bottom_right].z)
+                CurrentVerticesPositions[bottom_left].z)
             );
-
+            // Setting their target position
             NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[left_tile_top_right].x,
-                HeightMap[i, j - 1],
-                CurrentVerticesPositions[left_tile_top_right].z)
-            );
-            NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[left_tile_bottom_right].x,
-                HeightMap[i, j - 1],
-                CurrentVerticesPositions[left_tile_bottom_right].z)
-            );
-
-            NewVerticesPositions[top_left] = new Vector3(
                 CurrentVerticesPositions[top_left].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[top_left].z
+                CurrentVerticesPositions[top_left].z)
             );
-            NewVerticesPositions[bottom_left] = new Vector3(
+            NewVerticesPositions.Add(new Vector3(
                 CurrentVerticesPositions[bottom_left].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[bottom_left].z
+                CurrentVerticesPositions[bottom_left].z)
             );
+            // Getting their indecies
+            int new_top_left_idx = CurrentVerticesPositions.Count - 2;
+            int new_bottom_left_idx = CurrentVerticesPositions.Count - 1;
 
-            int left_tile_top_right_new_idx = CurrentVerticesPositions.Count - 2;
-            int left_tile_bottom_right_new_idx = CurrentVerticesPositions.Count - 1;
-
-            CurrentTriangles.Add(left_tile_bottom_right_new_idx);
-            CurrentTriangles.Add(top_left);
+            // Creating wall's triangles
             CurrentTriangles.Add(bottom_left);
+            CurrentTriangles.Add(new_top_left_idx); 
+            CurrentTriangles.Add(new_bottom_left_idx);
 
-            CurrentTriangles.Add(left_tile_bottom_right_new_idx);
-            CurrentTriangles.Add(left_tile_top_right_new_idx);
+            CurrentTriangles.Add(bottom_left);
             CurrentTriangles.Add(top_left);
+            CurrentTriangles.Add(new_top_left_idx);
 
+            // Changing triangles of the lower tile
+            CurrentTriangles[((top_left - i) * 6)] = new_top_left_idx;
+            CurrentTriangles[((top_left - i) * 6) + 2] = new_bottom_left_idx;
 
-            CurrentTriangles[((left_tile_top_left - i) * 6) + 1] = left_tile_bottom_right_new_idx;
+            CurrentTriangles[((top_left - i) * 6) + 3] = new_top_left_idx;
 
-            CurrentTriangles[((left_tile_top_left - i) * 6) + 4] = left_tile_top_right_new_idx;
-            CurrentTriangles[((left_tile_top_left - i) * 6) + 5] = left_tile_bottom_right_new_idx;
+            // Changing triangles of neighboring tiles
+            if (i > 0 && HeightMap[i - 1, j] == HeightMap[i, j])
+            {
+                int top_tile_top_left = top_left - (VerticesSize - 1);
+                CurrentTriangles[((top_tile_top_left - i) * 6) + 2] = new_top_left_idx;
+            }
+            if (i < ArenaSize - 1 && HeightMap[i + 1, j] == HeightMap[i, j])
+            {
+                int bottom_tile_top_left = top_left + (VerticesSize - 1);
+                CurrentTriangles[((bottom_tile_top_left - i) * 6)] = new_bottom_left_idx;
+                CurrentTriangles[((bottom_tile_top_left - i) * 6) + 3] = new_bottom_left_idx;
+            }
         }
         if (j < ArenaSize - 1 && HeightMap[i, j + 1] > HeightMap[i, j])
         {
-            int right_tile_top_left     = top_left + 1;
-            int right_tile_top_right    = right_tile_top_left + 1;
-            int right_tile_bottom_left  = right_tile_top_left + VerticesSize;
-            int right_tile_bottom_right = right_tile_top_left + VerticesSize + 1;
-
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[right_tile_top_left].x,
+            // Creating new points
+            // Setting their start position
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[top_right].x,
                 0,
-                CurrentVerticesPositions[right_tile_top_left].z)
+                CurrentVerticesPositions[top_right].z)
             );
-            CurrentVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[right_tile_bottom_left].x,
+            CurrentVerticesPositions.Add(new Vector3
+            (
+                CurrentVerticesPositions[bottom_right].x,
                 0,
-                CurrentVerticesPositions[right_tile_bottom_left].z)
+                CurrentVerticesPositions[bottom_right].z)
             );
-
+            // Setting their target position
             NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[right_tile_top_left].x,
-                HeightMap[i, j + 1],
-                CurrentVerticesPositions[right_tile_top_left].z)
-            );
-            NewVerticesPositions.Add(new Vector3(
-                CurrentVerticesPositions[right_tile_bottom_left].x,
-                HeightMap[i, j + 1],
-                CurrentVerticesPositions[right_tile_bottom_left].z)
-            );
-
-            NewVerticesPositions[top_right] = new Vector3(
                 CurrentVerticesPositions[top_right].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[top_right].z
+                CurrentVerticesPositions[top_right].z)
             );
-            NewVerticesPositions[bottom_right] = new Vector3(
+            NewVerticesPositions.Add(new Vector3(
                 CurrentVerticesPositions[bottom_right].x,
                 HeightMap[i, j],
-                CurrentVerticesPositions[bottom_right].z
+                CurrentVerticesPositions[bottom_right].z)
             );
+            // Getting their indecies
+            int new_top_right_idx = CurrentVerticesPositions.Count - 2;
+            int new_bottom_right_idx = CurrentVerticesPositions.Count - 1;
 
-            int right_tile_top_left_new_idx = CurrentVerticesPositions.Count - 2;
-            int right_tile_bottom_left_new_idx = CurrentVerticesPositions.Count - 1;
-
-            CurrentTriangles.Add(right_tile_top_left_new_idx);
-            CurrentTriangles.Add(bottom_right);
+            // Creating wall's triangles
             CurrentTriangles.Add(top_right);
+            CurrentTriangles.Add(new_bottom_right_idx);
+            CurrentTriangles.Add(new_top_right_idx);
 
-            CurrentTriangles.Add(right_tile_top_left_new_idx);
-            CurrentTriangles.Add(right_tile_bottom_left_new_idx);
+            CurrentTriangles.Add(top_right);
             CurrentTriangles.Add(bottom_right);
+            CurrentTriangles.Add(new_bottom_right_idx);
 
+            // Changing triangles of the lower tile
+            CurrentTriangles[((top_left - i) * 6) + 1] = new_bottom_right_idx;
 
-            CurrentTriangles[((right_tile_top_left - i) * 6)] = right_tile_top_left_new_idx;
-            CurrentTriangles[((right_tile_top_left - i) * 6) + 2] = right_tile_bottom_left_new_idx;
+            CurrentTriangles[((top_left - i) * 6) + 4] = new_top_right_idx;
+            CurrentTriangles[((top_left - i) * 6) + 5] = new_bottom_right_idx;
 
-            CurrentTriangles[((right_tile_top_left - i) * 6) + 3] = right_tile_top_left_new_idx;
+            // Changing triangles of neighboring tiles
+            if (i > 0 && HeightMap[i - 1, j] == HeightMap[i, j])
+            {
+                int top_tile_top_left = top_left - (VerticesSize - 1);
+                CurrentTriangles[((top_tile_top_left - i) * 6) + 1] = new_top_right_idx;
+                CurrentTriangles[((top_tile_top_left - i) * 6) + 5] = new_top_right_idx;
+            }
+            if (i < ArenaSize - 1 && HeightMap[i + 1, j] == HeightMap[i, j])
+            {
+                int bottom_tile_top_left = top_left + (VerticesSize - 1);
+                CurrentTriangles[((bottom_tile_top_left - i) * 6) + 4] = new_bottom_right_idx;
+            }
         }
     }
 
