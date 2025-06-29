@@ -146,7 +146,7 @@ public class ArenaManager : MonoBehaviour
         Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
         Arena.GetComponent<MeshFilter>().mesh = arenaMesh;
         Arena.GetComponent<MeshRenderer>().material = ArenaMaterial;
-        Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
+        //Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
     }
     void CreatePresets()
     {
