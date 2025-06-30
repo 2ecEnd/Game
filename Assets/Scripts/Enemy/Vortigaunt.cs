@@ -44,6 +44,7 @@ namespace Assets.Scripts.Enemy
             characterController = gameObject.GetComponent<CharacterController>();
 
             target = GameObject.FindGameObjectWithTag("Player").transform;
+            PlayerController = target.GetComponent<PlayerCharacterController>();
             animator = GetComponent<Animator>();
             isDead = false;
             PlasmaEffect.Stop();
@@ -98,7 +99,9 @@ namespace Assets.Scripts.Enemy
             distanceToPlayer = fromBodyToPlayer.magnitude;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
 
-            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            Quaternion targetRotation = Quaternion.LookRotation(fromBodyToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+            //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1f, target.position.z));
 
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
@@ -172,6 +175,9 @@ namespace Assets.Scripts.Enemy
 
             if (!isDead)
             {
+                Vector3 predictedPos = PredictPlayerPosition();
+                weaponHandler.transform.LookAt(new Vector3(predictedPos.x, target.position.y + 1f, predictedPos.z));
+
                 weaponHandler.HandleShootInputs(true, true);
                 AudioSource.PlayOneShot(RangeAttackShootSfx);
                 yield return new WaitForSeconds(0.5f);

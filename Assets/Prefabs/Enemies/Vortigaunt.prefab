@@ -135,11 +135,14 @@ MonoBehaviour:
   AttackRate: 1.5
   KillsStatistic: 20
   GravityForce: 9
-  MaxSpeedOnGround: 10
+  MaxSpeedOnGround: 15
   MovementSharpnessOnGround: 15
   MaxSpeedInAir: 10
   AccelerationSpeedInAir: 3
+  RotationSpeed: 10
   characterVelocity: {x: 0, y: 0, z: 0}
+  PredictionSteps: 5
+  InterceptSpeed: 45
   DisappearanceRate: 5
   SinkSpeed: 1
   AudioSource: {fileID: 7058389724601999338}
@@ -404,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
       propertyPath: BulletSpreadAngle
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

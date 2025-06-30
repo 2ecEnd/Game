@@ -92,7 +92,11 @@ public class RangeEnemy : EnemyBase, IDamagable
             fromBodyToPlayer = new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z);
             distanceToPlayer = fromBodyToPlayer.magnitude;
             //fromBodyToPlayer = fromBodyToPlayer.normalized;
-            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
+            Quaternion targetRotation = Quaternion.LookRotation(fromBodyToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+
+            //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1, target.position.z));
             if (distanceToPlayer < 10)
             {

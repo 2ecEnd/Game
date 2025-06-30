@@ -135,22 +135,40 @@ namespace Assets.Scripts
                         StartCoroutine(ManualReloading());
                         break;
                     case WeaponReloadingType.Magazine:
-                        MagazineReloading();
+                        StartCoroutine(MagazineReloading());
                         break;
                 }
             }
         }
 
-        public void MagazineReloading()
+        public void StopReload()
         {
-            if(animator != null)
+            // switch (ReloadingType)
+            // {
+            //     case WeaponReloadingType.Manual:
+            //         StopCoroutine(ManualReloading());
+            //         break;
+            //     case WeaponReloadingType.Magazine:
+            //         StopCoroutine(MagazineReloading());
+            //         break;
+            // }
+            StopAllCoroutines();
+            m_ReloadAudioSource.Stop();
+            Reload = false;
+            m_LastTimeReloading = Mathf.NegativeInfinity; ;
+        }
+
+        public IEnumerator MagazineReloading()
+        {
+            if (animator != null)
             {
                 animator.SetTrigger("Reload");
             }
-            CurrentAmmo = MagazineSize;
             Reload = true;
             m_LastTimeReloading = Time.time;
             m_ReloadAudioSource.PlayOneShot(ReloadingSfx);
+            yield return new WaitForSeconds(AmmoReloadRate);
+            CurrentAmmo = MagazineSize;
         }
 
         public IEnumerator ManualReloading()
@@ -244,11 +262,7 @@ namespace Assets.Scripts
 
         public IEnumerator Equip()
         {
-            if (MuzzleFlashVFX != null)
-            {
-                MuzzleFlashVFX.Stop();
-            }
-
+            animator.Play("Idle");
             isEquiping = true;
             animator.SetTrigger("Equip");
             yield return new WaitForSeconds(EquipingTime);

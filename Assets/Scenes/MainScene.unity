@@ -1160,7 +1160,7 @@ MonoBehaviour:
   - TotalEnemies: 10
     MaxEnemies: 1
     SpawnInterval: 1
-    EnemiesSpawnRate: 0100000001000000010000006400000001000000
+    EnemiesSpawnRate: 0100000064000000010000000100000001000000
   - TotalEnemies: 20
     MaxEnemies: 10
     SpawnInterval: 1

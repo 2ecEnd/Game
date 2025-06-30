@@ -97,6 +97,15 @@ namespace Assets.Scripts
 
             Destroy(this.gameObject);
         }
+
+        void OnTriggerEnter(Collider collider)
+        {
+            Debug.Log("Trigger");
+            if (collider.TryGetComponent(out IDamagable entity))
+                entity.ReceiveDamage(Damage);
+
+            Destroy(this.gameObject);
+        }
         
         void SpawnVFX(bool colliderIsCreature, Vector3 position)
         {

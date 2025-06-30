@@ -58,17 +58,14 @@ namespace Assets.Scripts.Player
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (ActiveWeapon.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") ||
-                    ActiveWeapon.animator.GetCurrentAnimatorStateInfo(0).IsName("Equip"))
+                curentGun++;
+                if (curentGun == Weapons.Length)
                 {
-                    curentGun++;
-                    if (curentGun == Weapons.Length)
-                    {
-                        curentGun = 0;
-                    }
-                    //AddWeapon(Weapons[curentGun]);
-                    SelectWeapon(curentGun);
+                    curentGun = 0;
                 }
+                //AddWeapon(Weapons[curentGun]);
+                if (ActiveWeapon.Reload) ActiveWeapon.StopReload();
+                SelectWeapon(curentGun);
             }
         }
 
@@ -116,17 +113,36 @@ namespace Assets.Scripts.Player
 
             //ActiveWeapon = weaponInstance;
             AddedWeapons.Add(weaponInstance);
-            weaponInstance.gameObject.SetActive(false);
+            //weaponInstance.gameObject.SetActive(false);
+            SetActive(weaponInstance.gameObject, false);
         }
 
         void SelectWeapon(int index)
         {
             if (ActiveWeapon != null)
-                ActiveWeapon.gameObject.SetActive(false);
-            
-            AddedWeapons[index].gameObject.SetActive(true);
+            {
+                SetActive(ActiveWeapon.gameObject, false);
+                //ActiveWeapon.gameObject.SetActive(false);
+            }
+
             AddedWeapons[index].StartCoroutine(AddedWeapons[index].Equip());
+            SetActive(AddedWeapons[index].gameObject, true);
+            //AddedWeapons[index].gameObject.SetActive(true);
             ActiveWeapon = AddedWeapons[index];
+        }
+
+        void SetActive(GameObject weapon, bool flag)
+        {
+            weapon.GetComponent<WeaponHandler>().enabled = flag;
+            foreach (Transform child in weapon.transform)
+            {
+                child.gameObject.SetActive(flag);
+            }
+
+            if (weapon.GetComponent<WeaponHandler>().MuzzleFlashVFX != null)
+            {
+                weapon.GetComponent<WeaponHandler>().MuzzleFlashVFX.Stop();
+            }
         }
     }
 
