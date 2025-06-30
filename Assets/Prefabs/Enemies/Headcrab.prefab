@@ -102,11 +102,14 @@ MonoBehaviour:
   AttackRate: 2
   KillsStatistic: 50
   GravityForce: 20
-  MaxSpeedOnGround: 4
+  MaxSpeedOnGround: 15
   MovementSharpnessOnGround: 15
   MaxSpeedInAir: 4
   AccelerationSpeedInAir: 3
+  RotationSpeed: 10
   characterVelocity: {x: 0, y: 0, z: 0}
+  PredictionSteps: 5
+  InterceptSpeed: 60
   DisappearanceRate: 5
   SinkSpeed: 1
   JumpRate: 2
@@ -114,6 +117,8 @@ MonoBehaviour:
   JumpSfx: {fileID: 8300000, guid: 3927c0936b1621943b86705e4aff4106, type: 3}
   DieSfx: {fileID: 8300000, guid: eafbe0a0ac4e8d545be451a62c462058, type: 3}
   BiteSfx: {fileID: 8300000, guid: 38bbc7647f15eb947af01cf02c8c8a36, type: 3}
+  frequency: 6
+  magnitude: 0.5
 --- !u!82 &3654373704945339338
 AudioSource:
   m_ObjectHideFlags: 0

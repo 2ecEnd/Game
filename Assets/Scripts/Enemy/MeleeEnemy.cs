@@ -20,18 +20,17 @@ namespace Assets.Scripts.Enemy
 
         [Header("Wandering")]
         public float WanderStartDistance;
-        public float WanderRate;
 
         bool isDead;
         bool isWandering;
         float lastTimeAttacking = Mathf.NegativeInfinity;
         float lastTimePlayingIdle = Mathf.NegativeInfinity;
-        float lastTimeWandering = Mathf.NegativeInfinity;
         float footstepDistanceCounter;
         float randomSpeedCoeff;
         GameObject Player;
         Animator animator;
-        Vector3 targetPosition;
+        Vector3 targetDirection;
+        Vector3 WanderPosition;
 
         void Start()
         {
@@ -45,6 +44,8 @@ namespace Assets.Scripts.Enemy
             isDead = false;
             randomSpeedCoeff = Random.Range(0.9f, 1.1f);
             animator.SetFloat("SpeedCoef", randomSpeedCoeff);
+
+            isWandering = false;
         }
 
         void FixedUpdate()
@@ -68,14 +69,17 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
-            targetPosition = target.position;
             fromBodyToPlayer = target.position - transform.position;
-            // if (fromBodyToPlayer.magnitude > WanderStartDistance)
-            // {
-            //     Wander();
-            // }
-            // else
-            //     targetPosition = target.position;
+
+            if (fromBodyToPlayer.magnitude > WanderStartDistance)
+            {
+                Wander();
+            }
+            else
+            {
+                targetDirection = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
+                isWandering = false;
+            }
 
             if (lastTimePlayingIdle + IdleSfxFrequency + Random.Range(0, 5) < Time.time)
             {
@@ -102,9 +106,11 @@ namespace Assets.Scripts.Enemy
             }
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
-            fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
-            transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
-            Vector3 targetVelocity = fromBodyToPlayer;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+
+            //transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
+            Vector3 targetVelocity = targetDirection;
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
             {
@@ -138,7 +144,7 @@ namespace Assets.Scripts.Enemy
 
                 PlayerCharacterController player = collider.GetComponent<PlayerCharacterController>();
                 player.ReceiveDamage(Damage);
-                player.ExtraVelocity = new Vector3(fromBodyToPlayer.x * 100, 20, fromBodyToPlayer.z * 100); // Knockback
+                player.ExtraVelocity = new Vector3(targetDirection.x * 100, 20, targetDirection.z * 100); // Knockback
             }
         }
 
@@ -190,14 +196,22 @@ namespace Assets.Scripts.Enemy
                 Die(false);
         }
 
-        void Wander()
+        public void Wander()
         {
-            if (lastTimeWandering + WanderRate + Random.Range(0, 5) < Time.time)
+            if (!isWandering)
             {
-                if (Random.Range(0, 2) == 0)
-                    targetPosition = arenaManager.GetRandomPoint();
-
-                lastTimeWandering = Time.time;
+                Vector3 randomPos = arenaManager.GetRandomPoint();
+                targetDirection = (new Vector3(randomPos.x - transform.position.x, 0, randomPos.z - transform.position.z)).normalized;
+                WanderPosition = randomPos;
+                isWandering = true;
+            }
+            else
+            {
+                Debug.Log((WanderPosition - transform.position).magnitude);
+                if ((WanderPosition - transform.position).magnitude < 4f)
+                {
+                    isWandering = false;
+                }
             }
         }
     }

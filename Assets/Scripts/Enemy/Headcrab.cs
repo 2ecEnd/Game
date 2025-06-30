@@ -16,6 +16,10 @@ namespace Assets.Scripts.Enemy
         public AudioClip DieSfx;
         public AudioClip BiteSfx;
 
+        [Header("Sin settings")]
+        public float frequency = 2f;
+        public float magnitude = 1f;
+
         bool isDead;
         float lastTimeAttacking = Mathf.NegativeInfinity;
         float lastTimeJumping = Mathf.NegativeInfinity;
@@ -29,7 +33,9 @@ namespace Assets.Scripts.Enemy
             arenaManager = gameController.GetComponent<ArenaManager>();
             characterController = gameObject.GetComponent<CharacterController>();
 
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            target = player.transform;
+            PlayerController = player.GetComponent<PlayerCharacterController>();
             animator = GetComponent<Animator>();
             isDead = false;
         }
@@ -71,11 +77,19 @@ namespace Assets.Scripts.Enemy
             fromBodyToPlayer = target.position - transform.position;
             distanceToPlayer = fromBodyToPlayer.magnitude;
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
-            
+            Vector3 perpendicular = Vector3.Cross(fromBodyToPlayer, Vector3.up).normalized;
+
+            float sin = Mathf.Sin(Time.time * frequency) * magnitude;
+            Vector3 offset = perpendicular * sin;
+
+            Vector3 targetVelocity = fromBodyToPlayer + offset;
             if (characterController.isGrounded)
-                transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(targetVelocity);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+                //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            }
             
-            Vector3 targetVelocity = fromBodyToPlayer;
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
             {
@@ -87,13 +101,18 @@ namespace Assets.Scripts.Enemy
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity * MaxSpeedInAir, AccelerationSpeedInAir * Time.deltaTime);
             }
 
-            if (distanceToPlayer < 10 && characterController.isGrounded && lastTimeJumping + JumpRate < Time.time)
+            if (distanceToPlayer < 8 && characterController.isGrounded && lastTimeJumping + JumpRate < Time.time)
             {
                 animator.SetTrigger("Attack");
                 lastTimeJumping = Time.time;
                 AudioSource.PlayOneShot(JumpSfx);
 
-                characterVelocity = new Vector3(fromBodyToPlayer.x * 60, fromBodyToPlayer.y + 8, fromBodyToPlayer.z * 60);
+                Vector3 predictedPoint = PredictPlayerPosition();
+                fromBodyToPlayer = predictedPoint - transform.position;
+                fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, fromBodyToPlayer.y, fromBodyToPlayer.z)).normalized;
+                transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
+                characterVelocity = new Vector3(fromBodyToPlayer.x * 60, fromBodyToPlayer.y + 7, fromBodyToPlayer.z * 60);
             }
             else
             {

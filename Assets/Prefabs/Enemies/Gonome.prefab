@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2080475480611489999}
   - component: {fileID: 3223873443276140702}
   - component: {fileID: 8459167212382579226}
-  - component: {fileID: 8867353264927642135}
   - component: {fileID: 7980524309953362210}
   - component: {fileID: 844995768132715460}
+  - component: {fileID: 630484612431337913}
   m_Layer: 0
   m_Name: Gonome
   m_TagString: Untagged
@@ -85,51 +85,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &630484612431337913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3474713142369456737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 803b5b4a21ff4bf449b7ee5f4bcdf4d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 300
-  AttackStartPoint: {fileID: 3026638129342301788}
-  Damage: 40
-  AttackRate: 1.5
-  KillsStatistic: 0
-  GravityForce: 9
-  MaxSpeedOnGround: 18
-  MovementSharpnessOnGround: 20
-  MaxSpeedInAir: 18
-  AccelerationSpeedInAir: 3
-  characterVelocity: {x: 0, y: 0, z: 0}
-  DisappearanceRate: 5
-  SinkSpeed: 1
-  AudioSource: {fileID: 7980524309953362210}
-  BreatheSource: {fileID: 844995768132715460}
-  FootstepsSfx:
-  - {fileID: 8300000, guid: 85206b332d2d608479e7fcfa66a0e49a, type: 3}
-  - {fileID: 8300000, guid: e7a402bc0f6710241aaaec1439e22714, type: 3}
-  - {fileID: 8300000, guid: aecb3c3b0b9892b4f99fac977b165f2f, type: 3}
-  AttacksSfx:
-  - {fileID: 8300000, guid: 04beaae7d39fa32458ff8b97081856a8, type: 3}
-  - {fileID: 8300000, guid: 91679c1c1ec06c644a6119d91abfc1db, type: 3}
-  IdlesSfx:
-  - {fileID: 8300000, guid: e3d8e40e79470c14484ff1d5a3f7de98, type: 3}
-  - {fileID: 8300000, guid: b3c5501a88d1fad4bb8faaa813f7c9b0, type: 3}
-  - {fileID: 8300000, guid: a2c7d9d47e138954c90baa9d9031669e, type: 3}
-  - {fileID: 8300000, guid: 96e9f83a43ffb664096c7bf968ac6806, type: 3}
-  DieSfx:
-  - {fileID: 8300000, guid: c40bff353e8440f41834e41fb6ed37c0, type: 3}
-  - {fileID: 8300000, guid: c19b0a520ce12fd4190b3795afffdc13, type: 3}
-  - {fileID: 8300000, guid: fde787022d8c22642b2892fbd86c1ad8, type: 3}
-  FootstepSfxFrequency: 0.2
-  IdleSfxFrequency: 10
 --- !u!82 &7980524309953362210
 AudioSource:
   m_ObjectHideFlags: 0
@@ -324,6 +279,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &630484612431337913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3474713142369456737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803b5b4a21ff4bf449b7ee5f4bcdf4d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 300
+  AttackStartPoint: {fileID: 3026638129342301788}
+  Damage: 40
+  AttackRate: 1.5
+  KillsStatistic: 0
+  GravityForce: 9
+  MaxSpeedOnGround: 18
+  MovementSharpnessOnGround: 20
+  MaxSpeedInAir: 18
+  AccelerationSpeedInAir: 3
+  RotationSpeed: 0
+  characterVelocity: {x: 0, y: 0, z: 0}
+  DisappearanceRate: 5
+  SinkSpeed: 1
+  AudioSource: {fileID: 7980524309953362210}
+  BreatheSource: {fileID: 844995768132715460}
+  FootstepsSfx:
+  - {fileID: 8300000, guid: 85206b332d2d608479e7fcfa66a0e49a, type: 3}
+  - {fileID: 8300000, guid: e7a402bc0f6710241aaaec1439e22714, type: 3}
+  - {fileID: 8300000, guid: aecb3c3b0b9892b4f99fac977b165f2f, type: 3}
+  AttacksSfx:
+  - {fileID: 8300000, guid: 04beaae7d39fa32458ff8b97081856a8, type: 3}
+  - {fileID: 8300000, guid: 91679c1c1ec06c644a6119d91abfc1db, type: 3}
+  IdlesSfx:
+  - {fileID: 8300000, guid: e3d8e40e79470c14484ff1d5a3f7de98, type: 3}
+  - {fileID: 8300000, guid: b3c5501a88d1fad4bb8faaa813f7c9b0, type: 3}
+  - {fileID: 8300000, guid: a2c7d9d47e138954c90baa9d9031669e, type: 3}
+  - {fileID: 8300000, guid: 96e9f83a43ffb664096c7bf968ac6806, type: 3}
+  DieSfx:
+  - {fileID: 8300000, guid: c40bff353e8440f41834e41fb6ed37c0, type: 3}
+  - {fileID: 8300000, guid: c19b0a520ce12fd4190b3795afffdc13, type: 3}
+  - {fileID: 8300000, guid: fde787022d8c22642b2892fbd86c1ad8, type: 3}
+  FootstepSfxFrequency: 0.1
+  IdleSfxFrequency: 10
 --- !u!1 &7733614270580692981
 GameObject:
   m_ObjectHideFlags: 0

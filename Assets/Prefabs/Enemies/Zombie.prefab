@@ -133,14 +133,16 @@ MonoBehaviour:
   AttackRate: 0.5
   KillsStatistic: 0
   GravityForce: 9
-  MaxSpeedOnGround: 5
+  MaxSpeedOnGround: 10
   MovementSharpnessOnGround: 5
   MaxSpeedInAir: 5
   AccelerationSpeedInAir: 3
+  RotationSpeed: 10
   characterVelocity: {x: 0, y: 0, z: 0}
   DisappearanceRate: 5
   SinkSpeed: 1
   AudioSource: {fileID: 8370000155403369105}
+  BreatheSource: {fileID: 0}
   FootstepsSfx:
   - {fileID: 8300000, guid: e4d4774df64c94848b1bf650a931faa5, type: 3}
   - {fileID: 8300000, guid: 61bfd3da9d5ac434f83ed6a24c699002, type: 3}
@@ -156,8 +158,9 @@ MonoBehaviour:
   DieSfx:
   - {fileID: 8300000, guid: c19b0a520ce12fd4190b3795afffdc13, type: 3}
   - {fileID: 8300000, guid: fde787022d8c22642b2892fbd86c1ad8, type: 3}
-  FootstepSfxFrequency: 0.55
+  FootstepSfxFrequency: 0.25
   IdleSfxFrequency: 10
+  WanderStartDistance: 30
 --- !u!82 &8370000155403369105
 AudioSource:
   m_ObjectHideFlags: 0

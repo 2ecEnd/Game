@@ -17,7 +17,10 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     public float MovementSharpnessOnGround;
     public float MaxSpeedInAir;
     public float AccelerationSpeedInAir;
+    public float RotationSpeed;
     public Vector3 characterVelocity;
+    public int PredictionSteps;
+    public float InterceptSpeed;
 
     [Header("Disappearance")]
     public float DisappearanceRate = 10;
@@ -30,6 +33,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     [Header("Target Parameters")]
     protected Transform target;
+    protected PlayerCharacterController PlayerController;
     protected Vector3 fromBodyToPlayer;
 
     public abstract void ReceiveDamage(float damage);
@@ -38,4 +42,23 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     protected abstract void DestroyOnFall();
 
+    protected Vector3 PredictPlayerPosition()
+    {
+        Vector3 predictedPosition = target.position;
+
+        if (PlayerController.CharacterVelocity.magnitude < 0.1f)
+            return predictedPosition;
+        
+        float predictedTime = 1f; 
+        for (int i = 0; i < PredictionSteps; i++)
+        {
+            predictedPosition = target.position + PlayerController.CharacterVelocity * predictedTime;
+
+            float distanceToPredictedPos = Vector3.Distance(transform.position, predictedPosition);
+
+            predictedTime = distanceToPredictedPos / InterceptSpeed;
+        }
+
+        return predictedPosition;
+    }
 }
