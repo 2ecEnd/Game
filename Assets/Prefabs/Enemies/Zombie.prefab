@@ -139,6 +139,8 @@ MonoBehaviour:
   AccelerationSpeedInAir: 3
   RotationSpeed: 10
   characterVelocity: {x: 0, y: 0, z: 0}
+  PredictionSteps: 5
+  InterceptSpeed: 25
   DisappearanceRate: 5
   SinkSpeed: 1
   AudioSource: {fileID: 8370000155403369105}

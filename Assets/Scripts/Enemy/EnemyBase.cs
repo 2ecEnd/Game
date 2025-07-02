@@ -2,6 +2,12 @@ using Assets.Scripts.Gameplay;
 using Assets.Scripts.Player;
 using UnityEngine;
 
+public enum ChaseType
+{
+    Direct,
+    Intercept,
+}
+
 public abstract class EnemyBase : MonoBehaviour, IDamagable
 {
     [Header("General")]
@@ -48,8 +54,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
         if (PlayerController.CharacterVelocity.magnitude < 0.1f)
             return predictedPosition;
-        
-        float predictedTime = 1f; 
+
+        float predictedTime = 1f;
         for (int i = 0; i < PredictionSteps; i++)
         {
             predictedPosition = target.position + PlayerController.CharacterVelocity * predictedTime;

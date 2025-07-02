@@ -36,6 +36,7 @@ namespace Assets.Scripts.Enemy
         string currentAttackMode = "melee";
         bool isAttacking = false;
         Animator animator;
+        ChaseType chaseType;
 
         void Start()
         {
@@ -48,6 +49,10 @@ namespace Assets.Scripts.Enemy
             animator = GetComponent<Animator>();
             isDead = false;
             PlasmaEffect.Stop();
+
+            chaseType = Random.Range(0, 2) == 0 ? ChaseType.Direct : ChaseType.Intercept;
+            if (chaseType == ChaseType.Intercept)
+                InterceptSpeed = Random.Range(25, 35);
         }
 
         void FixedUpdate()
@@ -97,9 +102,14 @@ namespace Assets.Scripts.Enemy
 
             fromBodyToPlayer = target.position - transform.position;
             distanceToPlayer = fromBodyToPlayer.magnitude;
+            if (chaseType == ChaseType.Intercept && distanceToPlayer > 5)
+            {
+                Vector3 predictedPos = PredictPlayerPosition();
+                fromBodyToPlayer = predictedPos - transform.position;
+            }
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
 
-            Quaternion targetRotation = Quaternion.LookRotation(fromBodyToPlayer);
+            Quaternion targetRotation = Quaternion.LookRotation(isAttacking ? target.position - transform.position : fromBodyToPlayer);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
             //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1f, target.position.z));
@@ -175,11 +185,16 @@ namespace Assets.Scripts.Enemy
 
             if (!isDead)
             {
+                float prevSpeed = InterceptSpeed;
+                InterceptSpeed = 45;
+
                 Vector3 predictedPos = PredictPlayerPosition();
                 weaponHandler.transform.LookAt(new Vector3(predictedPos.x, target.position.y + 1f, predictedPos.z));
 
                 weaponHandler.HandleShootInputs(true, true);
                 AudioSource.PlayOneShot(RangeAttackShootSfx);
+
+                InterceptSpeed = prevSpeed;
                 yield return new WaitForSeconds(0.5f);
             }
 

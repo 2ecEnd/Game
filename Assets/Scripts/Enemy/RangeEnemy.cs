@@ -23,6 +23,7 @@ public class RangeEnemy : EnemyBase, IDamagable
     public float AttackAnimationDelay = 1f;
 
     bool isDead;
+    bool PlayerIsVisible;
     float lastTimeAttacking = Mathf.NegativeInfinity;
     float currentBurstCount = 0;
     float distanceToPlayer = 0;
@@ -34,9 +35,11 @@ public class RangeEnemy : EnemyBase, IDamagable
     private float animatorRatio;
     float lastTimePlayingIdle = Mathf.NegativeInfinity;
     float footstepDistanceCounter;
+    Vector3 moveOffset;
 
     void Start()
     {
+        PlayerIsVisible = true;
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         arenaManager = gameController.GetComponent<ArenaManager>();
         characterController = gameObject.GetComponent<CharacterController>();
@@ -46,6 +49,10 @@ public class RangeEnemy : EnemyBase, IDamagable
         isDead = false;
         weaponHandler.Owner = gameObject;
         arenaSize = (arenaManager.GetArenaSize() - 0.5f) * arenaManager.GetChunkScale();
+
+        StartCoroutine(CheckPlayerVisibility());
+
+        moveOffset = UnityEngine.Random.insideUnitSphere * 25;
     }
 
     void FixedUpdate()
@@ -88,13 +95,12 @@ public class RangeEnemy : EnemyBase, IDamagable
         Vector3 targetVelocity = Vector3.zero;
         if (Leader == null)
         {
+            Vector3 moveDirection = (target.position + moveOffset) - transform.position;
+            moveDirection = new Vector3(moveDirection.x, 0, moveDirection.z);
             fromBodyToPlayer = target.position - transform.position;
             fromBodyToPlayer = new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z);
             distanceToPlayer = fromBodyToPlayer.magnitude;
             //fromBodyToPlayer = fromBodyToPlayer.normalized;
-
-            Quaternion targetRotation = Quaternion.LookRotation(fromBodyToPlayer);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
 
             //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             weaponHandler.transform.LookAt(new Vector3(target.position.x, target.position.y + 1, target.position.z));
@@ -105,17 +111,20 @@ public class RangeEnemy : EnemyBase, IDamagable
                 targetVelocity = -fromBodyToPlayer;
                 animatorRatio = -1;
             }
-            else if (distanceToPlayer > 20)
+            else if (distanceToPlayer > 25 || !PlayerIsVisible)
             {
                 //animator.SetBool("IsRunning", true);
                 //animator.SetFloat("RunningSpeed", 1);
-                targetVelocity = fromBodyToPlayer;
+                targetVelocity = moveDirection;
                 animatorRatio = 1;
             }
             else
             {
                 //animator.SetBool("IsRunning", false);
             }
+
+            Quaternion targetRotation = Quaternion.LookRotation(distanceToPlayer > 25 || !PlayerIsVisible ? moveDirection : fromBodyToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
         }
         else
         {
@@ -195,7 +204,7 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     protected void Attack()
     {
-        if (isDead || lastTimeAttacking + AttackRate > Time.time || distanceToPlayer < 10 || distanceToPlayer > 20 || !characterController.isGrounded) return;
+        if (isDead || lastTimeAttacking + AttackRate > Time.time || distanceToPlayer < 10 || distanceToPlayer > 25 || !characterController.isGrounded) return;
 
         StartCoroutine(Shooting());
     }
@@ -259,6 +268,30 @@ public class RangeEnemy : EnemyBase, IDamagable
         }
 
         Destroy(gameObject);
+    }
+
+    IEnumerator CheckPlayerVisibility()
+    {
+        while (true)
+        {
+            RaycastHit hit;
+            Vector3 pos = transform.position;
+            pos.y += 1;
+            fromBodyToPlayer = new Vector3(target.position.x, target.position.y + 1, target.position.z) - pos;
+
+            if (Physics.Raycast(
+                origin: pos,
+                direction: fromBodyToPlayer,
+                hitInfo: out hit,
+                maxDistance: 100f))
+            {
+                if (!hit.collider.gameObject.CompareTag("Player"))
+                    PlayerIsVisible = false;
+                else
+                    PlayerIsVisible = true;
+            }
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     protected override void DestroyOnFall()

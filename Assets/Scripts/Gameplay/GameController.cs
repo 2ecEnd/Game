@@ -108,20 +108,20 @@ namespace Assets.Scripts.Gameplay
             }
             if (nextTime < Time.time)
             {
-                nextTime = Time.time + 1;
-                int length = enemiesGO[1].transform.childCount;
-                if (length > 1)
-                {
-                    Transform leader = enemiesGO[1].transform.GetChild(0);
-                    float f = 0;
-                    float deltaF = 2 * Mathf.PI / (length - 1);
-                    float r = length * 0.8f;
-                    for (int i = 1; i < length; i++)
-                    {
-                        enemiesGO[1].transform.GetChild(i).GetComponent<RangeEnemy>().Leader = leader;
-                        enemiesGO[1].transform.GetChild(i).GetComponent<RangeEnemy>().PositionToLeader = new Vector3(r * Mathf.Cos(f), 0, r * Mathf.Sin(f));
-                        f += deltaF;
-                    }
+                // nextTime = Time.time + 1;
+                // int length = enemiesGO[1].transform.childCount;
+                // if (length > 1)
+                // {
+                //     Transform leader = enemiesGO[1].transform.GetChild(0);
+                //     float f = 0;
+                //     float deltaF = 2 * Mathf.PI / (length - 1);
+                //     float r = length * 0.8f;
+                //     for (int i = 1; i < length; i++)
+                //     {
+                //         enemiesGO[1].transform.GetChild(i).GetComponent<RangeEnemy>().Leader = leader;
+                //         enemiesGO[1].transform.GetChild(i).GetComponent<RangeEnemy>().PositionToLeader = new Vector3(r * Mathf.Cos(f), 0, r * Mathf.Sin(f));
+                //         f += deltaF;
+                //     }
                     //transform.RotateAround(enemiesGO[1].transform.GetChild(0).position, transform.up, 1);
                     /*Vector2[] RangeEnemiesPos = new Vector2[length];
                     for (int i = 0; i < length; i++)
@@ -152,7 +152,7 @@ namespace Assets.Scripts.Gameplay
                     //{
                     //    print(distances.Length + " " + i + " " + distances[i]);
                     //}
-                }
+                // }
             }
         }
         public void Restart()

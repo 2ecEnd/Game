@@ -27,6 +27,7 @@ namespace Assets.Scripts.Enemy
         float lastTimePlayingIdle = Mathf.NegativeInfinity;
         float footstepDistanceCounter;
         float randomSpeedCoeff;
+        ChaseType chaseType;
         GameObject Player;
         Animator animator;
         Vector3 targetDirection;
@@ -39,6 +40,7 @@ namespace Assets.Scripts.Enemy
             characterController = gameObject.GetComponent<CharacterController>();
 
             Player = GameObject.FindGameObjectWithTag("Player");
+            PlayerController = Player.GetComponent<PlayerCharacterController>();
             target = Player.transform;
             animator = GetComponent<Animator>();
             isDead = false;
@@ -46,6 +48,10 @@ namespace Assets.Scripts.Enemy
             animator.SetFloat("SpeedCoef", randomSpeedCoeff);
 
             isWandering = false;
+
+            chaseType = Random.Range(0, 2) == 0 ? ChaseType.Direct : ChaseType.Intercept;
+            if (chaseType == ChaseType.Intercept)
+                InterceptSpeed = Random.Range(25, 35);
         }
 
         void FixedUpdate()
@@ -77,6 +83,11 @@ namespace Assets.Scripts.Enemy
             }
             else
             {
+                if (chaseType == ChaseType.Intercept && fromBodyToPlayer.magnitude > 4)
+                {
+                    Vector3 predictedPos = PredictPlayerPosition();
+                    fromBodyToPlayer = predictedPos - transform.position;
+                }
                 targetDirection = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
                 isWandering = false;
             }

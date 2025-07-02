@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Player;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 
 namespace Assets.Scripts.Enemy
 {
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Enemy
         
 
         bool isDead;
+        ChaseType chaseType;
         float lastTimeAttacking = Mathf.NegativeInfinity;
         float lastTimePlayingIdle = Mathf.NegativeInfinity;
         float footstepDistanceCounter;
@@ -32,8 +34,13 @@ namespace Assets.Scripts.Enemy
             characterController = gameObject.GetComponent<CharacterController>();
 
             target = GameObject.FindGameObjectWithTag("Player").transform;
+            PlayerController = target.GetComponent<PlayerCharacterController>();
             animator = GetComponent<Animator>();
             isDead = false;
+
+            chaseType = Random.Range(0, 2) == 0 ? ChaseType.Direct : ChaseType.Intercept;
+            if (chaseType == ChaseType.Intercept)
+                InterceptSpeed = Random.Range(20, 30);
         }
 
         void FixedUpdate()
@@ -43,11 +50,12 @@ namespace Assets.Scripts.Enemy
                 return;
             }
             RaycastHit hit;
+            fromBodyToPlayer = target.position - transform.position;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
-                direction: transform.forward,
+                direction: fromBodyToPlayer,
                 hitInfo: out hit,
-                maxDistance: 1f))
+                maxDistance: 1.5f))
             {
                 Attack(hit.collider);
             }
@@ -83,8 +91,18 @@ namespace Assets.Scripts.Enemy
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
             fromBodyToPlayer = target.position - transform.position;
+            if (chaseType == ChaseType.Intercept && fromBodyToPlayer.magnitude > 5)
+            {
+                Vector3 predictedPos = PredictPlayerPosition();
+                fromBodyToPlayer = predictedPos - transform.position;
+            }
+
             fromBodyToPlayer = (new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z)).normalized;
-            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
+            Quaternion targetRotation = Quaternion.LookRotation(fromBodyToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+
+            //transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             Vector3 targetVelocity = fromBodyToPlayer;
             float verticalVelocity = characterVelocity.y - GravityForce * Time.deltaTime;
             if (characterController.isGrounded)
