@@ -91,7 +91,7 @@ MonoBehaviour:
   WeaponMuzzle: {fileID: 8691114785854688947}
   ProjectilePrefab: {fileID: 6774801006451134850, guid: 8127f2f5351ba414bb7abcdb7bd6bc09, type: 3}
   MagazineSize: 6
-  AmmoReloadRate: 3
+  AmmoReloadRate: 2.5
   ReloadingType: 1
   RecoilForce: 0.7
   Owner: {fileID: 0}

@@ -247,12 +247,17 @@ namespace Assets.Scripts.Player
             playerWeaponManager.ActiveWeapon.CurrentAmmo = playerWeaponManager.ActiveWeapon.MagazineSize;
             isDead = false;
 
-            int arenaCenter = arenaManager.GetArenaSize() / 2;
+            int arenaCenter = (int)(arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2);
 
-            transform.position = new Vector3(
-                arenaCenter * arenaManager.GetChunkScale(),
-                arenaManager.HeightMap[arenaCenter, arenaCenter] + 1,
-                arenaCenter * arenaManager.GetChunkScale());
+            RaycastHit ray;
+            Physics.Raycast(
+                origin: new Vector3(arenaCenter , 100, arenaCenter),
+                direction: new Vector3(0, -1, 0),
+                hitInfo: out ray,
+                maxDistance: 150f
+            );
+
+            transform.position = ray.point;
             CharacterVelocity = new Vector3();
         }
 

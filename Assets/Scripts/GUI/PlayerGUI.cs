@@ -107,10 +107,8 @@ public class PlayerGUI : MonoBehaviour
         {
             case -1:
                 GUI.Box(rects[14], "");
-                if (GUI.Button(rects[15], "Начать заново")) // Restart
+                if (GUI.Button(rects[15], "Возродиться")) // Revive
                 {
-                    GlobalInspector.GameController.WaveNumber = 0;
-                    GlobalInspector.GameController.NewWave();
                     GlobalInspector.PlayerRevive();
                     flag = -1;
                 }
@@ -208,14 +206,14 @@ public class PlayerGUI : MonoBehaviour
                 GUIUtility.RotateAroundPivot(HPArrowStart + arrow_rotation, new Vector2(0, screenHeight));
                 GUI.DrawTexture(rects[3], Arrow);
                 break;
-            case 2: //���� ����������
+            case 2: // Statistic screen
                 GUI.Box(rects[8], GlobalInspector.Statistics());
-                if (GUI.Button(rects[6], "�����"))
+                if (GUI.Button(rects[6], "Назад"))
                 {
                     flag = oldFlag;
                 }
                 break;
-            case 3: //���� ������
+            case 3: // Death screeen
                 GUI.DrawTexture(rects[1], DeathScreen);
                 if (rects[1].y < 0)
                 {
@@ -224,12 +222,13 @@ public class PlayerGUI : MonoBehaviour
                 else
                 {
                     rects[1].y = 0;
-                    if (GUI.Button(rects[5], "�����������"))
+                    if (GUI.Button(rects[5], "Начать заново")) // Try Again
                     {
                         rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight); //���������� ������ ������
-                        GlobalInspector.PlayerRevive();
+
+                        GlobalInspector.Restart();
                     }
-                    if (GUI.Button(rects[6], "����������"))
+                    if (GUI.Button(rects[6], "Статистика"))  // Statistic
                     {
                         flag = 2;
                         oldFlag = 3;

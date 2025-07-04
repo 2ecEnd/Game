@@ -4,14 +4,14 @@ using UnityEngine;
 public class ArenaManager : MonoBehaviour
 {
     [Header("Objects")]
-    GameObject Arena;
+    public GameObject Arena;
     public Material ArenaMaterial;
     public GameObject Player;
 
     [Header("Arena Parameters")]
     public int[,] HeightMap;
     public int[,] StairsMap;
-    List<List<int[,]>> ArenaPresets;
+    public List<List<int[,]>> ArenaPresets;
 
     [Header("BuffBox Parameters")]
     public GameObject BuffBoxGO;
@@ -36,13 +36,10 @@ public class ArenaManager : MonoBehaviour
     void Start()
     {
         GlobalInspector.ArenaManager = this;
-        CreateArena();
+
         CreatePresets();
+        CreateArena();
 
-        HeightMap = (int[,])ArenaPresets[0][0].Clone();
-        StairsMap = (int[,])ArenaPresets[0][1].Clone();
-
-        NewVerticesPositions = new List<Vector3>(VerticesSize * VerticesSize);
         ChangeSpeed = DefaultChangeSpeed;
     }
 
@@ -83,7 +80,7 @@ public class ArenaManager : MonoBehaviour
     }
 
 
-    void CreateArena()
+    public void CreateArena()
     {
         Arena = new GameObject("Arena");
         Arena.AddComponent<MeshCollider>();
@@ -134,6 +131,11 @@ public class ArenaManager : MonoBehaviour
         Arena.GetComponent<MeshFilter>().mesh = arenaMesh;
         Arena.GetComponent<MeshRenderer>().material = ArenaMaterial;
         //Arena.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(ChunkScale, ChunkScale);
+
+        HeightMap = (int[,])ArenaPresets[0][0].Clone();
+        StairsMap = (int[,])ArenaPresets[0][1].Clone();
+
+        NewVerticesPositions = new List<Vector3>(VerticesSize * VerticesSize);
     }
     void CreatePresets()
     {
@@ -222,109 +224,79 @@ public class ArenaManager : MonoBehaviour
             for (int j = 0; j < ArenaSize; j++)
                 cornersStairsMap[i, j] = 0;
 
-        int[,] mountainHeightMap = new int[ArenaSize, ArenaSize]
+        int[,] pitHeightMap = new int[ArenaSize, ArenaSize]
         {
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
 
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 6,   6, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 9,   9, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
 
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 6, 9, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 9, 6, 0,   0, 0, 0, 0},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
 
-            { 0, 0, 0, 0,   0, 6, 9, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 9, 6, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
 
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 9,   9, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 6,   6, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
 
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 10},
+            { 10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10,   10, 10, 10, 10},
         };
-        int[,] mountainStairsMap = new int[ArenaSize, ArenaSize]
-        {
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 3,   3, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 2,   2, 2, 2, 2,   2, 2, 2, 10,   11, 4, 4, 4,   4, 4, 4, 4,   4, 0, 0, 0},
-
-            { 0, 0, 0, 2,   2, 2, 2, 2,   2, 2, 2, 9,   12, 4, 4, 4,   4, 4, 4, 4,   4, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 1,   1, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-            { 0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0},
-        };
+        int[,] pitStairsMap = new int[ArenaSize, ArenaSize];
+        for (int i = 0; i < ArenaSize; i++)
+            for (int j = 0; j < ArenaSize; j++)
+                pitStairsMap[i, j] = 0;
 
         ArenaPresets.Add(new List<int[,]> { flatArenaHeightMap, flatArenaStairsMap });
         ArenaPresets.Add(new List<int[,]> { cornersHeightMap, cornersStairsMap });
         ArenaPresets.Add(new List<int[,]> { pillarsHeightMap, pillarsStairsMap });
-        //ArenaPresets.Add(new List<int[,]> { mountainHeightMap, mountainStairsMap });
+        ArenaPresets.Add(new List<int[,]> { pitHeightMap, pitStairsMap });
     }
 
 
     public void ChangeArena()
     {
         float coin = UnityEngine.Random.value;
-        if (coin < 0.4)
+        if (coin < 0.5)
             ChooseFromPresets();
         else
             GenerateCircleArena();
 
         for (int i = 0; i < BuffBoxGO.transform.childCount; i++)
             Destroy(BuffBoxGO.transform.GetChild(i).gameObject);
-
-        flag = 3;
     }
 
 
     public void ChooseFromPresets()
     {
-        flag = 1;
-
         int choice = UnityEngine.Random.Range(0, ArenaPresets.Count);
         HeightMap = (int[,])ArenaPresets[choice][0].Clone();
         StairsMap = (int[,])ArenaPresets[choice][1].Clone();
+
+        flag = 3;
     }
 
 
     public void GenerateCircleArena()
     {
-        flag = 2;
-
         GenerateHeightMap();
         GenerateStairsMap();
+
+        flag = 3;
     }
 
     void GenerateHeightMap()

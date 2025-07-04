@@ -37,11 +37,7 @@ public static class GlobalInspector
         int score = 0;
 
         for (int i = 0; i < EnemyStatistics.Length; i++)
-        {
             score += EnemyStatistics[i].Score * EnemyStatistics[i].Kills;
-        }
-
-        //score = KilledMelee * MeleeScore + KilledRange * RangeScore + KilledCart * CartScore;
 
         score -= DeathCount * DeathPenalty;
 
@@ -90,12 +86,12 @@ public static class GlobalInspector
     public static void Restart()
     {
         Win = false;
+        GameController.WaveNumber = 0;
+        GameController.NewWave();
         PlayerRevive();
         GameController.Restart();
         DeathCount = 0;
         for (int i = 0; i < EnemyStatistics.Length; i++)
-        {
             EnemyStatistics[i].Kills = 0;
-        }
     }
 }
