@@ -5,13 +5,12 @@ public class ArenaManager : MonoBehaviour
 {
     [Header("Objects")]
     GameObject Arena;
+    public Material ArenaMaterial;
     public GameObject Player;
-    public GameObject Quad;
 
     [Header("Arena Parameters")]
     public int[,] HeightMap;
     public int[,] StairsMap;
-    public Material ArenaMaterial;
     List<List<int[,]>> ArenaPresets;
 
     [Header("BuffBox Parameters")]
@@ -19,18 +18,20 @@ public class ArenaManager : MonoBehaviour
 
     [Header("Other Parameters")]
     public float DefaultChangeSpeed;
-    public float ChangeSpeedRatio;
     float ChangeSpeed;
+    public float ChangeSpeedRatio;
     public short flag = 0;
     const int ArenaSize = 20;
     const int VerticesSize = ArenaSize + 1;
     const float ChunkScale = 4f;
     const int KillHeight = -30;
 
-
+    [Header("Mesh Parameters")]
     List<Vector3> CurrentVerticesPositions;
     List<Vector3> NewVerticesPositions;
     List<int> CurrentTriangles;
+    List<Vector2> NewUV;
+
 
     void Start()
     {
@@ -62,15 +63,12 @@ public class ArenaManager : MonoBehaviour
 
                     Arena.GetComponent<MeshFilter>().mesh.vertices = CurrentVerticesPositions.ToArray();
                     Arena.GetComponent<MeshFilter>().mesh.triangles = CurrentTriangles.ToArray();
+                    Arena.GetComponent<MeshFilter>().mesh.uv = NewUV.ToArray();
                     Arena.GetComponent<MeshFilter>().mesh.RecalculateNormals();
+                    Arena.GetComponent<MeshFilter>().mesh.RecalculateBounds();
 
                     ChangeSpeed = DefaultChangeSpeed;
                     flag = 4;
-
-                    for (int i = 0; i < NewVerticesPositions.Count; i++)
-                    {
-                        //print(i.ToString() + " - " + NewVerticesPositions[i].y.ToString());
-                    }
                 }
                 break;
             case 4:
@@ -96,6 +94,7 @@ public class ArenaManager : MonoBehaviour
         }
     }
 
+
     void CreateArena()
     {
         Arena = new GameObject("Arena");
@@ -105,12 +104,12 @@ public class ArenaManager : MonoBehaviour
 
         Mesh arenaMesh = new Mesh();
 
-        Vector3[] vertices = new Vector3[(ArenaSize + 1) * (ArenaSize + 1)];
-        Vector2[] uv = new Vector2[(ArenaSize + 1) * (ArenaSize + 1)];
+        Vector3[] vertices = new Vector3[VerticesSize * VerticesSize];
+        Vector2[] uv = new Vector2[VerticesSize * VerticesSize];
         int[] triangles = new int[ArenaSize * ArenaSize * 6];
 
-        for (int i = 0; i <= ArenaSize; i++)
-            for (int j = 0; j <= ArenaSize; j++)
+        for (int i = 0; i < VerticesSize; i++)
+            for (int j = 0; j < VerticesSize; j++)
             {
                 int idx = j + i * (ArenaSize + 1);
                 vertices[idx] = new Vector3(i * ChunkScale, 0, j * ChunkScale);
@@ -120,20 +119,20 @@ public class ArenaManager : MonoBehaviour
                 randomOffsetX = 0;
                 randomOffsetY = 0;
                 uv[idx] = new Vector2(
-                    (i + randomOffsetX) * (1 / ChunkScale),
-                    (j + randomOffsetY) * (1 / ChunkScale));
+                    (i + randomOffsetX) / ChunkScale,
+                    (j + randomOffsetY) / ChunkScale);
             }
 
         for (int ti = 0, vi = 0, i = 0; i < ArenaSize; i++, vi++)
             for (int j = 0; j < ArenaSize; j++, vi++)
             {
                 triangles[ti++] = vi;
-                triangles[ti++] = vi + ArenaSize + 2;
-                triangles[ti++] = vi + ArenaSize + 1;
+                triangles[ti++] = vi + VerticesSize + 1;
+                triangles[ti++] = vi + VerticesSize;
 
                 triangles[ti++] = vi;
                 triangles[ti++] = vi + 1;
-                triangles[ti++] = vi + ArenaSize + 2;
+                triangles[ti++] = vi + VerticesSize + 1;
             }
 
         arenaMesh.vertices = vertices;
@@ -247,7 +246,6 @@ public class ArenaManager : MonoBehaviour
         //else
         //    chooseFromPresets();
 
-        //TransformArena();
 
         for (int i = 0; i < BuffBoxGO.transform.childCount; i++)
             Destroy(BuffBoxGO.transform.GetChild(i).gameObject);
@@ -460,34 +458,6 @@ public class ArenaManager : MonoBehaviour
     }
 
 
-    bool SmoothTransformToFlat()
-    {
-        Mesh arenaMesh = Arena.GetComponent<MeshFilter>().mesh;
-        Vector3[] vertices = arenaMesh.vertices;
-
-        bool isFullTransformedToFlat = true;
-
-        for (int i = 0; i < NewVerticesPositions.Count; i++)
-        {
-            Vector3 position = new Vector3(
-                vertices[i].x,
-                0,
-                vertices[i].z);
-
-            vertices[i] = Vector3.Lerp(vertices[i], position, ChangeSpeed * Time.deltaTime);
-
-            if (Mathf.Abs(vertices[i].y - position.y) > 0.01)
-                isFullTransformedToFlat = false;
-        }
-
-        arenaMesh.vertices = vertices;
-        arenaMesh.RecalculateBounds();
-        arenaMesh.RecalculateNormals();
-        Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
-
-        ChangeSpeed += ChangeSpeedRatio;
-        return isFullTransformedToFlat;
-    }
 
     void RotateTriangles()
     {
@@ -526,8 +496,9 @@ public class ArenaManager : MonoBehaviour
     void CalculateVerticesPositions()
     {
         CurrentVerticesPositions = new List<Vector3>(Arena.GetComponent<MeshFilter>().mesh.vertices);
-        NewVerticesPositions = new List<Vector3>(Arena.GetComponent<MeshFilter>().mesh.vertices);
+        NewVerticesPositions = new List<Vector3>(Arena.GetComponent<MeshFilter>().mesh.vertices);   
         CurrentTriangles = new List<int>(Arena.GetComponent<MeshFilter>().mesh.triangles);
+        NewUV = new List<Vector2>(Arena.GetComponent<MeshFilter>().mesh.uv);
 
         for (int i = 0; i < ArenaSize; i++)
             for (int j = 0; j < ArenaSize; j++)
@@ -686,6 +657,7 @@ public class ArenaManager : MonoBehaviour
         int bottom_left     = vertex_idx + VerticesSize;
         int bottom_right    = vertex_idx + VerticesSize + 1;
 
+        // Upper wall
         if (i > 0 && HeightMap[i - 1, j] > HeightMap[i, j])
         {
             // Creating new points
@@ -744,7 +716,12 @@ public class ArenaManager : MonoBehaviour
                 CurrentTriangles[((right_tile_top_left - i) * 6)] = new_top_right_idx;
                 CurrentTriangles[((right_tile_top_left - i) * 6) + 3] = new_top_right_idx;
             }
+
+            // Changing walls' uv
+            NewUV.Add((NewUV[top_left] + NewUV[bottom_left]) / 2);
+            NewUV.Add((NewUV[top_right] + NewUV[bottom_right]) / 2);
         }
+        // Bottom wall
         if (i < ArenaSize - 1 && HeightMap[i + 1, j] > HeightMap[i, j])
         {
             // Creating new points
@@ -803,7 +780,12 @@ public class ArenaManager : MonoBehaviour
                 int right_tile_top_left = top_left + 1;
                 CurrentTriangles[((right_tile_top_left - i) * 6) + 2] = new_bottom_right_idx;
             }
+
+            // Changing walls' uv
+            NewUV.Add((NewUV[bottom_left] + NewUV[top_left]) / 2);
+            NewUV.Add((NewUV[bottom_right] + NewUV[top_right]) / 2);
         }
+        // Left wall
         if (j > 0 && HeightMap[i, j - 1] > HeightMap[i, j])
         {
             // Creating new points
@@ -862,7 +844,12 @@ public class ArenaManager : MonoBehaviour
                 CurrentTriangles[((bottom_tile_top_left - i) * 6)] = new_bottom_left_idx;
                 CurrentTriangles[((bottom_tile_top_left - i) * 6) + 3] = new_bottom_left_idx;
             }
+
+            // Changing walls' uv
+            NewUV.Add((NewUV[top_left] + NewUV[top_right]) / 2);
+            NewUV.Add((NewUV[bottom_left] + NewUV[bottom_right]) / 2);
         }
+        // Right wall
         if (j < ArenaSize - 1 && HeightMap[i, j + 1] > HeightMap[i, j])
         {
             // Creating new points
@@ -921,7 +908,41 @@ public class ArenaManager : MonoBehaviour
                 int bottom_tile_top_left = top_left + (VerticesSize - 1);
                 CurrentTriangles[((bottom_tile_top_left - i) * 6) + 4] = new_bottom_right_idx;
             }
+
+            // Changing walls' uv
+            NewUV.Add((NewUV[top_right] + NewUV[top_left]) / 2);
+            NewUV.Add((NewUV[bottom_right] + NewUV[bottom_left]) / 2);
         }
+    }
+
+
+    bool SmoothTransformToFlat()
+    {
+        Mesh arenaMesh = Arena.GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = arenaMesh.vertices;
+
+        bool isFullTransformedToFlat = true;
+
+        for (int i = 0; i < NewVerticesPositions.Count; i++)
+        {
+            Vector3 position = new Vector3(
+                vertices[i].x,
+                0,
+                vertices[i].z);
+
+            vertices[i] = Vector3.Lerp(vertices[i], position, ChangeSpeed * Time.deltaTime);
+
+            if (Mathf.Abs(vertices[i].y - position.y) > 0.01)
+                isFullTransformedToFlat = false;
+        }
+
+        arenaMesh.vertices = vertices;
+        arenaMesh.RecalculateBounds();
+        arenaMesh.RecalculateNormals();
+        Arena.GetComponent<MeshCollider>().sharedMesh = arenaMesh;
+
+        ChangeSpeed += ChangeSpeedRatio;
+        return isFullTransformedToFlat;
     }
 
     bool SmoothTransformToTarget()
@@ -938,7 +959,6 @@ public class ArenaManager : MonoBehaviour
             if (Mathf.Abs(vertices[i].y - NewVerticesPositions[i].y) > 0.01)
                 isFullTransformedToTarget = false;
         }
-
 
         arenaMesh.vertices = vertices;
         arenaMesh.RecalculateBounds();
@@ -965,7 +985,7 @@ public class ArenaManager : MonoBehaviour
     
     public Vector3 GetRandomPoint()
     {
-        float arenaSize = (GetArenaSize() - 1) * GetChunkScale();
+        float arenaSize = ArenaSize * ChunkScale;
         float x = Random.Range(0, arenaSize);
         float z = Random.Range(0, arenaSize);
         Vector3 spawnPosition = new Vector3(x, 100, z);
