@@ -10,6 +10,7 @@ namespace Assets.Scripts.Player
     {
         [Header("References")]
         public Camera PlayerCamera;
+        public PlayerUI PlayerUI;
         public AudioSource AudioSource;
 
         [Header("General")]
@@ -207,6 +208,7 @@ namespace Assets.Scripts.Player
         public void ReceiveDamage(float damage)
         {
             Health -= damage;
+            PlayerUI.TakeDamage();
             if (Health <= 0 && !isDead)
             {
                 GlobalInspector.PlayerDeath();

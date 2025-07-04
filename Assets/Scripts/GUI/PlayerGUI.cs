@@ -19,7 +19,7 @@ public class PlayerGUI : MonoBehaviour
     public bool Death;
     public float HPArrowStart;
     public float HPArrowStep;
-    private GameObject player;
+    public GameObject player;
     private PlayerCharacterController characterController;
     private PlayerWeaponManager playerWeaponManager;
     //private WeaponHandler weaponHandler;

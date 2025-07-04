@@ -91,6 +91,15 @@ public class RangeEnemy : EnemyBase, IDamagable
         }
         //distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
         //print(distanceToEdgeX);
+
+        if (isDead && !(Physics.Raycast(
+            origin: new Vector3(transform.position.x, transform.position.y - characterController.height / 1.98f, transform.position.z),
+            direction: -transform.up,
+            maxDistance: 0.05f)))
+        {
+            transform.Translate(Vector3.down * GravityForce/2 * Time.deltaTime);
+        }
+
         if (isDead) return;
         Vector3 targetVelocity = Vector3.zero;
         if (Leader == null)
@@ -244,30 +253,6 @@ public class RangeEnemy : EnemyBase, IDamagable
         AudioSource.PlayOneShot(DieSfx[UnityEngine.Random.Range(0, DieSfx.Count)]);
         gameController.Enemies.Remove(gameObject);
         StartCoroutine(Disappeare());
-    }
-
-    IEnumerator Disappeare()
-    {
-        // yield return new WaitForSeconds(0.1f);
-        // float fallTimer = 0f;
-        // while (fallTimer < 0.25)
-        // {
-        //     transform.Translate(Vector3.down * 5 * Time.deltaTime);
-        //     fallTimer += Time.deltaTime;
-        //     yield return null;
-        // }
-
-        yield return new WaitForSeconds(2f);
-
-        float sinkTimer = 0f;
-        while (sinkTimer < DisappearanceRate)
-        {
-            transform.Translate(Vector3.down * SinkSpeed * Time.deltaTime);
-            sinkTimer += Time.deltaTime;
-            yield return null;
-        }
-
-        Destroy(gameObject);
     }
 
     IEnumerator CheckPlayerVisibility()
