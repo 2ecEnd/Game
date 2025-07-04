@@ -10,6 +10,7 @@ namespace Assets.Scripts.Player
     {
         [Header("References")]
         public Camera PlayerCamera;
+        public PlayerUI PlayerUI;
         public AudioSource AudioSource;
 
         [Header("General")]
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Player
         [Header("Dash")]
         public int DashMaxCount = 2;
         public int DashCount;
-        public float DashForce = 10;
+        public float DashForce = 150;
         public float DashReload = 5;
         private float DashReloadTime;
 
@@ -207,6 +208,9 @@ namespace Assets.Scripts.Player
         public void ReceiveDamage(float damage)
         {
             Health -= damage;
+            if (damage > 0)
+                PlayerUI.TakeDamage();
+
             if (Health <= 0 && !isDead)
             {
                 GlobalInspector.PlayerDeath();

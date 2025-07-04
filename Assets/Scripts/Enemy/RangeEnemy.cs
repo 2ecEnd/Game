@@ -15,6 +15,8 @@ public class RangeEnemy : EnemyBase, IDamagable
     public List<AudioClip> DieSfx;
     public float FootstepSfxFrequency = 1f;
     public float IdleSfxFrequency = 10f;
+
+
     public Transform Leader;
     public Vector3 PositionToLeader;
 
@@ -27,7 +29,6 @@ public class RangeEnemy : EnemyBase, IDamagable
     float lastTimeAttacking = Mathf.NegativeInfinity;
     float currentBurstCount = 0;
     float distanceToPlayer = 0;
-    private Vector3 fromMuzzleToPlayer;
     private float arenaSize;
     //private float distanceToEdgeX;
     //private float distanceToEdgeZ;
@@ -58,11 +59,9 @@ public class RangeEnemy : EnemyBase, IDamagable
     void FixedUpdate()
     {
         if (!GlobalInspector.PlayerAlive)
-        {
             return;
-        }
-        Attack();
 
+        Attack();
         DestroyOnFall();
     }
 
@@ -91,12 +90,21 @@ public class RangeEnemy : EnemyBase, IDamagable
         }
         //distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
         //print(distanceToEdgeX);
+
+        if (isDead && !(Physics.Raycast(
+            origin: new Vector3(transform.position.x, transform.position.y - characterController.height / 1.98f, transform.position.z),
+            direction: -transform.up,
+            maxDistance: 0.05f)))
+        {
+            transform.Translate(Vector3.down * GravityForce/2 * Time.deltaTime);
+        }
+
         if (isDead) return;
         Vector3 targetVelocity = Vector3.zero;
         if (Leader == null)
         {
             Vector3 moveDirection = (target.position + moveOffset) - transform.position;
-            moveDirection = new Vector3(moveDirection.x, 0, moveDirection.z);
+            moveDirection = new Vector3(moveDirection.x, 0, moveDirection.z);   
             fromBodyToPlayer = target.position - transform.position;
             fromBodyToPlayer = new Vector3(fromBodyToPlayer.x, 0, fromBodyToPlayer.z);
             distanceToPlayer = fromBodyToPlayer.magnitude;
@@ -111,7 +119,7 @@ public class RangeEnemy : EnemyBase, IDamagable
                 targetVelocity = -fromBodyToPlayer;
                 animatorRatio = -1;
             }
-            else if (distanceToPlayer > 25 || !PlayerIsVisible)
+            else if (distanceToPlayer > 60 || !PlayerIsVisible)
             {
                 //animator.SetBool("IsRunning", true);
                 //animator.SetFloat("RunningSpeed", 1);
@@ -204,7 +212,12 @@ public class RangeEnemy : EnemyBase, IDamagable
 
     protected void Attack()
     {
-        if (isDead || lastTimeAttacking + AttackRate > Time.time || distanceToPlayer < 10 || distanceToPlayer > 25 || !characterController.isGrounded) return;
+        if (isDead || 
+            lastTimeAttacking + AttackRate > Time.time || 
+            distanceToPlayer < 10 || 
+            distanceToPlayer > 60 || 
+            !characterController.isGrounded) 
+            return;
 
         StartCoroutine(Shooting());
     }
@@ -244,30 +257,6 @@ public class RangeEnemy : EnemyBase, IDamagable
         AudioSource.PlayOneShot(DieSfx[UnityEngine.Random.Range(0, DieSfx.Count)]);
         gameController.Enemies.Remove(gameObject);
         StartCoroutine(Disappeare());
-    }
-
-    IEnumerator Disappeare()
-    {
-        // yield return new WaitForSeconds(0.1f);
-        // float fallTimer = 0f;
-        // while (fallTimer < 0.25)
-        // {
-        //     transform.Translate(Vector3.down * 5 * Time.deltaTime);
-        //     fallTimer += Time.deltaTime;
-        //     yield return null;
-        // }
-
-        yield return new WaitForSeconds(2f);
-
-        float sinkTimer = 0f;
-        while (sinkTimer < DisappearanceRate)
-        {
-            transform.Translate(Vector3.down * SinkSpeed * Time.deltaTime);
-            sinkTimer += Time.deltaTime;
-            yield return null;
-        }
-
-        Destroy(gameObject);
     }
 
     IEnumerator CheckPlayerVisibility()

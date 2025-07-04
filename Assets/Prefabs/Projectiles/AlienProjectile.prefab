@@ -50,12 +50,14 @@ MonoBehaviour:
   Tip: {fileID: 4914833264983124469}
   Tail: {fileID: 8548068917242991358}
   Radius: 0.01
-  Speed: 50
+  Speed: 60
   Damage: 10
   MaxLifeTime: 5
   HittableLayers:
     serializedVersion: 2
     m_Bits: 1
+  BloodVFX: {fileID: 0}
+  FloorImpactVFX: {fileID: 0}
   GravityDownAcceleration: 0
 --- !u!1 &1468645724466034528
 GameObject:

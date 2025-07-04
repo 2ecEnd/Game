@@ -98,6 +98,15 @@ namespace Assets.Scripts.Enemy
                 AudioSource.volume = 1;
                 //animatorRatio = 1;
             }
+            
+            if (isDead && !(Physics.Raycast(
+                origin: new Vector3(transform.position.x, transform.position.y - characterController.height / 1.98f, transform.position.z),
+                direction: -transform.up,
+                maxDistance: 0.05f)))
+            {
+                transform.Translate(Vector3.down * GravityForce / 2 * Time.deltaTime);
+            }
+
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
             fromBodyToPlayer = target.position - transform.position;
@@ -225,31 +234,6 @@ namespace Assets.Scripts.Enemy
             AudioSource.PlayOneShot(DieSfx[Random.Range(0, DieSfx.Count)]);
             gameController.Enemies.Remove(gameObject);
             StartCoroutine(Disappeare());
-        }
-
-        IEnumerator Disappeare()
-        {
-            // yield return new WaitForSeconds(0.1f);
-            // float fallTimer = 0f;
-            // while (fallTimer < 0.25)
-            // {
-            //     transform.Translate(Vector3.down * 5 * Time.deltaTime);
-            //     fallTimer += Time.deltaTime;
-            //     yield return null;
-            // }
-
-            yield return new WaitForSeconds(2f);
-
-            float sinkTimer = 0f;
-            while (sinkTimer < DisappearanceRate)
-            {
-                transform.Translate(Vector3.down * SinkSpeed * Time.deltaTime);
-                sinkTimer += Time.deltaTime;
-                yield return null;
-            }
-
-            gameController.Enemies.Remove(gameObject);
-            Destroy(gameObject);
         }
 
         protected override void DestroyOnFall()

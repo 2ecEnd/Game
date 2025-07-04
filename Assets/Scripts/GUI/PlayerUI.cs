@@ -10,6 +10,7 @@ public class PlayerUI : MonoBehaviour
     public GameObject SettingsPanel;
     public GameObject DevelopersPanel;
     public PlayerGUI playerGUI;
+    public GameObject DamageIndicator;
 
     private GameObject[] Panels;
     Animator[] buttonAnimators;
@@ -40,7 +41,7 @@ public class PlayerUI : MonoBehaviour
                 isPaused = true;
                 playerGUI.enabled = false;
             }
-            else
+            else 
             {
                 CloseOtherTabs();
                 Cursor.lockState = CursorLockMode.Locked;
@@ -109,5 +110,10 @@ public class PlayerUI : MonoBehaviour
     public void VolumeSlider(float value)
     {
         AudioListener.volume = value;
+    }
+
+    public void TakeDamage()
+    {
+        DamageIndicator.GetComponentInChildren<Animator>().SetTrigger("Damage");
     }
 }

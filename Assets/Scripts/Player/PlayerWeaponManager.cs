@@ -67,6 +67,41 @@ namespace Assets.Scripts.Player
                 if (ActiveWeapon.Reload) ActiveWeapon.StopReload();
                 SelectWeapon(curentGun);
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                curentGun = 0;
+                if (ActiveWeapon.Reload) ActiveWeapon.StopReload();
+                SelectWeapon(curentGun);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                curentGun = 1;
+                if (ActiveWeapon.Reload) ActiveWeapon.StopReload();
+                SelectWeapon(curentGun);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                curentGun = 2;
+                if (ActiveWeapon.Reload) ActiveWeapon.StopReload();
+                SelectWeapon(curentGun);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                curentGun = 3;
+                if (ActiveWeapon.Reload) ActiveWeapon.StopReload();
+                SelectWeapon(curentGun);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                curentGun = 4;
+                if (ActiveWeapon.Reload) ActiveWeapon.StopReload();
+                SelectWeapon(curentGun);
+            }
         }
 
         void LateUpdate()

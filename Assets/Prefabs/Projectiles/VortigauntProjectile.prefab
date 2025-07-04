@@ -51,8 +51,8 @@ MonoBehaviour:
   Tip: {fileID: 4914833264983124469}
   Tail: {fileID: 8548068917242991358}
   Radius: 0.01
-  Speed: 35
-  Damage: 60
+  Speed: 30
+  Damage: 30
   MaxLifeTime: 5
   HittableLayers:
     serializedVersion: 2

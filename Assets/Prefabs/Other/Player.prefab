@@ -193,6 +193,7 @@ MonoBehaviour:
   Death: 0
   HPArrowStart: 0
   HPArrowStep: 0.9
+  player: {fileID: 0}
   flag: 0
 --- !u!1 &8236789090728483643
 GameObject:
@@ -398,11 +399,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 5548720710495874460}
+  PlayerUI: {fileID: 0}
   AudioSource: {fileID: 2462623062026594534}
   GravityDownForce: 20
   MaxHealth: 100
   Health: 100
-  tiltAmount: 1.5
+  tiltAmount: 2
   tiltSpeed: 8
   MaxSpeedOnGround: 20
   MovementSharpnessOnGround: 30
@@ -416,8 +418,8 @@ MonoBehaviour:
   JumpForce: 9
   DashMaxCount: 2
   DashCount: 0
-  DashForce: 150
-  DashReload: 2
+  DashForce: 250
+  DashReload: 2.5
   CameraHeightRatio: 0.9
   CapsuleHeightStanding: 1.8
   CapsuleHeightCrouching: 0.9
@@ -454,8 +456,6 @@ MonoBehaviour:
   RecoilSharpness: 50
   RecoilRestitutionSharpness: 10
   MaxRecoilDistance: 0.3
-  ShakeStrength: 0.025
-  ShakeRecovery: 0.0001
   ActiveWeapon: {fileID: 0}
 --- !u!82 &2462623062026594534
 AudioSource:

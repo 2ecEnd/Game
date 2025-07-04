@@ -204,7 +204,7 @@ MonoBehaviour:
   ShootType: 1
   WeaponMuzzle: {fileID: 8691114785854688947}
   ProjectilePrefab: {fileID: 6774801006451134850, guid: af195d39249c8d94fba4f2435ab93f09, type: 3}
-  MagazineSize: 60
+  MagazineSize: 50
   AmmoReloadRate: 2.1
   ReloadingType: 1
   RecoilForce: 0.075

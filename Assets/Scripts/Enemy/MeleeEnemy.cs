@@ -115,6 +115,15 @@ namespace Assets.Scripts.Enemy
                     BreatheSource.volume = 1;
                 //animatorRatio = 1;
             }
+            
+            if (isDead && !(Physics.Raycast(
+                origin: new Vector3(transform.position.x, transform.position.y - characterController.height/1.98f, transform.position.z),
+                direction: -transform.up,
+                maxDistance: 0.05f)))
+            {
+                transform.Translate(Vector3.down * GravityForce/2 * Time.deltaTime);
+            }
+
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
@@ -185,22 +194,6 @@ namespace Assets.Scripts.Enemy
             StartCoroutine(Disappeare());
         }
 
-        IEnumerator Disappeare()
-        {
-            yield return new WaitForSeconds(2f);
-
-            float sinkTimer = 0f;
-            while (sinkTimer < DisappearanceRate)
-            {
-                transform.Translate(Vector3.down * SinkSpeed * Time.deltaTime);
-                sinkTimer += Time.deltaTime;
-                yield return null;
-            }
-
-            gameController.Enemies.Remove(gameObject);
-            Destroy(gameObject);
-        }
-
         protected override void DestroyOnFall()
         {
             if (transform.position.y < arenaManager.GetKillHeight())
@@ -218,7 +211,6 @@ namespace Assets.Scripts.Enemy
             }
             else
             {
-                Debug.Log((WanderPosition - transform.position).magnitude);
                 if ((WanderPosition - transform.position).magnitude < 4f)
                 {
                     isWandering = false;

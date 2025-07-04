@@ -84,14 +84,14 @@ MonoBehaviour:
   CurrentAmmo: 0
   Reload: 0
   EquipingTime: 0.5
-  FireRate: 50
-  BulletSpreadAngle: 8
+  FireRate: 70
+  BulletSpreadAngle: 6
   BulletsPerShot: 16
   ShootType: 0
   WeaponMuzzle: {fileID: 8691114785854688947}
   ProjectilePrefab: {fileID: 6774801006451134850, guid: 1b43a1017504ffd488dc4f088254f4be, type: 3}
   MagazineSize: 8
-  AmmoReloadRate: 6
+  AmmoReloadRate: 4
   ReloadingType: 0
   RecoilForce: 0.15
   Owner: {fileID: 0}

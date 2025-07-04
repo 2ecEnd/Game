@@ -1,5 +1,6 @@
 using Assets.Scripts.Gameplay;
 using Assets.Scripts.Player;
+using System.Collections;
 using UnityEngine;
 
 public enum ChaseType
@@ -66,5 +67,21 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         }
 
         return predictedPosition;
+    }
+
+    protected IEnumerator Disappeare()
+    {
+        yield return new WaitForSeconds(3f);
+
+        float sinkTimer = 0f;
+        while (sinkTimer < DisappearanceRate)
+        {
+            transform.Translate(Vector3.down * SinkSpeed * Time.deltaTime);
+            sinkTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        gameController.Enemies.Remove(gameObject);
+        Destroy(gameObject);
     }
 }

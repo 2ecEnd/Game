@@ -297,11 +297,11 @@ MonoBehaviour:
   AttackRate: 1.5
   KillsStatistic: 0
   GravityForce: 9
-  MaxSpeedOnGround: 17
-  MovementSharpnessOnGround: 5
-  MaxSpeedInAir: 18
+  MaxSpeedOnGround: 25
+  MovementSharpnessOnGround: 2
+  MaxSpeedInAir: 25
   AccelerationSpeedInAir: 3
-  RotationSpeed: 10
+  RotationSpeed: 8
   characterVelocity: {x: 0, y: 0, z: 0}
   PredictionSteps: 5
   InterceptSpeed: 25

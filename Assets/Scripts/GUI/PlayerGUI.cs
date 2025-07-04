@@ -19,7 +19,7 @@ public class PlayerGUI : MonoBehaviour
     public bool Death;
     public float HPArrowStart;
     public float HPArrowStep;
-    private GameObject player;
+    public GameObject player;
     private PlayerCharacterController characterController;
     private PlayerWeaponManager playerWeaponManager;
     //private WeaponHandler weaponHandler;
@@ -71,30 +71,6 @@ public class PlayerGUI : MonoBehaviour
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Escape))
-        // {
-        //     if (flag != 0)
-        //     {
-        //         oldFlag = flag;
-        //         if (oldFlag == -1)
-        //         {
-        //             oldFlag = 1;
-        //         }
-        //         flag = 0;
-        //         Cursor.lockState = CursorLockMode.None;
-        //         Cursor.visible = true;
-        //         Time.timeScale = 0;
-        //         GlobalInspector.PlayerAlive = false;
-        //     }
-        //     else
-        //     {
-        //         flag = oldFlag;
-        //         Cursor.lockState = CursorLockMode.Locked;
-        //         Cursor.visible = false;
-        //         Time.timeScale = 1;
-        //         GlobalInspector.PlayerAlive = true;
-        //     }
-        // }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (flag != -1)
@@ -131,35 +107,37 @@ public class PlayerGUI : MonoBehaviour
         {
             case -1:
                 GUI.Box(rects[14], "");
-                if (GUI.Button(rects[15], "�����������"))
+                if (GUI.Button(rects[15], "Начать заново")) // Restart
                 {
+                    GlobalInspector.GameController.WaveNumber = 0;
+                    GlobalInspector.GameController.NewWave();
                     GlobalInspector.PlayerRevive();
                     flag = -1;
                 }
-                if (GUI.Button(rects[16], "������ �����"))
+                if (GUI.Button(rects[16], "Пустая волна")) // Empty wave
                 {
                     GlobalInspector.GameController.WaveNumber = -1;
                     GlobalInspector.GameController.NewWave();
                 }
-                if (GUI.Button(rects[17], "���������� �����"))
+                if (GUI.Button(rects[17], "Предыдущая волна")) // Previous wave
                 {
                     GlobalInspector.GameController.WaveNumber--;
                     GlobalInspector.GameController.NewWave();
                 }
-                if (GUI.Button(rects[18], "�������� �����"))
+                if (GUI.Button(rects[18], "Следующая волна")) // Next wave
                 {
                     GlobalInspector.GameController.WaveNumber++;
                     GlobalInspector.GameController.NewWave();
                 }
-                if (GUI.Button(rects[19], "����� �� ��������"))
+                if (GUI.Button(rects[19], "Заготовленная арена")) // Preset
                 {
                     GlobalInspector.ArenaManager.ChooseFromPresets();
                 }
-                if (GUI.Button(rects[20], "��������� �����"))
+                if (GUI.Button(rects[20], "Сгенерировать арену")) // Generate arena
                 {
                     GlobalInspector.ArenaManager.GenerateCircleArena();
                 }
-                if (GUI.Button(rects[21], "����� ��"))
+                if (GUI.Button(rects[21], "iddqd on/off")) // Invulnerability
                 {
                     if (GlobalInspector.PlayerCharacterController.MaxHealth == 100)
                     {
@@ -172,14 +150,14 @@ public class PlayerGUI : MonoBehaviour
                         GlobalInspector.PlayerCharacterController.Health = 100;
                     }
                 }
-                if (GUI.Button(rects[22], "����� ��������"))
+                if (GUI.Button(rects[22], "\"Анигиляторная пушка\" on/off")) // Anihilation
                 {
                     GlobalInspector.CheatAmmo = !GlobalInspector.CheatAmmo;
                 }
                 break;
             case 0:
                 GUI.Box(rects[11], "");
-                if (GUI.Button(rects[12], "����������"))
+                if (GUI.Button(rects[12], "Статистика")) // Statistic
                 {
                     flag = oldFlag;
                     Cursor.lockState = CursorLockMode.Locked;
@@ -187,7 +165,7 @@ public class PlayerGUI : MonoBehaviour
                     Time.timeScale = 1;
                     GlobalInspector.PlayerAlive = true;
                 }
-                if (GUI.Button(rects[13], "����� � ������� ����"))
+                if (GUI.Button(rects[13], "Выход в главное меню")) // Main menu
                 {
                     Time.timeScale = 1;
                     Cursor.lockState = CursorLockMode.None;
@@ -197,15 +175,12 @@ public class PlayerGUI : MonoBehaviour
                     SceneManager.LoadScene(0);
                 }
                 break;
-            case 1: //����
+            case 1:
                 if (!playerWeaponManager.ActiveWeapon.Reload)
-                {
                     GUI.Box(rects[4], playerWeaponManager.ActiveWeapon.CurrentAmmo.ToString());
-                }
                 else
-                {
                     GUI.Box(rects[4], "R");
-                }
+
                 switch (characterController.DashCount)
                 {
                     case 0:
@@ -221,10 +196,9 @@ public class PlayerGUI : MonoBehaviour
                         GUI.DrawTexture(rects[0], CrossDash2);
                         break;
                 }
-                if (GlobalInspector.Rest)
-                {
-                    GUI.Box(rects[10], "����� " + (GlobalInspector.WaveNumber + 1).ToString());
-                }
+                if (GlobalInspector.Rest) // Wave counter
+                    GUI.Box(rects[10], "Волна " + (GlobalInspector.WaveNumber + 1).ToString());
+
                 GUI.Box(rects[7], GlobalInspector.GetScore().ToString());
                 GUI.DrawTexture(rects[2], HP_Menu);
                 GUI.depth = 1;
