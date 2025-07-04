@@ -183,7 +183,7 @@ namespace Assets.Scripts.Gameplay
             nextTimeSpawn = Time.time + WaveInterval;
             GlobalInspector.WaveNumber = WaveNumber;
             GlobalInspector.Rest = true;
-            arenaManager.flag = 2;
+            arenaManager.ChangeArena();
         }
 
         void SpawnBuffBox()

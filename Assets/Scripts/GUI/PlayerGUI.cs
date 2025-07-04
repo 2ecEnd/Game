@@ -153,11 +153,11 @@ public class PlayerGUI : MonoBehaviour
                 }
                 if (GUI.Button(rects[19], "����� �� ��������"))
                 {
-                    GlobalInspector.ArenaManager.flag = 1;
+                    GlobalInspector.ArenaManager.ChooseFromPresets();
                 }
                 if (GUI.Button(rects[20], "��������� �����"))
                 {
-                    GlobalInspector.ArenaManager.flag = 2;
+                    GlobalInspector.ArenaManager.GenerateCircleArena();
                 }
                 if (GUI.Button(rects[21], "����� ��"))
                 {

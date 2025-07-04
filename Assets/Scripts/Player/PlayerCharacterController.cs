@@ -246,9 +246,9 @@ namespace Assets.Scripts.Player
             int arenaCenter = arenaManager.GetArenaSize() / 2;
 
             transform.position = new Vector3(
-                arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2,
-                arenaManager.HeightMap[arenaCenter, arenaCenter],
-                arenaManager.GetArenaSize() * arenaManager.GetChunkScale() / 2 - arenaManager.GetChunkScale() / 2);
+                arenaCenter * arenaManager.GetChunkScale(),
+                arenaManager.HeightMap[arenaCenter, arenaCenter] + 1,
+                arenaCenter * arenaManager.GetChunkScale());
             CharacterVelocity = new Vector3();
         }
 
