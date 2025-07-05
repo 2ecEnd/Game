@@ -162,7 +162,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fde787022d8c22642b2892fbd86c1ad8, type: 3}
   FootstepSfxFrequency: 0.25
   IdleSfxFrequency: 10
-  WanderStartDistance: 30
+  WanderStartDistance: 45
 --- !u!82 &8370000155403369105
 AudioSource:
   m_ObjectHideFlags: 0

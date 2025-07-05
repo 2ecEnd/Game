@@ -56,7 +56,7 @@ namespace Assets.Scripts
             }
 
             //transform.position += m_ProjectileBase.InheritedMuzzleVelocity * Time.fixedDeltaTime;
-            transform.position += (m_ProjectileBase.InheritedMuzzleVelocity + m_Velocity) * Time.fixedDeltaTime;
+            transform.position += (m_ProjectileBase.InheritedMuzzleVelocity/3 + m_Velocity) * Time.fixedDeltaTime;
 
             transform.forward = m_Velocity.normalized;
 

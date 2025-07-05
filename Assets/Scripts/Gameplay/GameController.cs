@@ -42,7 +42,7 @@ namespace Assets.Scripts.Gameplay
         public int TotalEnemies;
         public int EnemiesSpawned;
         public int WaveNumber;
-        public VisualEffect PortalEffect;
+        public GameObject PortalEffect;
 
         public List<GameObject> Enemies;
         private float nextTimeSpawn = Mathf.NegativeInfinity;
@@ -184,14 +184,14 @@ namespace Assets.Scripts.Gameplay
 
         IEnumerator SpawnVFX(Vector3 spawnPosition, GameObject enemy)
         {
-            VisualEffect newVFX = Instantiate(PortalEffect, spawnPosition, Quaternion.identity);
+            GameObject newVFX = Instantiate(PortalEffect, spawnPosition, Quaternion.identity);
             newVFX.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             Destroy(newVFX.gameObject, 5.0f);
 
             yield return new WaitForSeconds(1f);
             enemy.SetActive(true);
             yield return new WaitForSeconds(1f);
-            newVFX.Stop();
+            newVFX.GetComponent<VisualEffect>().Stop();
         }
     }
 }

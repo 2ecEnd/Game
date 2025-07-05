@@ -133,18 +133,18 @@ namespace Assets.Scripts.Player
 
         void HandleCharacterMovement()
         {
-            if (isDead) return; //������ �� ���������)
+            if (isDead) return;
 
-            transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X"), 0f), Space.Self); //������� ������ �� ��� Y
+            transform.Rotate(new Vector3(0f, Input.GetAxis("Mouse X") * GlobalInspector.MouseSensitivity, 0f), Space.Self);
 
-            cameraVerticalAngle -= Input.GetAxis("Mouse Y");
+            cameraVerticalAngle -= Input.GetAxis("Mouse Y")*GlobalInspector.MouseSensitivity;
             cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
-            PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, PlayerCamera.transform.localEulerAngles.z);//������� ������ �� ��� X
+            PlayerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, PlayerCamera.transform.localEulerAngles.z);
 
             Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(inputVector, 1)); //����������� ��������� ��������
+            Vector3 worldspaceMoveInput = transform.TransformVector(Vector3.ClampMagnitude(inputVector, 1));
 
-            ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime); //�������������� ����������� �������� ��� ����������� ��������
+            ExtraVelocity = Vector3.Lerp(ExtraVelocity, Vector3.zero, MovementSharpnessOnGround * Time.deltaTime);
             if (Input.GetKeyDown(KeyCode.LeftShift) && DashCount > 0) //�����
             {
                 ExtraVelocity += worldspaceMoveInput * DashForce;

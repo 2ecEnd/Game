@@ -164,7 +164,7 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator ChangeEnemy()
     {
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(13.5f);
             BlackPanelAnim.SetTrigger("Play");
@@ -218,5 +218,10 @@ public class MainMenu : MonoBehaviour
     public void VolumeSlider(float value)
     {
         AudioListener.volume = value;
+    }
+    
+    public void SensitivitySlider(float value)
+    {
+        GlobalInspector.MouseSensitivity = value;
     }
 }
