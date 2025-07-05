@@ -1,6 +1,7 @@
 using Assets.Scripts.Gameplay;
 using Assets.Scripts.Player;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 [System.Serializable]
@@ -45,12 +46,12 @@ public static class GlobalInspector
     }
     public static string Statistics()
     {
-        string st = "Общий счёт " + GetScore().ToString() + "\n";
+        string st = "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ " + GetScore().ToString() + "\n";
         for (int i = 0; i < EnemyStatistics.Length; i++)
         {
             st += EnemyStatistics[i].Name + " " + EnemyStatistics[i].Kills.ToString() + "\n";
         }
-        st += "Смертей " + DeathCount.ToString();
+        st += "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + DeathCount.ToString();
         return st;
     }
     public static void PlayerDeath(bool needScored = true)
@@ -93,5 +94,6 @@ public static class GlobalInspector
         DeathCount = 0;
         for (int i = 0; i < EnemyStatistics.Length; i++)
             EnemyStatistics[i].Kills = 0;
+        SceneManager.LoadScene(1);
     }
 }

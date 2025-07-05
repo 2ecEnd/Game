@@ -109,8 +109,8 @@ MonoBehaviour:
   AccelerationSpeedInAir: 3
   RotationSpeed: 10
   characterVelocity: {x: 0, y: 0, z: 0}
-  PredictionSteps: 0
-  InterceptSpeed: 0
+  PredictionSteps: 5
+  InterceptSpeed: 60
   DisappearanceRate: 5
   SinkSpeed: 1
   AudioSource: {fileID: 9106017689099768266}
@@ -129,8 +129,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5b284586d0139044989e1930db4ad99c, type: 3}
   FootstepSfxFrequency: 0.2
   IdleSfxFrequency: 10
-  Leader: {fileID: 0}
-  PositionToLeader: {x: 0, y: 0, z: 0}
   NumberOfShotsPerBurst: 4
   weaponHandler: {fileID: 5507721501563304830}
   AttackAnimationDelay: 0.7

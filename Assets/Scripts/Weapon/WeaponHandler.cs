@@ -186,7 +186,7 @@ namespace Assets.Scripts
             {
                 CurrentAmmo += 1;
                 m_ShootAudioSource.PlayOneShot(ReloadingSfx);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.334f);
             }
 
             if (animator != null)
@@ -194,7 +194,7 @@ namespace Assets.Scripts
                 animator.SetBool("IsReloading", false);
             }
             m_ShootAudioSource.PlayOneShot(ManualPumpSfx);
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.7f);
             Reload = false;
         }
 
@@ -256,7 +256,7 @@ namespace Assets.Scripts
         IEnumerator PlayShootSound()
         {
             m_ShootAudioSource.PlayOneShot(ShootSfx);
-            yield return new WaitForSeconds(0.334f);
+            yield return new WaitForSeconds(0.239f);
             m_ShootAudioSource.PlayOneShot(ManualPumpSfx);
         }
 

@@ -50,7 +50,7 @@ MonoBehaviour:
   Reload: 0
   EquipingTime: 0
   FireRate: 750
-  BulletSpreadAngle: 2
+  BulletSpreadAngle: 4
   BulletsPerShot: 1
   ShootType: 1
   WeaponMuzzle: {fileID: 5157964426762524998}

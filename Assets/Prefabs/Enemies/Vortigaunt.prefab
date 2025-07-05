@@ -407,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8193852122359278991, guid: 55e8e2e539373954eb41ed3d453ede34, type: 3}
       propertyPath: BulletSpreadAngle
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

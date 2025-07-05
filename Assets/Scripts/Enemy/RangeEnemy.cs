@@ -2,6 +2,7 @@ using Assets.Scripts.Gameplay;
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts;
+using Assets.Scripts.Player;
 using Unity.Mathematics;
 using System.Collections.Generic;
 
@@ -42,6 +43,7 @@ public class RangeEnemy : EnemyBase, IDamagable
         characterController = gameObject.GetComponent<CharacterController>();
 
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        PlayerController = target.GetComponent<PlayerCharacterController>();
         animator = GetComponent<Animator>();
         isDead = false;
         weaponHandler.Owner = gameObject;
@@ -50,6 +52,8 @@ public class RangeEnemy : EnemyBase, IDamagable
         StartCoroutine(CheckPlayerVisibility());
 
         moveOffset = UnityEngine.Random.insideUnitSphere * 25;
+
+        InterceptSpeed = UnityEngine.Random.Range(70, 80);
     }
 
     void FixedUpdate()
@@ -207,6 +211,9 @@ public class RangeEnemy : EnemyBase, IDamagable
 
         while (currentBurstCount < NumberOfShotsPerBurst)
         {
+            Vector3 predictedPos = PredictPlayerPosition();
+            weaponHandler.transform.LookAt(new Vector3(predictedPos.x, target.position.y + 1f, predictedPos.z));
+
             bool hasFired = weaponHandler.HandleShootInputs(true, true);
             yield return new WaitForSeconds(0.01f);
             if (hasFired) currentBurstCount++;
