@@ -12,6 +12,4 @@ public abstract class BuffBox : MonoBehaviour
     protected Vector3 meshPosition;
     protected float meshSpeed;
     protected abstract void OnTriggerEnter(Collider collider);
-
-    protected abstract void Flex();
 }

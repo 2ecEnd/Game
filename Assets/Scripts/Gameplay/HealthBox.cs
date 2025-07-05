@@ -10,10 +10,7 @@ public class HealthBox : BuffBox
 
     void FixedUpdate()
     {
-        if (GlobalInspector.PlayerAlive)
-        {
-            Flex();
-        }
+        DestroyOnFall();
     }
 
     protected override void OnTriggerEnter(Collider collider)
@@ -26,18 +23,9 @@ public class HealthBox : BuffBox
         }
     }
 
-    protected override void Flex()
+    void DestroyOnFall()
     {
-        if (meshPosition.y < FlexRange)
-        {
-            meshSpeed += FlexAcceleration * Time.fixedDeltaTime;
-        }
-        else if (meshPosition.y > FlexRange)
-        {
-            meshSpeed -= FlexAcceleration * Time.fixedDeltaTime;
-        }
-        meshPosition.y += meshSpeed;
-        meshGO.transform.localPosition = meshPosition;
-        meshGO.transform.Rotate(0, RotationSpeed, 0);
+        if (transform.position.y < -100)
+            Destroy(gameObject);
     }
 }

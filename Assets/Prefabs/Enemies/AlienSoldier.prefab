@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b302ebbbe9788a547aded3747428b768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 300
+  Health: 100
   AttackStartPoint: {fileID: 8812972452195864503}
   Damage: 10
   AttackRate: 3
