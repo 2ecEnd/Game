@@ -23,6 +23,7 @@ namespace Assets.Scripts.Player
         List<WeaponHandler> AddedWeapons;
         int curentGun;
         Vector3 cameraInitialPosition;
+        Quaternion startRotation;
         void Start()
         {
             AddedWeapons = new List<WeaponHandler>();
@@ -37,6 +38,19 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
+            RaycastHit hit;
+            if ((Physics.Raycast(
+            origin: PlayerCamera.transform.position,
+            direction: PlayerCamera.transform.forward,
+            hitInfo: out hit,
+            maxDistance: 100f)))
+            {
+                if(!hit.collider.gameObject.CompareTag("Player") && (transform.position - hit.point).magnitude > 2)
+                    WeaponPos.LookAt(hit.point);
+            }
+            else
+                WeaponPos.transform.localRotation = Quaternion.Euler(0f, -0.3f, 0f);
+
             if (!GlobalInspector.PlayerAlive)
             {
                 ActiveWeapon.gameObject.SetActive(false);

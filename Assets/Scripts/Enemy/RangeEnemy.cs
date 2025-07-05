@@ -53,7 +53,7 @@ public class RangeEnemy : EnemyBase, IDamagable
 
         moveOffset = UnityEngine.Random.insideUnitSphere * 25;
 
-        InterceptSpeed = UnityEngine.Random.Range(70, 80);
+        InterceptSpeed = UnityEngine.Random.Range(70, 140);
     }
 
     void FixedUpdate()
@@ -63,6 +63,14 @@ public class RangeEnemy : EnemyBase, IDamagable
 
         Attack();
         DestroyOnFall();
+
+        if (isDead && !(Physics.Raycast(
+            origin: new Vector3(transform.position.x, transform.position.y - characterController.height / 1.9f, transform.position.z),
+            direction: -transform.up,
+            maxDistance: 0.1f)))
+        {
+            transform.Translate(Vector3.down * GravityForce/2 * Time.deltaTime);
+        }
     }
 
     void Update()
@@ -91,13 +99,7 @@ public class RangeEnemy : EnemyBase, IDamagable
         //distanceToEdgeX = math.min(transform.position.x, arenaSize - transform.position.x);
         //print(distanceToEdgeX);
 
-        if (isDead && !(Physics.Raycast(
-            origin: new Vector3(transform.position.x, transform.position.y - characterController.height / 1.98f, transform.position.z),
-            direction: -transform.up,
-            maxDistance: 0.05f)))
-        {
-            transform.Translate(Vector3.down * GravityForce/2 * Time.deltaTime);
-        }
+        
 
         if (isDead) return;
 

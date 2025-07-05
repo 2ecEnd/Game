@@ -62,7 +62,7 @@ namespace Assets.Scripts.Enemy
                 return;
             }
             RaycastHit hit;
-            fromBodyToPlayer = new Vector3(target.position.x, target.position.y+1f, target.position.z) - transform.position;
+            fromBodyToPlayer = new Vector3(target.position.x, target.position.y + 1f, target.position.z) - transform.position;
             if (Physics.Raycast(
                 origin: AttackStartPoint.position,
                 direction: fromBodyToPlayer,
@@ -72,6 +72,14 @@ namespace Assets.Scripts.Enemy
                 if (currentAttackMode == "melee") Attack(hit.collider);
             }
             DestroyOnFall();
+            
+            if (isDead && !(Physics.Raycast(
+                origin: new Vector3(transform.position.x, transform.position.y - characterController.height / 1.9f, transform.position.z),
+                direction: -transform.up,
+                maxDistance: 0.1f)))
+            {
+                transform.Translate(Vector3.down * GravityForce / 2 * Time.deltaTime);
+            }
         }
 
         void Update()
@@ -99,13 +107,6 @@ namespace Assets.Scripts.Enemy
                 //animatorRatio = 1;
             }
             
-            if (isDead && !(Physics.Raycast(
-                origin: new Vector3(transform.position.x, transform.position.y - characterController.height / 1.98f, transform.position.z),
-                direction: -transform.up,
-                maxDistance: 0.05f)))
-            {
-                transform.Translate(Vector3.down * GravityForce / 2 * Time.deltaTime);
-            }
 
             if (isDead || lastTimeAttacking + AttackRate > Time.time) return;
 

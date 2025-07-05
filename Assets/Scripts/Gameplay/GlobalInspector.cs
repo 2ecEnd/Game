@@ -22,6 +22,7 @@ public static class GlobalInspector
     public static bool Win = false;
     public static int WaveNumber = 0;
     public static bool Rest = false;
+    public static float MouseSensitivity = 1f;
 
     public static bool PlayerAlive = true;
     public static EnemyStatistic[] EnemyStatistics;

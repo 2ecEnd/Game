@@ -112,6 +112,11 @@ public class PlayerUI : MonoBehaviour
         AudioListener.volume = value;
     }
 
+    public void SensitivitySlider(float value)
+    {
+        GlobalInspector.MouseSensitivity = value;
+    }
+
     public void TakeDamage()
     {
         DamageIndicator.GetComponentInChildren<Animator>().SetTrigger("Damage");
