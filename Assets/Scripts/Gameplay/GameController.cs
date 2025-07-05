@@ -49,6 +49,7 @@ namespace Assets.Scripts.Gameplay
         private float nextTime = Mathf.NegativeInfinity;
 
         private ArenaManager arenaManager;
+        private GameObject Player;
         private GameObject[] enemiesGO;
         private GameObject buffBoxGO;
         private int CoinLenth;
@@ -62,13 +63,18 @@ namespace Assets.Scripts.Gameplay
                 GlobalInspector.EnemyStatistics[i] = new EnemyStatistic(EnemyPrefabs[i].Name, EnemyPrefabs[i].Score);
             }
             arenaManager = GetComponent<ArenaManager>();
+
             enemiesGO = new GameObject[EnemyPrefabs.Length];
             for (int i = 0; i < EnemyPrefabs.Length; i++)
             {
                 enemiesGO[i] = new GameObject("Enemies " + EnemyPrefabs[i].Name);
             }
+
             buffBoxGO = new GameObject("BuffBox");
             arenaManager.BuffBoxGO = buffBoxGO;
+
+            Player = arenaManager.Player;
+
             WaveNumber = 0;
             NewWave();
         }
@@ -105,54 +111,6 @@ namespace Assets.Scripts.Gameplay
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
                 }
-            }
-            if (nextTime < Time.time)
-            {
-                // nextTime = Time.time + 1;
-                // int length = enemiesGO[1].transform.childCount;
-                // if (length > 1)
-                // {
-                //     Transform leader = enemiesGO[1].transform.GetChild(0);
-                //     float f = 0;
-                //     float deltaF = 2 * Mathf.PI / (length - 1);
-                //     float r = length * 0.8f;
-                //     for (int i = 1; i < length; i++)
-                //     {
-                //         enemiesGO[1].transform.GetChild(i).GetComponent<RangeEnemy>().Leader = leader;
-                //         enemiesGO[1].transform.GetChild(i).GetComponent<RangeEnemy>().PositionToLeader = new Vector3(r * Mathf.Cos(f), 0, r * Mathf.Sin(f));
-                //         f += deltaF;
-                //     }
-                    //transform.RotateAround(enemiesGO[1].transform.GetChild(0).position, transform.up, 1);
-                    /*Vector2[] RangeEnemiesPos = new Vector2[length];
-                    for (int i = 0; i < length; i++)
-                    {
-                        RangeEnemiesPos[i].x = enemiesGO[1].transform.GetChild(i).position.x;
-                        RangeEnemiesPos[i].y = enemiesGO[1].transform.GetChild(i).position.z;
-                    }
-                    //float[] distances = new float[(length - 1) * length / 2];
-                    //int p = 0;
-                    //int q = 0;
-                    for (int i = 0; i < length; i++)
-                    {
-                        for (int j = i + 1; j < length; j++)
-                        {
-                            if ((RangeEnemiesPos[i] - RangeEnemiesPos[j]).magnitude < 5)
-                            {
-                                enemiesGO[1].transform.GetChild(j).GetComponent<RangeEnemy>().Leader = enemiesGO[1].transform.GetChild(i);
-                            }
-                            /*distances[p] = (RangeEnemiesPos[i] - RangeEnemiesPos[j]).magnitude;
-                            if (distances[p] < 5)
-                            {
-                                q++;
-                            }
-                            p++;*/
-                    //}
-                    //}
-                    //for (int i = 0; i < distances.Length; i++)
-                    //{
-                    //    print(distances.Length + " " + i + " " + distances[i]);
-                    //}
-                // }
             }
         }
         public void Restart()
@@ -199,7 +157,11 @@ namespace Assets.Scripts.Gameplay
 
         void SpawnEnemy()
         {
-            Vector3 randomPosition = arenaManager.GetRandomPoint();
+            Vector3 randomPosition;
+            do
+            {
+                randomPosition = arenaManager.GetRandomPoint();
+            } while (Mathf.Sqrt(Mathf.Pow(Player.transform.position.x - randomPosition.x, 2) + Mathf.Pow(Player.transform.position.z - randomPosition.z, 2)) < 10);
             Vector3 spawnPosition = new Vector3(randomPosition.x, randomPosition.y + 2, randomPosition.z);
             int coin = Random.Range(0, CoinLenth);
             int a = 0;

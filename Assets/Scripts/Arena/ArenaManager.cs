@@ -276,8 +276,8 @@ public class ArenaManager : MonoBehaviour
         else
             GenerateCircleArena();
 
-        for (int i = 0; i < BuffBoxGO.transform.childCount; i++)
-            Destroy(BuffBoxGO.transform.GetChild(i).gameObject);
+        /*for (int i = 0; i < BuffBoxGO.transform.childCount; i++)
+            Destroy(BuffBoxGO.transform.GetChild(i).gameObject);*/
     }
 
 

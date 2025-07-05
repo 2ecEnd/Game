@@ -47,12 +47,12 @@ public static class GlobalInspector
     }
     public static string Statistics()
     {
-        string st = "����� ���� " + GetScore().ToString() + "\n";
+        string st = "Общий счёт " + GetScore().ToString() + "\n";
         for (int i = 0; i < EnemyStatistics.Length; i++)
         {
             st += EnemyStatistics[i].Name + " " + EnemyStatistics[i].Kills.ToString() + "\n";
         }
-        st += "������� " + DeathCount.ToString();
+        st += "Смертей " + DeathCount.ToString();
         return st;
     }
     public static void PlayerDeath(bool needScored = true)

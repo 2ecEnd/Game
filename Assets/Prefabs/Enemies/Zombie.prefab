@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c2e4243654cf814da63f97fe10bbc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 50
   AttackStartPoint: {fileID: 2746174648203492905}
-  Damage: 20
+  Damage: 10
   AttackRate: 0.5
   KillsStatistic: 0
   GravityForce: 9

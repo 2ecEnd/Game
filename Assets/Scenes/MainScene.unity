@@ -6414,50 +6414,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waves:
-  - TotalEnemies: 5
-    MaxEnemies: 5
-    SpawnInterval: 1.5
-    EnemiesSpawnRate: 0100000000000000000000000000000000000000
-  - TotalEnemies: 5
-    MaxEnemies: 5
-    SpawnInterval: 1.5
-    EnemiesSpawnRate: 0000000001000000000000000000000000000000
-  - TotalEnemies: 7
-    MaxEnemies: 3
-    SpawnInterval: 1.5
-    EnemiesSpawnRate: 0500000001000000000000000000000000000000
   - TotalEnemies: 10
     MaxEnemies: 5
-    SpawnInterval: 1.5
-    EnemiesSpawnRate: 0200000001000000000000000000000001000000
+    SpawnInterval: 1
+    EnemiesSpawnRate: 0500000001000000000000000000000000000000
+  - TotalEnemies: 15
+    MaxEnemies: 5
+    SpawnInterval: 1
+    EnemiesSpawnRate: 0500000001000000000000000000000001000000
   - TotalEnemies: 20
     MaxEnemies: 10
     SpawnInterval: 1
-    EnemiesSpawnRate: 0300000003000000000000000100000001000000
+    EnemiesSpawnRate: 0400000003000000010000000000000003000000
   - TotalEnemies: 25
-    MaxEnemies: 7
-    SpawnInterval: 1
-    EnemiesSpawnRate: 0100000004000000010000000000000004000000
-  - TotalEnemies: 30
     MaxEnemies: 10
-    SpawnInterval: 1
-    EnemiesSpawnRate: 0100000005000000050000000000000005000000
+    SpawnInterval: 0.7
+    EnemiesSpawnRate: 0700000009000000060000000100000009000000
+  - TotalEnemies: 35
+    MaxEnemies: 10
+    SpawnInterval: 0.7
+    EnemiesSpawnRate: 0400000006000000040000000100000006000000
   - TotalEnemies: 40
     MaxEnemies: 20
     SpawnInterval: 0.5
-    EnemiesSpawnRate: 0000000001000000000000000000000001000000
-  - TotalEnemies: 30
-    MaxEnemies: 12
-    SpawnInterval: 0.5
-    EnemiesSpawnRate: 0000000005000000050000000100000000000000
+    EnemiesSpawnRate: 0300000000000000030000000100000000000000
   - TotalEnemies: 40
     MaxEnemies: 20
     SpawnInterval: 0.5
-    EnemiesSpawnRate: 0000000005000000050000000100000005000000
-  - TotalEnemies: 50
-    MaxEnemies: 25
+    EnemiesSpawnRate: 0000000003000000000000000100000003000000
+  - TotalEnemies: 60
+    MaxEnemies: 30
     SpawnInterval: 0.5
-    EnemiesSpawnRate: 0100000006000000070000000200000005000000
+    EnemiesSpawnRate: 0200000006000000060000000100000006000000
+  - TotalEnemies: 80
+    MaxEnemies: 40
+    SpawnInterval: 0.5
+    EnemiesSpawnRate: 0200000006000000060000000100000006000000
+  - TotalEnemies: 100
+    MaxEnemies: 50
+    SpawnInterval: 0.2
+    EnemiesSpawnRate: 0200000006000000060000000100000006000000
   WaveInterval: 5
   EnemyPrefabs:
   - Name: "\u0417\u043E\u043C\u0431\u0438"
@@ -6482,7 +6478,7 @@ MonoBehaviour:
     Score: 10
   BuffBoxPrefabs:
   - {fileID: 8006287671449561701, guid: b8d6d2d42bd6f68419e02c245a9ce17b, type: 3}
-  HealthSpawnRate: 10
+  HealthSpawnRate: 20
   SpawnInterval: 0
   MaxEnemies: 0
   TotalEnemies: 0

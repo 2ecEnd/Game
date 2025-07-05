@@ -23,7 +23,6 @@ public class PlayerGUI : MonoBehaviour
     public GameObject player;
     private PlayerCharacterController characterController;
     private PlayerWeaponManager playerWeaponManager;
-    //private WeaponHandler weaponHandler;
     private Rect[] rects = new Rect[23];
     private int screenWidth;
     private int screenHeight;
@@ -36,7 +35,6 @@ public class PlayerGUI : MonoBehaviour
         player = transform.parent.gameObject;
         characterController = transform.parent.GetComponent<PlayerCharacterController>();
         playerWeaponManager = transform.parent.GetComponent<PlayerWeaponManager>();
-        //weaponHandler = playerWeaponManager.ActiveWeapon;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -202,8 +200,6 @@ public class PlayerGUI : MonoBehaviour
                 GUI.DrawTexture(rects[2], HP_Menu);
                 GUI.depth = 1;
                 float arrow_rotation = characterController.Health * HPArrowStep;
-                //Matrix4x4 GUIIs = GUI.matrix;
-                //GUI.matrix = Matrix4x4.TRS(new Vector3(GUIIs.lossyScale.x, GUIIs.lossyScale.y, 0), GUIIs.rotation, GUIIs.lossyScale);
                 GUIUtility.RotateAroundPivot(HPArrowStart + arrow_rotation, new Vector2(0, screenHeight));
                 GUI.DrawTexture(rects[3], Arrow);
                 break;
@@ -237,13 +233,13 @@ public class PlayerGUI : MonoBehaviour
                     // }
                 }
                 break;
-            case 4: //���� ������
-                GUI.Box(rects[9], "�� ��������");
-                if (GUI.Button(rects[5], "������ ������"))
+            case 4: // Victory screen
+                GUI.Box(rects[9], "Вы выиграли!"); // You win!
+                if (GUI.Button(rects[5], "Начать заново"))  // Try Again
                 {
                     GlobalInspector.Restart();
                 }
-                if (GUI.Button(rects[6], "����������"))
+                if (GUI.Button(rects[6], "Статистика"))   // Statistic
                 {
                     flag = 2;
                     oldFlag = 4;
