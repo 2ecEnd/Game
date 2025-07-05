@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerGUI : MonoBehaviour
 {
+    public PlayerUI playerUI;
     public GUISkin MainGUISkin;
     public Texture2D CrossDash1;
     public Texture2D CrossDash2;
@@ -50,7 +51,7 @@ public class PlayerGUI : MonoBehaviour
         rects[3] = new Rect(screenWidth * -0.125f, screenHeight - screenWidth * 0.125f, screenWidth * 0.125f, screenWidth * 0.125f); //������� ��
         rects[4] = new Rect(screenWidth * 0.005f, screenHeight - screenWidth * 0.0425f, screenWidth * 0.05f, screenWidth * 0.0375f); //���������� ��������
         rects[5] = new Rect(screenWidth * 0.5f - screenWidth * 0.24f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //������ �����������
-        rects[6] = new Rect(screenWidth * 0.5f + screenWidth * 0.08f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //������ ���������� ����������
+        rects[6] = new Rect(screenWidth * 0.5f - screenWidth * 0.08f, screenHeight * 0.8f - screenHeight * 0.04f, screenWidth * 0.16f, screenHeight * 0.08f); //������ ���������� ����������
         rects[7] = new Rect(screenWidth * 0.925f, screenHeight * 0.925f, screenWidth * 0.075f, screenHeight * 0.075f); //���������
         rects[8] = new Rect(screenWidth * 0.25f, screenHeight * 0.25f, screenWidth * 0.5f, screenHeight * 0.5f); //���� ���������� ����������
         rects[9] = new Rect(0, 0, screenWidth, screenHeight); //������
@@ -222,17 +223,18 @@ public class PlayerGUI : MonoBehaviour
                 else
                 {
                     rects[1].y = 0;
-                    if (GUI.Button(rects[5], "Начать заново")) // Try Again
-                    {
-                        rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight); //���������� ������ ������
+                    playerUI.ShowDeathScreen();
+                    // if (GUI.Button(rects[5], "Начать заново")) // Try Again
+                    // {
+                    //     rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight); //���������� ������ ������
 
-                        GlobalInspector.Restart();
-                    }
-                    if (GUI.Button(rects[6], "Статистика"))  // Statistic
-                    {
-                        flag = 2;
-                        oldFlag = 3;
-                    }
+                    //     GlobalInspector.Restart();
+                    // }
+                    // if (GUI.Button(rects[6], "Статистика"))  // Statistic
+                    // {
+                    //     flag = 2;
+                    //     oldFlag = 3;
+                    // }
                 }
                 break;
             case 4: //���� ������
@@ -250,5 +252,17 @@ public class PlayerGUI : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void RestartButton()
+    {
+        rects[1] = new Rect(0, -screenHeight, screenWidth, screenHeight);
+        GlobalInspector.Restart();
+    }
+
+    public void StatisticsButton()
+    {
+        flag = 2;
+        oldFlag = 3;
     }
 }

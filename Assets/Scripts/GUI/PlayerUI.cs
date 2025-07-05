@@ -5,6 +5,7 @@ public class PlayerUI : MonoBehaviour
 {
     [Header("UI")]
     public GameObject PauseMenu;
+    public GameObject DeathScreen;
     public GameObject Buttons;
     public GameObject BestiatyPanel;
     public GameObject SettingsPanel;
@@ -41,7 +42,7 @@ public class PlayerUI : MonoBehaviour
                 isPaused = true;
                 playerGUI.enabled = false;
             }
-            else 
+            else
             {
                 CloseOtherTabs();
                 Cursor.lockState = CursorLockMode.Locked;
@@ -120,5 +121,14 @@ public class PlayerUI : MonoBehaviour
     public void TakeDamage()
     {
         DamageIndicator.GetComponentInChildren<Animator>().SetTrigger("Damage");
+    }
+
+    public void ShowDeathScreen()
+    {
+        if (!DeathScreen.active)
+        {
+            DeathScreen.SetActive(true);
+            DeathScreen.GetComponent<Animator>().SetTrigger("Show");
+        }
     }
 }
