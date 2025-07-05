@@ -34,13 +34,16 @@ public class PlayerUI : MonoBehaviour
         {
             if (!isPaused)
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                Time.timeScale = 0;
-                GlobalInspector.PlayerAlive = false;
-                PauseMenu.SetActive(true);
-                isPaused = true;
-                playerGUI.enabled = false;
+                if (!DeathScreen.active)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    Time.timeScale = 0;
+                    GlobalInspector.PlayerAlive = false;
+                    PauseMenu.SetActive(true);
+                    isPaused = true;
+                    playerGUI.enabled = false;
+                }
             }
             else
             {
